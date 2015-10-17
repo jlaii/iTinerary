@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  trip_id: 1
+  attraction_id: 1
+  start_time: 2015-10-16 21:47:49
+  end_time: 2015-10-16 21:47:49
+  vote_count: 1
+
+two:
+  trip_id: 1
+  attraction_id: 1
+  start_time: 2015-10-16 21:47:49
+  end_time: 2015-10-16 21:47:49
+  vote_count: 1
