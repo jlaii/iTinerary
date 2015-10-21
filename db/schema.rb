@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151021030441) do
+ActiveRecord::Schema.define(version: 20151021045050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20151021030441) do
     t.datetime "end_time"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "trip_id"
   end
 
   create_table "pictures", force: :cascade do |t|
@@ -39,23 +40,6 @@ ActiveRecord::Schema.define(version: 20151021030441) do
     t.datetime "updated_at",    null: false
   end
 
-  create_table "trip_attractions", force: :cascade do |t|
-    t.integer  "trip_id"
-    t.integer  "attraction_id"
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.integer  "vote_count"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  create_table "trip_users", force: :cascade do |t|
-    t.integer  "trip_id"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "trips", force: :cascade do |t|
     t.datetime "start_time"
     t.datetime "end_time"
@@ -63,6 +47,7 @@ ActiveRecord::Schema.define(version: 20151021030441) do
     t.datetime "updated_at", null: false
     t.string   "name"
     t.string   "note"
+    t.integer  "user_id"
   end
 
   create_table "users", force: :cascade do |t|
