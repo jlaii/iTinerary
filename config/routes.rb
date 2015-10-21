@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   get 'users/new'
 
   get 'users/create'
@@ -10,7 +11,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-  root 'welcome#welcome'
+  root 'welcome#welcome_login'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
