@@ -3,22 +3,51 @@
 
 <head>
 <title>iTinerary</title>
+<!--jQuery References--> 
+<script src="http://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.min.js" type="text/javascript"></script>
+
+<!--Theme-->
+<link href="http://cdn.wijmo.com/themes/aristo/jquery-wijmo.css" rel="stylesheet" type="text/css" />
+
+<!--Wijmo Widgets CSS-->
+<link href="http://cdn.wijmo.com/jquery.wijmo-pro.all.3.20152.78.min.css" rel="stylesheet" type="text/css" />
+
+<!--Wijmo Widgets JavaScript-->
+<script src="http://cdn.wijmo.com/jquery.wijmo-open.all.3.20152.78.min.js" type="text/javascript"></script>
+<script src="http://cdn.wijmo.com/jquery.wijmo-pro.all.3.20152.78.min.js" type="text/javascript"></script>
+<script src="http://cdn.wijmo.com/interop/wijmo.data.ajax.3.20152.78.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    $("#startdate").wijinputdate(
+        {
+            showTrigger: true
+    });
+    $("#enddate").wijinputdate(
+        {
+            showTrigger: true
+    });
+});
+</script>
+
 </head>
 
 <body>
-		<h1>Welcome to iTinerary</h1>
-		<form>
-		  Destination:<br>
-		  <input type="text" name="destination">
-		  <br>
-		  Start Date:<br>
-		  <input type="text" name="startdate">
-		  <br>
-		  End Date:<br>
-		  <input type="text" name="enddate">
-		</form>
-		<br>
-		<form action="attractions/attractions"><input type="submit" value="Submit"/></form>
+	<h1>Welcome to iTinerary</h1>
+	<form method='post' action='welcome/save'>
+		Destination:<br>
+		<select class="destination-input" name="name">
+			<option value="San Francisco">San Francisco</option>
+			<option value="New York">New York</option>
+			<option value="London">London</option>
+		</select><br>
+		Start Date:<br>
+		<input name="startdate" type="text" id="startdate" /><br>
+		End Date:<br>
+		<input name="enddate" type="text" id="enddate" /><br><br>
+		<input type="submit" value="Submit"/>
+	</form>
 </body>
 
 </html>
