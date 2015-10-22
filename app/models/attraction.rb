@@ -34,9 +34,7 @@ class Attraction < ActiveRecord::Base
                                   :longitude => attraction["venue"]["location"]["lng"],
                                   :rating => attraction["venue"]["rating"],
                                   :picture_id => picture)
-        if !new_attraction.save
-          return false
-        end
+        new_attraction.save
       end
     rescue StandardError
       return false
