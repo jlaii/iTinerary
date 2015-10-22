@@ -1,6 +1,8 @@
 namespace :db do
   desc "import attractions for popular cities to database"
   task import_attractions: :environment do
+    require "Attraction"
+    require "Picture"
     include HTTParty
     # import_google_attractions
     import_foursquare_attractions
@@ -25,8 +27,32 @@ namespace :db do
     response = JSON.parse(HTTParty.get(request_url).body)
     attractions = response["response"]["groups"].first["items"]
     for attraction in attractions
-      puts attraction["venue"]["name"] + " : " + attraction["tips"].first["text"]
+      if attraction["venue"]["photos"]["count"] > 0
+        picture_path = attraction["venue"]["photos"]["groups"].first["prefix"] + "240x240"
+        + attraction["venue"]["photos"]["groups"].first["suffix"]
+        picture = Picture.new(:attraction_id => Attraction.maximum(:id).next,
+                              :path => picture_path)
+        byebug
+        picture = picture.save ? picture : nil
+      else
+        picture = nil
+      end
+      new_attraction = Attraction.new(:name => attraction["venue"]["name"],
+                                      :city => attraction["venue"]["location"]["city"],
+                                      :category => attraction["venue"]["categories"].first["name"],
+                                      :description => attraction["tips"].first["text"],
+                                      :address => attraction["venue"]["location"]["formattedAddress"],
+                                      :latitude => attraction["venue"]["location"]["lat"],
+                                      :longitude => attraction["venue"]["location"]["lng"],
+                                      :rating => attraction["venue"]["rating"],
+                                      :picture_id => picture)
+      # new_attraction.validate
+      # if new_attraction.save
+      #   puts "success"
+      #   puts attraction["venue"]["name"] + " : " + attraction["tips"].first["text"]
+      # end
     end
+    byebug
 
   end
 
