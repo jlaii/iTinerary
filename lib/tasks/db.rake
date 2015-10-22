@@ -22,17 +22,17 @@ namespace :db do
 
     base_url = "https://api.foursquare.com/v2/venues/explore?"
     auth_string = "client_id=#{FOURSQUARE_CLIENT_ID}&client_secret=#{FOURSQUARE_CLIENT_SECRET}"
-    query_string = "&v=20151021&section=sights&limit=50&radius=50000"
-    request_url = base_url + auth_string + query_string + "&near=Chicago"
+    query_string = "&v=20151021&section=sights&limit=50&radius=50000&venuePhotos=1"
+    request_url = base_url + auth_string + query_string + "&near=Seattle"
     response = JSON.parse(HTTParty.get(request_url).body)
     attractions = response["response"]["groups"].first["items"]
     for attraction in attractions
-      if attraction["venue"]["photos"]["count"] > 0
-        picture_path = attraction["venue"]["photos"]["groups"].first["prefix"] + "240x240"
-        + attraction["venue"]["photos"]["groups"].first["suffix"]
+      puts attraction["venue"]["photos"]["groups"]
+      if attraction["venue"]["featuredPhotos"] and attraction["venue"]["featuredPhotos"]["count"] > 0
+        picture_path = attraction["venue"]["featuredPhotos"]["items"].first["prefix"] + "240x240" +
+            attraction["venue"]["featuredPhotos"]["items"].first["suffix"]
         picture = Picture.new(:attraction_id => Attraction.maximum(:id).next,
                               :path => picture_path)
-        byebug
         picture = picture.save ? picture : nil
       else
         picture = nil
@@ -46,10 +46,10 @@ namespace :db do
                                       :longitude => attraction["venue"]["location"]["lng"],
                                       :rating => attraction["venue"]["rating"],
                                       :picture_id => picture)
-      if new_attraction.save(validate: false)
-        puts "success"
-        puts attraction["venue"]["name"] + " : " + attraction["tips"].first["text"]
-      end
+      # if new_attraction.save(validate: false)
+      #   puts "success"
+      #   puts attraction["venue"]["name"] + " : " + attraction["tips"].first["text"]
+      # end
     end
     byebug
 

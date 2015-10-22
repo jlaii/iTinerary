@@ -11,14 +11,14 @@ class Attraction < ActiveRecord::Base
       end
       base_url = "https://api.foursquare.com/v2/venues/explore?"
       auth_string = "client_id=#{FOURSQUARE_CLIENT_ID}&client_secret=#{FOURSQUARE_CLIENT_SECRET}"
-      query_string = "&v=20151021&section=sights&limit=50&radius=50000"
+      query_string = "&v=20151021&section=sights&limit=50&radius=50000&venuePhotos=1"
       request_url = base_url + auth_string + query_string + "&near=#{city}"
       response = JSON.parse(HTTParty.get(request_url).body)
       attractions = response["response"]["groups"].first["items"]
       for attraction in attractions
-        if attraction["venue"]["photos"]["count"] > 0
-          picture_path = attraction["venue"]["photos"]["groups"].first["prefix"] + "240x240"
-          + attraction["venue"]["photos"]["groups"].first["suffix"]
+        if attraction["venue"]["featuredPhotos"]["count"] > 0
+          picture_path = attraction["venue"]["featuredPhotos"]["items"].first["prefix"] + "240x240" +
+                         attraction["venue"]["featuredPhotos"]["items"].first["suffix"]
           picture = Picture.new(:attraction_id => Attraction.maximum(:id).next,
                                 :path => picture_path)
           picture = picture.save ? picture : nil
@@ -37,6 +37,7 @@ class Attraction < ActiveRecord::Base
         new_attraction.save
       end
     rescue StandardError
+      flash[:error] = "No destinations found for '#{city}'"
       return false
     end
     return true
