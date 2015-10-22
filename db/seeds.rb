@@ -11,8 +11,6 @@ User.create([{first_name: 'Orange', last_name: 'Grape', email: 'orange@grape.com
 
 Trip.create([{name: 'Best Trip Ever 1', note: 'hopefully this will be a good trip! :x', user_id: 1, city: 'San Francisco'}])
 
-TripAttraction.create([{trip_id: 1, attraction_id: 1, start_time: nil, end_time: nil, vote_count: 1}])
-
 # 5.times do |i|
 #   Product.create(name: "Product ##{i}", description: "A product.")
 # end
