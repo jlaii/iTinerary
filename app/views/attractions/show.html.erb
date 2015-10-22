@@ -3,7 +3,7 @@
 
 <head>
 <title>iTinerary</title>
-<!--jQuery References--> 
+<!--jQuery References-->
 <script src="http://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
 <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.min.js" type="text/javascript"></script>
 
@@ -19,26 +19,28 @@
 <script src="http://cdn.wijmo.com/interop/wijmo.data.ajax.3.20152.78.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-$(document).ready(function () {
-    $("#startdate").wijinputdate(
-        {
-            showTrigger: true
-    });
-    $("#enddate").wijinputdate(
-        {
-            showTrigger: true
-    });
-});
+  $(document).ready(function () {
+      $("#startdate").wijinputdate(
+              {
+                  showTrigger: true
+              });
+      $("#enddate").wijinputdate(
+              {
+                  showTrigger: true
+              });
+  });
 </script>
-
 </head>
 
 <body>
-	<h1>Welcome to iTinerary</h1>
+<% if flash[:error] %>
+    <div class="notice"><b><%= flash[:error] %></b></div>
+<% end %>
+<h1>iTinerary</h1>
     <form method='post' action='welcome/save'>
-      Destination:<br>
-      <input type="text" name="destination" value="<%= params[:destination] %>" required>
-      <br>
+	  Destination:<br>
+	  <input type="text" name="destination" value="<%= params[:destination] %>" required>
+	  <br>
       Start Date:<br>
       <input name="startdate" type="text" id="startdate" /><br>
       End Date:<br>
@@ -46,6 +48,15 @@ $(document).ready(function () {
       <br>
       <input type="submit" value="Submit"/>
     </form>
+    <% if @show_attractions %>
+        <h1>Attractions around <%= params[:destination] %></h1>
+            <% Attraction.where('city = ?', params[:destination]).find_each  do |attraction| %>
+                <li> <b><%= attraction.name %> (Foursquare Rating: <%= attraction.rating %>/10)</b> : <%= attraction.description %></li>
+            <% end %>
+    <% end %>
+    <br> <br>
+    Attraction data gathered using Foursquare API.
+
 </body>
 
 </html>
