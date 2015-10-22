@@ -35,6 +35,9 @@ $(document).ready(function () {
 
 <body>
 	<h1>Welcome to iTinerary</h1>
+    <br>
+    <%= link_to 'Go to your dashboard', user_show_path %>
+    <br><br>
     <form method='post' action='welcome/save'>
       Destination:<br>
       <input type="text" name="destination" value="<%= params[:destination] %>" required>

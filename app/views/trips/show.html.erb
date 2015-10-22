@@ -1,0 +1,20 @@
+<h3>This is your trip title: <%= @trip.name %></h3><br>
+You are going to: <%= @trip.city %><br>
+Your trip starts: <%= @trip.start_time %><br>
+Your trip ends: <%= @trip.end_time %>
+<br><br>
+
+Attractions you've chosen for this trip:
+<ul>
+  <% if @trip.trip_attractions.empty? %>
+      You haven't chosen any attractions for this trip, hurry go add some :D
+  <% else %>
+      <ul>
+        <% @trip.trip_attractions.each do |attraction| %>
+            <li><h3><%= link_to Attraction.find(attraction.attraction_id).name, attraction_show_by_id_path(attraction.attraction_id) %></h3>
+            </li>
+            <br><br>
+        <% end %>
+      </ul>
+  <% end %>
+</ul>

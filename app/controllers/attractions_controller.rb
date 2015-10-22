@@ -6,6 +6,9 @@ class AttractionsController < ApplicationController
       flash[:error] = "Could not find attractions in '#{params[:destination]}'"
     end
 
-
+  end
+  def show_by_id
+    @attraction = Attraction.find(params[:id])
+    render "/attractions/attraction"
   end
 end

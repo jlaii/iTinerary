@@ -16,7 +16,9 @@ User's dash board!
         <% else %>
             <ul>
               <% @user.trips.each do |trip| %>
-                  <li><%= trip.name %>: <%= trip.note %> </h5></li>
+                  <li><h3><%= link_to trip.name, trip_show_path(@user.id) %></h3>
+                    <%= trip.start_time %></li> to <%= trip.end_time %><br><%= trip.note %>
+                  </li>
                   <br><br>
               <% end %>
             </ul>
