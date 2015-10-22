@@ -49,11 +49,13 @@
       <input type="submit" value="Submit"/>
     </form>
     <% if @show_attractions %>
-        <h1>Attractions in <%= params[:destination] %></h1>
+        <h1>Attractions around <%= params[:destination] %></h1>
             <% Attraction.where('city = ?', params[:destination]).find_each  do |attraction| %>
-                <li> <b><%= attraction.name %> </b> : <%= attraction.description %></li>
+                <li> <b><%= attraction.name %> (Foursquare Rating: <%= attraction.rating %>/10)</b> : <%= attraction.description %></li>
             <% end %>
     <% end %>
+    <br> <br>
+    Attraction data gathered using Foursquare API.
 
 </body>
 

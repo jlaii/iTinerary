@@ -27,25 +27,23 @@ namespace :db do
     response = JSON.parse(HTTParty.get(request_url).body)
     attractions = response["response"]["groups"].first["items"]
     for attraction in attractions
-      puts attraction["venue"]["photos"]["groups"]
-      if attraction["venue"]["featuredPhotos"] and attraction["venue"]["featuredPhotos"]["count"] > 0
+      if attraction["venue"]["featuredPhotos"]["count"] > 0
         picture_path = attraction["venue"]["featuredPhotos"]["items"].first["prefix"] + "240x240" +
             attraction["venue"]["featuredPhotos"]["items"].first["suffix"]
-        picture = Picture.new(:attraction_id => Attraction.maximum(:id).next,
-                              :path => picture_path)
+        picture = Picture.new(:path => picture_path)
         picture = picture.save ? picture : nil
       else
         picture = nil
       end
-      new_attraction = Attraction.new(:name => attraction["venue"]["name"],
-                                      :city => attraction["venue"]["location"]["city"],
-                                      :category => attraction["venue"]["categories"].first["name"],
-                                      :description => attraction["tips"].first["text"],
-                                      :address => attraction["venue"]["location"]["formattedAddress"],
-                                      :latitude => attraction["venue"]["location"]["lat"],
-                                      :longitude => attraction["venue"]["location"]["lng"],
-                                      :rating => attraction["venue"]["rating"],
-                                      :picture_id => picture)
+      new_attraction = self.new(:name => attraction["venue"]["name"],
+                                :city => city,
+                                :category => attraction["venue"]["categories"].first["name"],
+                                :description => attraction["tips"].first["text"],
+                                :address => attraction["venue"]["location"]["formattedAddress"],
+                                :latitude => attraction["venue"]["location"]["lat"],
+                                :longitude => attraction["venue"]["location"]["lng"],
+                                :rating => attraction["venue"]["rating"],
+                                :picture_id => picture)
       # if new_attraction.save(validate: false)
       #   puts "success"
       #   puts attraction["venue"]["name"] + " : " + attraction["tips"].first["text"]

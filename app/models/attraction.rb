@@ -19,14 +19,13 @@ class Attraction < ActiveRecord::Base
         if attraction["venue"]["featuredPhotos"]["count"] > 0
           picture_path = attraction["venue"]["featuredPhotos"]["items"].first["prefix"] + "240x240" +
                          attraction["venue"]["featuredPhotos"]["items"].first["suffix"]
-          picture = Picture.new(:attraction_id => Attraction.maximum(:id).next,
-                                :path => picture_path)
+          picture = Picture.new(:path => picture_path)
           picture = picture.save ? picture : nil
         else
           picture = nil
         end
         new_attraction = self.new(:name => attraction["venue"]["name"],
-                                  :city => attraction["venue"]["location"]["city"],
+                                  :city => city,
                                   :category => attraction["venue"]["categories"].first["name"],
                                   :description => attraction["tips"].first["text"],
                                   :address => attraction["venue"]["location"]["formattedAddress"],
@@ -34,10 +33,12 @@ class Attraction < ActiveRecord::Base
                                   :longitude => attraction["venue"]["location"]["lng"],
                                   :rating => attraction["venue"]["rating"],
                                   :picture_id => picture)
-        new_attraction.save
+        if new_attraction.save and picture
+          picture.update_attributes(:attraction_id => new_attraction)
+          picture.save
+        end
       end
     rescue StandardError
-      flash[:error] = "No destinations found for '#{city}'"
       return false
     end
     return true
