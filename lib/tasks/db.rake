@@ -1,5 +1,5 @@
 namespace :db do
-  desc "import attractions for popular cities to database"
+  desc "import show for popular cities to database"
   task import_attractions: :environment do
     require "Attraction"
     require "Picture"
@@ -23,7 +23,7 @@ namespace :db do
     base_url = "https://api.foursquare.com/v2/venues/explore?"
     auth_string = "client_id=#{FOURSQUARE_CLIENT_ID}&client_secret=#{FOURSQUARE_CLIENT_SECRET}"
     query_string = "&v=20151021&section=sights&limit=50&radius=50000"
-    request_url = base_url + auth_string + query_string + "&near=San Francisco"
+    request_url = base_url + auth_string + query_string + "&near=Chicago"
     response = JSON.parse(HTTParty.get(request_url).body)
     attractions = response["response"]["groups"].first["items"]
     for attraction in attractions
@@ -46,11 +46,10 @@ namespace :db do
                                       :longitude => attraction["venue"]["location"]["lng"],
                                       :rating => attraction["venue"]["rating"],
                                       :picture_id => picture)
-      # new_attraction.validate
-      # if new_attraction.save
-      #   puts "success"
-      #   puts attraction["venue"]["name"] + " : " + attraction["tips"].first["text"]
-      # end
+      if new_attraction.save(validate: false)
+        puts "success"
+        puts attraction["venue"]["name"] + " : " + attraction["tips"].first["text"]
+      end
     end
     byebug
 
