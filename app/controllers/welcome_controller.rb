@@ -8,10 +8,13 @@ class WelcomeController < ApplicationController
     	end_time = DateTime.new(end_lst[2].to_i, end_lst[0].to_i, end_lst[1].to_i)
 
     	newTrip = Trip.new(city: city, start_time: start_time, end_time: end_time)
+    	if current_user
+    		newTrip.update_attributes(:user_id => current_user.id)
+    	end
     	saved = newTrip.save
 
     	if saved
-    		redirect_to show_attractions_path(destination: city, startdate: start_time, enddate: end_time)
+    		redirect_to show_attractions_path(user_id: current_user, destination: city, startdate: start_time, enddate: end_time)
     	else
     		flash[:error] = "Start date cannot be later than end date."
     		redirect_to root_path
