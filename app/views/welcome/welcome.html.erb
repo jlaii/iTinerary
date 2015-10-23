@@ -33,22 +33,43 @@ $(document).ready(function () {
 
 </head>
 
-<body>
-	<h1>Welcome to iTinerary</h1>
-    <br>
-    <%= link_to 'Go to your dashboard', user_show_path %>
-    <br><br>
-    <form method='post' action='welcome/save'>
-      Destination:<br>
-      <input type="text" name="destination" value="<%= params[:destination] %>" required>
-      <br>
-      Start Date:<br>
-      <input name="startdate" type="text" id="startdate" /><br>
-      End Date:<br>
-      <input name="enddate" type="text" id="enddate" /><br><br>
-      <br>
-      <input type="submit" value="Submit"/>
-    </form>
-</body>
 
+<%= link_to 'Go to your dashboard', user_show_path %>
+
+<body id="welcome-front-body">
+
+  <div id="header-container" class ="container-fluid">
+    <div class ="row">
+      <h1>iTinerary</h1>
+      <h2>Where would you like to go?</h2>
+      <br>
+    </div>
+
+
+    
+    <br><br>
+    <div class ="row">
+
+
+
+    <form class="form-inline" method='post' action='welcome/save'>
+
+
+      
+      <label for="destination">Destination</label>
+      <input name="destination" class ="form-control" type="text"value="<%= params[:destination] %>" required>
+
+
+      <label for="startdate">Arrival Date</label>
+      <input name="startdate" class ="form-control" type="text" id="startdate" />
+      <label for="enddate">Departure Date</label>
+      <input name="enddate" class ="form-control" type="text" id="enddate" />
+
+      <input class ="btn btn-default" type="submit" value="Submit"/>
+
+    </form>
+
+  </div>
+  </div>
+</body>
 </html>
