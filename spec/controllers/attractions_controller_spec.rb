@@ -42,6 +42,7 @@ RSpec.describe AttractionsController, type: :controller do
     it "shows the attraction if the id exists" do
       expect(Attraction.find_by_city("San Francisco")).to_not eq nil
       get :show_by_id, :id => Attraction.first.id
+      expect(assigns[:attraction].id).to eq Attraction.first.id
       expect(response.status).to eq 200
     end
 
