@@ -5,10 +5,6 @@ class Attraction < ActiveRecord::Base
 
   def self.import_foursquare_attractions(city)
     begin
-      if city.length == 0
-        flash[:error] = "Destination must be non-empty"
-        return false
-      end
       base_url = "https://api.foursquare.com/v2/venues/explore?"
       auth_string = "client_id=#{FOURSQUARE_CLIENT_ID}&client_secret=#{FOURSQUARE_CLIENT_SECRET}"
       query_string = "&v=20151021&section=sights&limit=50&radius=50000&venuePhotos=1"
