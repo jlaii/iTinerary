@@ -1,2 +1,28 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+User's dash board!
+
+<body>
+    <div id = "user_info">
+      <h3>Hi there, <b><%= @user.first_name if @user.first_name %> <%= @user.last_name if @user.last_name %></h3></b>
+
+      <ul><p><b>YOUR EMAIL:</b> <%= @user.email if @user.email %></p></ul>
+      <br><br>
+
+    </div>
+
+    <div id = "trips"
+      <h4>Your Trips:<h4>
+        <% if @user.trips.empty? %>
+            You have no trips! Hurry go make some :D
+        <% else %>
+            <ul>
+              <% @user.trips.each do |trip| %>
+                  <li><h3><%= link_to trip.name, trip_show_path(@user.id) %></h3>
+                    <%= trip.start_time %></li> to <%= trip.end_time %><br><%= trip.note %>
+                  </li>
+                  <br><br>
+              <% end %>
+            </ul>
+        <% end %>
+        <br><br><br>
+    </div>
+</body>

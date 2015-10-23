@@ -2,9 +2,6 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks"}
   get 'users/new'
 
-  get 'users/create'
-
-  get 'users/show'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -14,6 +11,15 @@ Rails.application.routes.draw do
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
+
+  get 'dashboard' => 'users#show', as: :user_show
+  get 'dashboard/trip/:id' => 'trips#show', as: :trip_show
+  get 'attraction/:id' => 'attractions#show_by_id', as: :attraction_show_by_id
+
+  get 'attractions/' => 'attractions#show', as: :show_attractions
+
+  post 'welcome/save' => 'welcome#save'
+  # post 'submitClicked' => 'welcome#submitClicked'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase

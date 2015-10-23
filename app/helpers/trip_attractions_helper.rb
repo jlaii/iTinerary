@@ -1,0 +1,2 @@
+module TripAttractionsHelper
+end
