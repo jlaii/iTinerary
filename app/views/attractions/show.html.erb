@@ -42,7 +42,7 @@
 <h1>iTinerary</h1>
 </div>
 
-<div class="row">
+<div id="date-form" class="row">
     <form class="form-inline" method='post' action='welcome/save'>
 
         <label for="destination">Destination</label>
@@ -57,16 +57,31 @@
         <input class ="btn btn-default" type="submit" value="Submit"/>
       </form>
 </div>
-
+    <div class = "container-fluid">
+    <div class = "row">
     <% if @show_attractions %>
         <h1>Attractions around <%= params[:destination] %></h1>
-            <% Attraction.where('city = ?', params[:destination]).find_each  do |attraction| %>
-                <li> <b><%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %>
-                  (Foursquare Rating: <%= attraction.rating %>/10)</b> : <%= attraction.description %></li>
-            <% end %>
+
+    </div>
+    <div id = "attraction-row" class = "row">
+      <ul id="attraction-info">
+      <% Attraction.where('city = ?', params[:destination]).find_each  do |attraction| %>
+
+        
+          <li> <b> <%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %>
+            (Foursquare Rating: <%= attraction.rating %>/10)</b>
+            <br> <%= attraction.description %>
+          </li>
+      <% end %>
+      
     <% end %>
-    <br> <br>
+  </ul>
+    </div>
+
+
     Attraction data gathered using Foursquare API.
+
+  </div>
 
 </body>
 
