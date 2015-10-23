@@ -8,6 +8,9 @@ class WelcomeController < ApplicationController
     	end_time = DateTime.new(end_lst[2].to_i, end_lst[0].to_i, end_lst[1].to_i)
 
     	newTrip = Trip.new(city: city, start_time: start_time, end_time: end_time)
+    	if current_user
+    		newTrip.update_attributes(:user_id => current_user.id)
+    	end
     	saved = newTrip.save
 
     	if saved
