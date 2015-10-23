@@ -10,6 +10,6 @@ class WelcomeController < ApplicationController
     	newTrip = Trip.new(city: city, start_time: start_time, end_time: end_time)
     	newTrip.save
 
-		redirect_to show_attractions_path(params)
+		redirect_to show_attractions_path(destination: city, startdate: start_time, enddate: end_time)
 	end
 end
