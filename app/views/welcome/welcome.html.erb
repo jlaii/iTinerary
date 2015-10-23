@@ -34,6 +34,9 @@ $(document).ready(function () {
 </head>
 
 <body>
+	<% if flash[:error] %>
+	    <div class="notice"><b><%= flash[:error] %></b></div>
+	<% end %>
 	<h1>Welcome to iTinerary</h1>
     <div>
       <div>
