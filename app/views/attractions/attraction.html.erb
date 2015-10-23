@@ -1,11 +1,9 @@
-<%= @attraction.picture_id %>
-<br>
 <h3><%= @attraction.name %></h3><br>
-<%= @attraction.city %><br>
-Tags: <%= @attraction.category %><br>
-<%= @attraction.description %><br>
-<%= @attraction.address %><br>
-<%= @attraction.rating %>/10<br>
+<img src=<%= Picture.find(@attraction.picture_id).path %>><br>
+<b>City: </b> <%= @attraction.city %><br>
+<b>Category: </b> <%= @attraction.category %><br>
+<b>Tip from FourSquare: </b><%= @attraction.description %><br>
+<b>Address: </b><%= @attraction.address%><br>
+<b>FourSquare Rating: </b><%= @attraction.rating %>/10<br>
+<%= link_to @attraction.url , @attraction.url %>
 
-Opens: <%= @attraction.start_time %><br>
-Closes: <%= @attraction.end_time %>
