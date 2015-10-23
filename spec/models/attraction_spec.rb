@@ -19,5 +19,6 @@ RSpec.describe Attraction, type: :model do
       expect(Attraction.import_foursquare_attractions("city_that_does_not_exist")).to eq false
       expect(Attraction.count).to eq 0
     end
+
   end
 end

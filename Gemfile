@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby "2.2.3"
+ruby '2.2.3'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
 gem 'bootstrap-sass',       '3.2.0.0'
@@ -32,6 +32,7 @@ gem 'omniauth-facebook'
 gem 'httparty'
 # https://github.com/marceldegraaf/google_places
 gem 'google_places'
+gem 'simplecov', :require => false, :group => :test
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
