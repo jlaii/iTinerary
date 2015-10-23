@@ -20,7 +20,7 @@ class Attraction < ActiveRecord::Base
                                   :city => city,
                                   :category => attraction["venue"]["categories"].first["name"],
                                   :description => attraction["tips"].first["text"],
-                                  :address => attraction["venue"]["location"]["formattedAddress"],
+                                  :address => attraction["venue"]["location"]["formattedAddress"].join(", "),
                                   :latitude => attraction["venue"]["location"]["lat"],
                                   :longitude => attraction["venue"]["location"]["lng"],
                                   :rating => attraction["venue"]["rating"],
