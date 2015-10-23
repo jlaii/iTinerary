@@ -9,12 +9,7 @@ class User < ActiveRecord::Base
       user.first_name = auth.info.first_name
       user.last_name = auth.info.last_name
       user.email = auth.info.email
-      # user.encrypted_password = auth.credentials.token
       user.password = Devise.friendly_token[0,20]
-      logger.debug "--------------------Printing email--------------------"
-      # logger.debug auth.info.name
-      logger.debug user.first_name
-      logger.debug user.encrypted_password
     end
   end
 
