@@ -12,23 +12,20 @@ class Attraction < ActiveRecord::Base
       response = JSON.parse(HTTParty.get(request_url).body)
       attractions = response["response"]["groups"].first["items"]
       for attraction in attractions
-        if attraction["venue"]["featuredPhotos"]["count"] > 0
-          picture_path = attraction["venue"]["featuredPhotos"]["items"].first["prefix"] + "240x240" +
-                         attraction["venue"]["featuredPhotos"]["items"].first["suffix"]
-          picture = Picture.new(:path => picture_path)
-          picture = picture.save ? picture : nil
-        else
-          picture = nil
-        end
+        picture_path = attraction["venue"]["featuredPhotos"]["items"].first["prefix"] + "240x240" +
+                       attraction["venue"]["featuredPhotos"]["items"].first["suffix"]
+        picture = Picture.new(:path => picture_path)
+        picture = picture.save ? picture : nil
         new_attraction = self.new(:name => attraction["venue"]["name"],
                                   :city => city,
                                   :category => attraction["venue"]["categories"].first["name"],
                                   :description => attraction["tips"].first["text"],
-                                  :address => attraction["venue"]["location"]["formattedAddress"],
+                                  :address => attraction["venue"]["location"]["formattedAddress"].join(", "),
                                   :latitude => attraction["venue"]["location"]["lat"],
                                   :longitude => attraction["venue"]["location"]["lng"],
                                   :rating => attraction["venue"]["rating"],
-                                  :picture_id => picture)
+                                  :url => attraction["venue"]["url"],
+                                  :picture_id => picture.present? ? picture.id : nil)
         if new_attraction.save and picture
           picture.update_attributes(:attraction_id => new_attraction)
           picture.save

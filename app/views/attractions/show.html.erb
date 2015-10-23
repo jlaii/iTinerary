@@ -61,7 +61,8 @@
     <% if @show_attractions %>
         <h1>Attractions around <%= params[:destination] %></h1>
             <% Attraction.where('city = ?', params[:destination]).find_each  do |attraction| %>
-                <li> <b><%= attraction.name %> (Foursquare Rating: <%= attraction.rating %>/10)</b> : <%= attraction.description %></li>
+                <li> <b><%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %>
+                  (Foursquare Rating: <%= attraction.rating %>/10)</b> : <%= attraction.description %></li>
             <% end %>
     <% end %>
     <br> <br>
