@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   get 'attractions/' => 'attractions#show', as: :show_attractions
 
-  post 'welcome/save' => 'welcome#save'
+  post 'welcome/save' => 'welcome#save', as: :trip_save
   # post 'submitClicked' => 'welcome#submitClicked'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
