@@ -123,12 +123,14 @@ footer {
     text-align: center;
   }
   label {
-    color: $main-color-teal;
+    color: white;
     font-family: Open Sans, sans-serif;
   }
 
-  .form-inline {
-    padding: 40px;
+  #form-span {
+    padding: 20px;
+    background-color:rgba(0,0,0,0.7);
+    border-radius: 10px;
   }
   
 }

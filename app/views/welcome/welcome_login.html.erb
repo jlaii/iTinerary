@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+<header>
+    <div>
+        <div>
+            <% if user_signed_in? %>
+                logged in as <%= current_user.email %>
+                <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+            <% else %>
+                <%= link_to "Sign up", new_user_registration_path %> |
+                <%= link_to "Login", new_user_session_path %> |
+                <%= link_to "Login with Facebook", user_omniauth_authorize_path(:facebook) %>
+            <% end %>
+        </div>
+        <% flash.each do |name, msg| %>
+            <%= content_tag :div, msg, id: "flash_#{name}" %>
+        <% end %>
+    </div>
+</header>
+</body>
+</html>

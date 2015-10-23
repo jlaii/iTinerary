@@ -34,7 +34,21 @@ $(document).ready(function () {
 </head>
 
 
-<%= link_to 'Go to your dashboard', user_show_path %>
+ <% if user_signed_in? %>
+            Logged in as <%= current_user.email %>
+      <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+  <% else %>
+      <%= link_to "Sign up", new_user_registration_path %> |
+      <%= link_to "Login", new_user_session_path %> |
+      <%= link_to "Login with Facebook", user_omniauth_authorize_path(:facebook) %>
+  <% end %>
+<br>
+         <% flash.each do |name, msg| %>
+          <%= content_tag :div, msg, id: "flash_#{name}" %>
+      <% end %>
+    </div>
+    <br>
+    <%= link_to 'Go to your dashboard', user_show_path %>
 
 <body id="welcome-front-body">
 
@@ -42,34 +56,35 @@ $(document).ready(function () {
     <div class ="row">
       <h1>iTinerary</h1>
       <h2>Where would you like to go?</h2>
-      <br>
+
     </div>
 
 
     
     <br><br>
+    
+
     <div class ="row">
+      <div class="col-md-1"></div>
+
+      <div id="form-span" class="col-md-10">
+      <form class="form-inline" method='post' action='welcome/save'>
+
+        <label for="destination">Destination</label>
+        <input name="destination" class ="form-control" type="text"value="<%= params[:destination] %>" required>
 
 
+        <label for="startdate">Arrival Date</label>
+        <input name="startdate" class ="form-control" type="text" id="startdate" />
+        <label for="enddate">Departure Date</label>
+        <input name="enddate" class ="form-control" type="text" id="enddate" />
 
-    <form class="form-inline" method='post' action='welcome/save'>
+        <input class ="btn btn-default" type="submit" value="Submit"/>
+      </form>
+    </div>
+    <div class="col-md-1"></div>
 
-
-      
-      <label for="destination">Destination</label>
-      <input name="destination" class ="form-control" type="text"value="<%= params[:destination] %>" required>
-
-
-      <label for="startdate">Arrival Date</label>
-      <input name="startdate" class ="form-control" type="text" id="startdate" />
-      <label for="enddate">Departure Date</label>
-      <input name="enddate" class ="form-control" type="text" id="enddate" />
-
-      <input class ="btn btn-default" type="submit" value="Submit"/>
-
-    </form>
-
-  </div>
+    </div>
   </div>
 </body>
 </html>
