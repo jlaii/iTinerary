@@ -125,6 +125,7 @@ footer {
   label {
     color: white;
     font-family: Open Sans, sans-serif;
+    margin: 5px;
   }
 
   #form-span {
@@ -133,4 +134,15 @@ footer {
     border-radius: 10px;
   }
   
+}
+
+
+#attractions-show-body {
+
+  label {
+    color: $main-color-teal;
+    font-family: Open Sans, sans-serif;
+    margin: 5px;
+  }
+
 }
