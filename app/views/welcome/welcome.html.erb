@@ -37,7 +37,7 @@ $(document).ready(function () {
 	<% if flash[:error] %>
 	    <div class="notice"><b><%= flash[:error] %></b></div>
 	<% end %>
-	<h1>Welcome to iTinerary</h1>
+
     <div>
       <div>
         <% if user_signed_in? %>
@@ -71,9 +71,9 @@ $(document).ready(function () {
 
 
     <div class ="row">
-      <div class="col-md-1"></div>
+      <div class="col-md-2"></div>
 
-      <div id="form-span" class="col-md-10">
+      <div id="form-span" class="col-md-8">
       <form class="form-inline" method='post' action='welcome/save'>
 
         <label for="destination">Destination</label>
@@ -88,7 +88,7 @@ $(document).ready(function () {
         <input class ="btn btn-default" type="submit" value="Submit"/>
       </form>
     </div>
-    <div class="col-md-1"></div>
+    <div class="col-md-2"></div>
 
     </div>
   </div>

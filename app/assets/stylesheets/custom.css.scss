@@ -37,10 +37,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
+  font-family: Open Sans, sans-serif;
   font-size: 3em;
-  letter-spacing: -2px;
-  margin-bottom: 30px;
+  letter-spacing: 0px;
+  margin-bottom: 20px;
   text-align: center;
+
 }
 
 h2 {
@@ -50,6 +52,8 @@ h2 {
   text-align: center;
   font-weight: normal;
   color: $gray-light;
+  font-family: Open Sans, sans-serif;
+
 }
 
 p {
@@ -125,6 +129,7 @@ footer {
   label {
     color: white;
     font-family: Open Sans, sans-serif;
+    margin: 5px;
   }
 
   #form-span {
@@ -133,4 +138,19 @@ footer {
     border-radius: 10px;
   }
   
+}
+
+
+#attractions-show-body {
+
+  #date-form {
+    text-align: center;
+    padding: 20px;
+  }
+  label {
+    color: $main-color-teal;
+    font-family: Open Sans, sans-serif;
+    margin: 5px;
+  }
+
 }
