@@ -1,7 +1,7 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def all
     user = User.from_omniauth(request.env["omniauth.auth"])
-    logger.debug user.errors.full_messages
+    # logger.debug user.errors.full_messages
     if user.persisted?
       # flash.notice = 'Logged in!'
       sign_in_and_redirect user
@@ -12,4 +12,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   alias_method :facebook, :all
+
+
 end
