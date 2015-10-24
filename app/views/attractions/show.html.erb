@@ -32,31 +32,74 @@
 </script>
 </head>
 
-<body>
+<body id="attractions-show-body">
 <% if flash[:error] %>
     <div class="notice"><b><%= flash[:error] %></b></div>
 <% end %>
+<% if user_signed_in? %>
+    logged in as <%= current_user.email %>
+    <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+    <br>
+    <%= link_to 'Go to your dashboard', user_show_path %>
+<% else %>
+    <%= link_to "Sign up", new_user_registration_path %> |
+    <%= link_to "Login", new_user_session_path %> |
+    <%= link_to "Login with Facebook", user_omniauth_authorize_path(:facebook) %>
+<% end %>
+
+
+<div class="row">
 <h1>iTinerary</h1>
-    <form method='post' action='welcome/save'>
-	  Destination:<br>
-	  <input type="text" name="destination" value="<%= params[:destination] %>" required>
-	  <br>
-      Start Date:<br>
-      <input name="startdate" type="text" id="startdate" /><br>
-      End Date:<br>
-      <input name="enddate" type="text" id="enddate" /><br><br>
-      <br>
-      <input type="submit" value="Submit"/>
-    </form>
-    <% if @show_attractions %>
-        <h1>Attractions around <%= params[:destination] %></h1>
-            <% Attraction.where('city = ?', params[:destination]).find_each  do |attraction| %>
-                <li> <b><%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %>
-                  (Foursquare Rating: <%= attraction.rating %>/10)</b> : <%= attraction.description %></li>
-            <% end %>
-    <% end %>
-    <br> <br>
+</div>
+
+<div id="date-form" class="row">
+    <form class="form-inline" method='post' action='welcome/save'>
+
+        <label for="destination">Destination</label>
+        <input name="destination" class ="form-control" type="text"value="<%= params[:destination] %>" required>
+
+
+        <label for="startdate">Arrival Date</label>
+        <input name="startdate" class ="form-control" type="text" id="startdate" />
+        <label for="enddate">Departure Date</label>
+        <input name="enddate" class ="form-control" type="text" id="enddate" />
+
+        <input class ="btn btn-default" type="submit" value="Submit"/>
+      </form>
+</div>
+    <div class = "container-fluid">
+      <div class = "row">
+      <% if @show_attractions %>
+          <h1>Attractions around <%= params[:destination] %></h1>
+
+      </div>
+
+    <div class="row">  
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <div id = "attraction-group" class = "list-group">
+        
+        <% Attraction.where('city = ?', params[:destination]).find_each  do |attraction| %>
+
+          <div class="list-group">
+            <li class="list-group-item">
+            <h4 class="list-group-item-heading"> <%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %> </h4>
+              <p class="list-group-item-text">
+              (Foursquare Rating: <%= attraction.rating %>/10)</b>
+              <br> <%= attraction.description %>
+            </p>
+          </li>
+          </div>
+        <% end %>
+      <% end %>
+      </div>
+
+
     Attraction data gathered using Foursquare API.
+    </div>
+    <div class="col-md-1"></div>
+    </div>
+  </div>
 
 </body>
 
