@@ -58,29 +58,37 @@
       </form>
 </div>
     <div class = "container-fluid">
-    <div class = "row">
-    <% if @show_attractions %>
-        <h1>Attractions around <%= params[:destination] %></h1>
+      <div class = "row">
+      <% if @show_attractions %>
+          <h1>Attractions around <%= params[:destination] %></h1>
 
-    </div>
-    <div id = "attraction-row" class = "row">
-      <ul id="attraction-info">
-      <% Attraction.where('city = ?', params[:destination]).find_each  do |attraction| %>
+      </div>
 
+    <div class="row">  
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <div id = "attraction-group" class = "list-group">
         
-          <li> <b> <%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %>
-            (Foursquare Rating: <%= attraction.rating %>/10)</b>
-            <br> <%= attraction.description %>
+        <% Attraction.where('city = ?', params[:destination]).find_each  do |attraction| %>
+
+          <div class="list-group">
+            <li class="list-group-item">
+            <h4 class="list-group-item-heading"> <%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %> </h4>
+              <p class="list-group-item-text">
+              (Foursquare Rating: <%= attraction.rating %>/10)</b>
+              <br> <%= attraction.description %>
+            </p>
           </li>
+          </div>
+        <% end %>
       <% end %>
-      
-    <% end %>
-  </ul>
-    </div>
+      </div>
 
 
     Attraction data gathered using Foursquare API.
-
+    </div>
+    <div class="col-md-1"></div>
+    </div>
   </div>
 
 </body>

@@ -146,23 +146,11 @@ footer {
   #date-form {
     text-align: center;
     padding: 20px;
-    background-color:purple;
   }
   label {
     color: $main-color-teal;
     font-family: Open Sans, sans-serif;
     margin: 5px;
   }
-  #attraction-row {
-    padding:20px;
-  }
-  #attraction-info {
-    background-color: yellow;
-    list-style:none;
-    li {
-      overflow:auto;
-      padding: 20px;
-      border-bottom: 1px solid $gray-light
-    }
-  }
+
 }
