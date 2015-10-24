@@ -1,9 +1,9 @@
 # iTinerary
 ## To run code:
-`rake db:create`
-`rake db:migrate`
-`bundle install`
-`bundle exec rails s`
+```rake db:create```
+```rake db:migrate```
+```bundle install```
+```bundle exec rails s```
 
 ## To run tests:
 ```bundle exec rspec spec/ ``` 
