@@ -1,7 +1,7 @@
 class WelcomeController < ApplicationController
 	def save
     	params[:destination] = params[:destination].titleize
-		city = params[:destination]
+			city = params[:destination]
     	start_lst = params[:startdate].split("/")
     	end_lst = params[:enddate].split("/")
     	start_time = DateTime.new(start_lst[2].to_i, start_lst[0].to_i, start_lst[1].to_i)
