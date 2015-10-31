@@ -18,8 +18,8 @@ RSpec.feature "Add Trip to User", :type => :feature do
 
     user = User.find_by_email("test@email.com")
     for trip in user.trips
-      expect(page).to have_link("/dashboard/trip/#{trip.id}")
-      click_link "/dashboard/trip/#{trip.id}"
+      expect(page).to have_link(trip_show_path(trip.id))
+      click_link "#{trip_show_path(trip.id)}"
       expect(page).to have_text("You are going to: #{trip.city}")
       visit "/dashboard"
     end
