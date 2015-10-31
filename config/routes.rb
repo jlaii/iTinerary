@@ -14,8 +14,8 @@ Rails.application.routes.draw do
   #   get 'products/:id' => 'catalog#view'
 
   get 'dashboard' => 'users#show', as: :user_show
-  get 'dashboard/trip/:id' => 'trips#show', as: :trip_show
-  get 'attraction/:id' => 'attractions#show_by_id', as: :attraction_show_by_id
+  get 'dashboard/trips/:id' => 'trips#show', as: :trip_show
+  get 'attractions/:id' => 'attractions#show_by_id', as: :attraction_show_by_id
 
   get 'attractions/' => 'attractions#show', as: :show_attractions
 
