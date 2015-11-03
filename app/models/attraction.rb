@@ -44,10 +44,29 @@ class Attraction < ActiveRecord::Base
   end
 
   #day: int representing Mon-Sun as an int (1-7)
-  #start_time: "0800"
-  #end_time: "1600"
-  def is_open(day, start_time, end_time)
+  #start_time: int, e.g. 0800
+  #end_time: int, e.g. 1600
+  def is_open?(day, start_time, end_time)
+    #hours_json format: https://developer.foursquare.com/docs/explore#req=venues/40a55d80f964a52020f31ee3/hours
     hours = self.hours_json["hours"]
+    for timeframe in hours["timeframes"]
+      if day in timeframe["days"]
+        for open_time in timeframe["open"]
+          # is open all day
+          if open_time["start"] == "0000" and open_time["end"] == "+0000"
+            return true
+          end
+          frame_start = Integer(open_time["start"])
+          frame_end = open_time["end"] == "+0000" ? 2400 : Integer(open_time["end"])
+          if frame_start < start_time and frame_end > end_time
+            return true
+          end
+        end
+      end
+    end
+    return false
+
+
 
   end
 
