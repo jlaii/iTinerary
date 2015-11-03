@@ -8,4 +8,10 @@ class Trip < ActiveRecord::Base
   		errors[:base] << "start date must be prior to end date"
   	end
   end
+
+  def next_attraction(tripattraction_id) #input tripattraction id
+  	attraction = TripAttraction.find(tripattraction_id)
+  	trip = Trip.find(attraction.trip_id)
+  end
+
 end
