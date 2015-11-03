@@ -34,23 +34,16 @@ $(document).ready(function () {
 </head>
 
 <body>
+  <%= render 'layouts/navigation' %>
+
 	<% if flash[:error] %>
 	    <div class="notice"><b><%= flash[:error] %></b></div>
 	<% end %>
 
+
+
+
     <div>
-      <div>
-        <% if user_signed_in? %>
-            logged in as <%= current_user.email %>
-            <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-            <br>
-            <%= link_to 'Go to your dashboard', user_show_path %>
-        <% else %>
-            <%= link_to "Sign up", new_user_registration_path %> |
-            <%= link_to "Login", new_user_session_path %> |
-            <%= link_to "Login with Facebook", user_omniauth_authorize_path(:facebook) %>
-        <% end %>
-      </div>
       <% flash.each do |name, msg| %>
           <%= content_tag :div, msg, id: "flash_#{name}" %>
       <% end %>
@@ -92,5 +85,6 @@ $(document).ready(function () {
 
     </div>
   </div>
+
 </body>
 </html>

@@ -1,3 +1,6 @@
+<%= render 'layouts/navigation' %>
+
+
 <h3><%= @attraction.name %></h3><br>
 <img src=<%= Picture.find(@attraction.picture_id).path %>><br>
 <b>City: </b> <%= @attraction.city %><br>
