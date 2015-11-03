@@ -8,16 +8,14 @@ RSpec.describe Attraction, type: :model do
     after(:context) do
       Attraction.delete_all
     end
-    it "imports at most 50 attractions for a city" do
+    it "imports attractions for a city" do
       expect(Attraction.count).to eq 0
-      Attraction.import_foursquare_attractions("San Francisco")
-      expect(Attraction.count).to eq 50
+      Attraction.import_foursquare_attractions("San Francisco", num_attractions = 1)
+      expect(Attraction.count).to eq 1
     end
 
     it "returns true if city exists" do
-      expect(Attraction.count).to eq 0
-      expect(Attraction.import_foursquare_attractions("San Francisco")).to eq true
-      expect(Attraction.count).to eq 50
+      expect(Attraction.import_foursquare_attractions("San Francisco", 1)).to eq true
     end
 
     it "returns false if city does not exist" do
@@ -30,7 +28,7 @@ RSpec.describe Attraction, type: :model do
 
   context "after importing attractions" do
     before(:context) do
-      Attraction.import_foursquare_attractions("San Francisco")
+      Attraction.import_foursquare_attractions("San Francisco", 1)
     end
     after(:context) do
       Attraction.delete_all
@@ -46,6 +44,7 @@ RSpec.describe Attraction, type: :model do
       expect(attraction.rating).to_not eq nil
       expect(attraction.picture_id).to_not eq nil
       expect(attraction.url).to_not eq nil
+      expect(attraction.hours_json).to_not eq nil
     end
 
 
