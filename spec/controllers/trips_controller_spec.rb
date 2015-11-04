@@ -23,20 +23,35 @@ RSpec.describe TripsController, type: :controller do
     end
   end
 
-  context "test travel time" do
-    attraction_start = Attraction.new
+  context "test travel time from San Francisco to Berkeley" do
+    attraction_start = Attraction.new # San Francisco
     attraction_start.latitude = 37.7833
     attraction_start.longitude = 122.4167
-    attraction_end = Attraction.new
+    attraction_end = Attraction.new # Berkeley
     attraction_end.latitude = 37.8717
     attraction_end.longitude = 122.2728
-    it "calculates distance" do
-      expect(Trip.calculate_distance(attraction_start, attraction_end).round(2)).to eq(16.01)
+    it "calculates euclidean distance" do
+      expect(Trip.calculate_distance_euclidean(attraction_start, attraction_end).round(3)).to eq(16.011)
     end
 
-    it "calculates travel time" do
-      expect(Trip.calculate_travel_time(attraction_start, attraction_end, 30).round(2)).to eq(32.02)
+    it "calculates euclidean travel time" do
+      expect(Trip.calculate_travel_time_euclidean(attraction_start, attraction_end, 30).round(0)).to eq(32)
     end
 
+    it "calculates manhattan distance" do
+      expect(Trip.calculate_distance_manhattan(attraction_start, attraction_end).round(3)).to eq(22.468)
+    end
+
+    it "calculates manhattan travel time" do
+      expect(Trip.calculate_travel_time_manhattan(attraction_start, attraction_end, 30).round(0)).to eq(45)
+    end
+
+    it "calculates euclidean travel time to itself" do
+      expect(Trip.calculate_travel_time_euclidean(attraction_start, attraction_start, 30).round(0)).to eq(0)
+    end
+
+    it "calculates manhattan travel time to itself" do
+      expect(Trip.calculate_travel_time_manhattan(attraction_start, attraction_start, 30).round(0)).to eq(0)
+    end
   end
 end
