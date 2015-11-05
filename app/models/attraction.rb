@@ -11,6 +11,9 @@ class Attraction < ActiveRecord::Base
       request_url = base_url + auth_string + query_string
       response = JSON.parse(HTTParty.get(request_url).body)
       attractions = response["response"]["groups"].first["items"]
+      new_city = City.new(:name => city.titleize, :lat => response["response"]["geocode"]["center"]["lat"],
+                          :lng => response["response"]["geocode"]["center"]["lng"])
+      new_city.save
       for attraction in attractions
         attraction_hours_url = "https://api.foursquare.com/v2/venues/#{attraction["venue"]["id"]}/hours?#{auth_string}"
         attraction_hours_response = JSON.parse(HTTParty.get(attraction_hours_url).body)["response"]

@@ -4,13 +4,18 @@ RSpec.describe Attraction, type: :model do
   context "importing attractions using FourSquare" do
     before(:context) do
       Attraction.delete_all
+      City.delete_all
     end
     after(:context) do
       Attraction.delete_all
+      City.delete_all
     end
+
     it "imports attractions for a city" do
       expect(Attraction.count).to eq 0
+      expect(City.count).to eq 0
       Attraction.import_foursquare_attractions("San Francisco", num_attractions = 1)
+      expect(City.count).to eq 1
       expect(Attraction.count).to eq 1
     end
 
@@ -33,7 +38,7 @@ RSpec.describe Attraction, type: :model do
     after(:context) do
       Attraction.delete_all
     end
-    it "an attraction contains all necessary relevant info" do
+    it "an attraction and city contains all necessary relevant info" do
       attraction = Attraction.first
       expect(attraction.city).to_not eq nil
       expect(attraction.name).to_not eq nil
@@ -45,6 +50,10 @@ RSpec.describe Attraction, type: :model do
       expect(attraction.picture_id).to_not eq nil
       expect(attraction.url).to_not eq nil
       expect(attraction.hours_json).to_not eq nil
+      city = City.first
+      expect(city.name).to_not eq nil
+      expect(city.lat).to_not eq nil
+      expect(city.lng).to_not eq nil
     end
 
 

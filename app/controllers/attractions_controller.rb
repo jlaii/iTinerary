@@ -1,9 +1,9 @@
 class AttractionsController < ApplicationController
   def show
-    @show_attractions = Attraction.find_by_city(params[:destination]) ? true :
-        Attraction.import_foursquare_attractions(params[:destination], 50, params[:trip_id])
+    @show_attractions = City.find_by_name(params[:destination].titleize) ? true :
+        Attraction.import_foursquare_attractions(params[:destination].titleize, 50, params[:trip_id])
     if not @show_attractions
-      flash[:error] = "Could not find attractions in '#{params[:destination]}'"
+      flash[:error] = "Could not find attractions in '#{params[:destination].titleize}'"
     end
 
   end
