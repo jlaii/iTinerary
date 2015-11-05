@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get 'attractions/:id' => 'attractions#show_by_id', as: :attraction_show_by_id
 
   get 'attractions/' => 'attractions#show', as: :show_attractions
+  get 'trips/:id/itinerary' => 'trips#generate_itinerary', as: :generate_itinerary
 
   post 'welcome/save' => 'welcome#save', as: :trip_save
   # post 'submitClicked' => 'welcome#submitClicked'
