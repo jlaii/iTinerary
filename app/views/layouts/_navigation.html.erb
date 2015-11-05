@@ -1,19 +1,23 @@
-<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
-  <div class="container">
+<nav class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="/">iTinerary</a>
-      <ul class="nav navbar-nav navbar-right">
-      	<% if user_signed_in? %>
-	      	<li>
-	            logged in as <%= current_user.email %>
-	            <%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
-	        <li> <%= link_to 'Go to your dashboard', user_show_path %></li>
-    	<% else %>
-    		<li><%= link_to "Sign up", new_user_registration_path %></li>
-            <li> <%= link_to "Login", new_user_session_path %></li>
-            <li> <%= link_to "Login with Facebook", user_omniauth_authorize_path(:facebook) %></li>
-        <% end %>
-
     </div>
+
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <% if user_signed_in? %>
+        <p class="navbar-text"> Logged in as <%= current_user.email %></p>
+          <li> <%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+          <li> <%= link_to 'My Dashboard', user_show_path %></li>
+        <% else %>
+          <li><%= link_to "Sign up", new_user_registration_path %></li>
+              <li> <%= link_to "Login", new_user_session_path %></li>
+              <li> <%= link_to "Login with Facebook", user_omniauth_authorize_path(:facebook) %></li>
+        <% end %>
+      </ul>
+    </div>
+
   </div>
+
 </nav>
