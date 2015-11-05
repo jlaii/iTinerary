@@ -4,6 +4,10 @@ class Trip < ActiveRecord::Base
   validate :trip_date_validation
   RAD_PER_DEG = Math::PI/180
   EARTH_R_KM = 6371 # Radius of Earth in Km
+  DRIVING_SPEED = 40 # km/hr
+  VOTE_WEIGHT = 1
+  TRAVEL_WEIGHT = 0.01
+  FOURSQUARE_WEIGHT = 0.3
 
   def trip_date_validation
   	if self.start_time.to_i > self.end_time.to_i
@@ -11,9 +15,41 @@ class Trip < ActiveRecord::Base
   	end
   end
 
-  def next_attraction(tripattraction_id) #input tripattraction id
-  	attraction = TripAttraction.find(tripattraction_id)
-  	trip = Trip.find(attraction.trip_id)
+  def generate_itinerary
+    start_time = 800
+    attractions = create_attractions(params)
+    city = City.find_by_name(params[:city])
+    curr_attraction = Attraction.new(:latitude => city.lat, :longitude => city.lng)
+    vote_hash = create_vote_hash()
+    for i in 0...5
+      trip_attraction_hash = self.get_next_trip_attraction(curr_attraction, attractions, start_time, vote_hash)
+      attractions.delete(trip_attraction_hash[:trip_attraction].attraction_id)
+      curr_attraction = next_attraction
+      start_time += 200 + trip_attraction_hash[:travel_time]
+    end
+    return itinerary
+  end
+
+  def get_next_trip_attraction(prev_attraction, attractions, start_time,  vote_hash)
+    best_score = -1
+    best_attraction = nil
+    for attraction in attractions
+      travel_time = Trip.calculate_travel_time_manhattan(prev_attraction, attraction, DRIVING_SPEED)
+      score = vote_hash[attraction] * VOTE_WEIGHT + travel_time * TRAVEL_WEIGHT + attraction.rating * FOURSQUARE_WEIGHT
+      if score > best_score and attraction.is_open?(INSERT_DAY, start_time, start_time + 200)
+        best_score = score
+        best_attraction = attraction
+      end
+    end
+    trip_attraction = TripAttraction.new(:start_time => start_time, :end_time => start_time + 200,
+                                         :attraction_id => best_attraction.id,
+                                         :vote_count => vote_hash[best_attraction.id], :trip_id => self.id)
+    trip_attraction.save
+    {:trip_attraction => trip_attraction, :travel_time => travel_time}
+
+
+
+
   end
 
   # Returns the euclidean distance in Km between the two attractions by their coordinates

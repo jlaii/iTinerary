@@ -4,6 +4,10 @@ class TripsController < ApplicationController
   end
 
   def generate_itinerary
+    @trip = Trip.new()
+    @trip.save
+    @itinerary = @trip.generate_itinerary
 
   end
+
 end
