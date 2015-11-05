@@ -3,7 +3,7 @@ class Attraction < ActiveRecord::Base
   validates :name, presence: true
 
 
-  def self.import_foursquare_attractions(city, num_attractions = 50, trip_id = nil)
+  def self.import_foursquare_attractions(city, num_attractions = 50)
     begin
       base_url = "https://api.foursquare.com/v2/venues/explore?"
       auth_string = "client_id=#{FOURSQUARE_CLIENT_ID}&client_secret=#{FOURSQUARE_CLIENT_SECRET}&v=20151021"
@@ -34,7 +34,6 @@ class Attraction < ActiveRecord::Base
                                   :picture_id => picture.present? ? picture.id : nil,
                                   :hours_json => attraction_hours_response)
         if new_attraction.save and picture
-          TripAttraction.save_trip_attraction(new_attraction, trip_id)
           picture.update_attributes(:attraction_id => new_attraction)
           picture.save
         end
