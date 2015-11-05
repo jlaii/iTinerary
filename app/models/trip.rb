@@ -11,6 +11,11 @@ class Trip < ActiveRecord::Base
   	end
   end
 
+  def next_attraction(tripattraction_id) #input tripattraction id
+  	attraction = TripAttraction.find(tripattraction_id)
+  	trip = Trip.find(attraction.trip_id)
+  end
+
   # Returns the euclidean distance in Km between the two attractions by their coordinates
   def self.calculate_distance_euclidean(attraction_start, attraction_end)
     lat1 = attraction_start.latitude * RAD_PER_DEG

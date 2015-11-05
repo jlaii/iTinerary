@@ -14,7 +14,7 @@ class WelcomeController < ApplicationController
     saved = newTrip.save
 
     if saved
-      redirect_to show_attractions_path(destination: city, startdate: start_time, enddate: end_time)
+      redirect_to show_attractions_path(trip_id: newTrip.id, destination: city, startdate: start_time, enddate: end_time)
     else
       flash[:error] = "Start date cannot be later than end date."
       redirect_to root_path

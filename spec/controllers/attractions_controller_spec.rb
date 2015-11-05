@@ -5,9 +5,11 @@ RSpec.describe AttractionsController, type: :controller do
   context "shows a list of attractions" do
     before(:each) do
       Attraction.delete_all
+      City.delete_all
     end
     after(:each) do
       Attraction.delete_all
+      City.delete_all
     end
     it "retrieves attractions if city hasn't been loaded before" do
       expect(Attraction.find_by_city("San Francisco")).to eq nil
@@ -25,7 +27,7 @@ RSpec.describe AttractionsController, type: :controller do
 
     it "show an error if no attractions could be found for a given destination" do
       get :show, :destination => 'AtlantisTheCityThatDoesntExist'
-      expect(flash[:error]).to eq "Could not find attractions in 'AtlantisTheCityThatDoesntExist'"
+      expect(flash[:error]).to eq "Could not find attractions in 'Atlantis The City That Doesnt Exist'"
 
 
     end
@@ -34,10 +36,12 @@ RSpec.describe AttractionsController, type: :controller do
 
   context "show by id" do
     before(:context) do
+      Attraction.delete_all
       Attraction.import_foursquare_attractions("San Francisco")
     end
     after(:context) do
       Attraction.delete_all
+      City.delete_all
     end
     it "shows the attraction if the id exists" do
       expect(Attraction.find_by_city("San Francisco")).to_not eq nil

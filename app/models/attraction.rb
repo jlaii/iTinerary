@@ -1,17 +1,21 @@
 class Attraction < ActiveRecord::Base
   has_many :pictures
   validates :name, presence: true
+  AUTH_STRING = "client_id=#{FOURSQUARE_CLIENT_ID}&client_secret=#{FOURSQUARE_CLIENT_SECRET}&v=20151021"
 
 
-  def self.import_foursquare_attractions(city)
+  def self.import_foursquare_attractions(city, num_attractions = 50, trip_id = nil)
     begin
       base_url = "https://api.foursquare.com/v2/venues/explore?"
-      auth_string = "client_id=#{FOURSQUARE_CLIENT_ID}&client_secret=#{FOURSQUARE_CLIENT_SECRET}"
-      query_string = "&v=20151021&section=sights&limit=50&radius=50000&venuePhotos=1"
-      request_url = base_url + auth_string + query_string + "&near=#{city}"
+      query_string = "&section=sights&limit=#{num_attractions}&radius=50000&venuePhotos=1&near=#{city}"
+      request_url = base_url + AUTH_STRING + query_string
       response = JSON.parse(HTTParty.get(request_url).body)
       attractions = response["response"]["groups"].first["items"]
+      new_city = City.new(:name => city.titleize, :lat => response["response"]["geocode"]["center"]["lat"],
+                          :lng => response["response"]["geocode"]["center"]["lng"])
+      new_city.save
       for attraction in attractions
+
         picture_path = attraction["venue"]["featuredPhotos"]["items"].first["prefix"] + "240x240" +
                        attraction["venue"]["featuredPhotos"]["items"].first["suffix"]
         picture = Picture.new(:path => picture_path)
@@ -36,6 +40,40 @@ class Attraction < ActiveRecord::Base
     end
     return true
 
+  end
+
+  #day: int representing Mon-Sun as an int (1-7)
+  #start_time: int, e.g. 0800
+  #end_time: int, e.g. 1600
+  def is_open?(day, start_time, end_time)
+    #hours_json format: https://developer.foursquare.com/docs/explore#req=venues/40a55d80f964a52020f31ee3/hours
+    import_hours_json if self.hours_json.nil?
+    timeframes = self.hours_json["hours"]["timeframes"]
+    return true if timeframes.nil?
+
+    for timeframe in timeframes
+      if timeframe["days"].include? day
+        for open_time in timeframe["open"]
+          # is open all day
+          if open_time["start"] == "0000" and open_time["end"] == "+0000"
+            return true
+          end
+          frame_start = open_time["start"].to_i
+          frame_end = open_time["end"] == "+0000" ? 2400 : open_time["end"].to_i
+          if frame_start <= start_time and frame_end >= end_time
+            return true
+          end
+        end
+      end
+    end
+    return false
+
+  end
+
+  def import_hours_json
+    attraction_hours_url = "https://api.foursquare.com/v2/venues/#{self.id}/hours?#{AUTH_STRING}"
+    attraction_hours_response = JSON.parse(HTTParty.get(attraction_hours_url).body)["response"]
+    self.update_attributes(:hours_json, attraction_hours_response)
   end
 
 end
