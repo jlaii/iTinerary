@@ -4,9 +4,14 @@ class TripsController < ApplicationController
   end
 
   def generate_itinerary
-    @trip = Trip.new()
+    byebug
+    @trip = Trip.new(:start_time => params[:startdate], :end_time => params[:enddate])
     @trip.save
-    @itinerary = @trip.generate_itinerary
+    @itinerary = @trip.generate_itinerary(params[:destination])
+
+  end
+
+  def show_itinerary
 
   end
 

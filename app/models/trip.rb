@@ -16,12 +16,11 @@ class Trip < ActiveRecord::Base
   	end
   end
 
-  def generate_itinerary
+  def generate_itinerary(city_name)
     num_days = 0
     start_time = 800
-    #not sure if this is right way to convert to array of trip_attraction objects
     trip_attractions = TripAttraction.where(:trip_id => self.id).to_a
-    city = City.find_by_name(params[:city])
+    city = City.find_by_name(city_name)
     curr_attraction = Attraction.new(:latitude => city.lat, :longitude => city.lng)
     for i in 0...NUM_ATTRACTIONS * (self.end_time - self.start_time).to_i
       trip_attraction_hash = self.get_next_trip_attraction(curr_attraction, trip_attractions, start_time, num_days)

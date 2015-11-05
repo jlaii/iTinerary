@@ -70,7 +70,12 @@
     <div class = "container-fluid">
       <div class = "row">
       <% if @show_attractions %>
-        <%= button_to "Generate Itinerary", generate_itinerary_path(1), :method => :get %>
+        <%= button_to "Generate Itinerary",generate_itinerary_path(1), method: :get,
+                                        params: {:id => 1,
+                                                 :destination => params[:destination],
+                                                 :startdate => params[:startdate],
+                                                 :enddate => params[:enddate]
+                                        } %>
         <h1>Attractions around <%= params[:destination] %></h1>
 
       </div>
