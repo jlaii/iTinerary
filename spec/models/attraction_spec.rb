@@ -50,7 +50,6 @@ RSpec.describe Attraction, type: :model do
       expect(attraction.rating).to_not eq nil
       expect(attraction.picture_id).to_not eq nil
       expect(attraction.url).to_not eq nil
-      expect(attraction.hours_json).to_not eq nil
       city = City.first
       expect(city.name).to_not eq nil
       expect(city.lat).to_not eq nil
