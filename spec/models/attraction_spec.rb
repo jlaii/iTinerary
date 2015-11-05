@@ -37,6 +37,7 @@ RSpec.describe Attraction, type: :model do
     end
     after(:context) do
       Attraction.delete_all
+      City.delete_all
     end
     it "an attraction and city contains all necessary relevant info" do
       attraction = Attraction.first
