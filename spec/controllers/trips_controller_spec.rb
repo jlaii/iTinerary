@@ -106,7 +106,7 @@ RSpec.describe TripsController, type: :controller do
       start_id = Attraction.first.id
       fake_hours_api_call
       HTTParty.should_receive(:get).at_most(20).times.and_return(@fake_response)
-      post :new, :destination => "Taipei", :startdate => "2015-11-02T00:00:00+00:00", :enddate => "2015-11-03T00:00:00+00:00",
+      post :new, :destination => "Taipei", :startdate => "11/02/2015", :enddate => "11/03/2015",
            start_id.to_s =>"0", (start_id+1).to_s=>"0", (start_id+2).to_s=>"0", (start_id+3).to_s=>"0", (start_id+4).to_s=>"0", (start_id+5).to_s=>"0", (start_id+6).to_s=>"0", (start_id+7).to_s=>"0", (start_id+8).to_s=>"0"
       trip = Trip.find_by_city("Taipei")
       post :generate_itinerary, :id => trip.id
