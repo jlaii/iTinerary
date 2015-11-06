@@ -3,9 +3,7 @@ require "rails_helper"
 
 
 RSpec.feature "Add Trip to User", :type => :feature do
-  before do
-    Attraction.delete_all
-  end
+
   scenario "User signs up" do
     visit "/users/sign_up"
     fill_in "Email", :with => "test@email.com"
@@ -13,8 +11,8 @@ RSpec.feature "Add Trip to User", :type => :feature do
     fill_in "Password confirmation", :with => "12345678"
     click_button "Sign up"
     expect(page).to have_text("logged in as test@email.com")
-
   end
+
   scenario "User logs in" do
     visit "/users/sign_in"
     fill_in "Email", :with => "test@email.com"
@@ -22,9 +20,7 @@ RSpec.feature "Add Trip to User", :type => :feature do
     click_button "Log in"
     expect(page).to have_text("Signed in successfully.")
   end
-  before do
-    Attraction.delete_all
-  end
+
   scenario "User upvotes attractions" do
     visit "/users/sign_in"
     fill_in "Email", :with => "test@email.com"
@@ -51,7 +47,7 @@ RSpec.feature "Add Trip to User", :type => :feature do
     expect(page).to have_text("Louise M. Davies Symphony Hall")
   end
 
-  scenario "User upvotes attractions" do
+  scenario "User upvotes no attractions" do
     visit "/users/sign_in"
     fill_in "Email", :with => "test@email.com"
     fill_in "Password", :with => "12345678"
@@ -70,37 +66,9 @@ RSpec.feature "Add Trip to User", :type => :feature do
     expect(page).to have_text("You are going to: New York")
     expect(page).to have_text("You haven't upvoted any attractions for this trip.")
 
-  end
-
-  scenario "User dashboard show correct trip details" do
-    visit "/users/sign_in"
-    fill_in "Email", :with => "test@email.com"
-    fill_in "Password", :with => "12345678"
-    click_button "Log in"
-    expect(page).to have_text("Signed in successfully.")
-
-    visit "/dashboard"
-    expect(page).to have_text("YOUR EMAIL: test@email.com")
-    expect(page).to have_text("New York")
-    expect(page).to have_text("San Francisco")
-
-    click_link('New York')
-
-    expect(page).to have_text("You are going to: New York")
-    expect(page).to have_text("You haven't upvoted any attractions for this trip.")
-
     click_button "Generate Itinerary"
     expect(page).to have_text("Your Itinerary for New York")
 
-
-    visit "/dashboard"
-    expect(page).to have_text("YOUR EMAIL: test@email.com")
-    expect(page).to have_text("San Francisco")
-
-    click_link('San Francisco')
-
-    expect(page).to have_text("Your Itinerary for San Francisco")
-    expect(page).to have_text("Louise M. Davies Symphony Hall")
   end
 
   scenario "Anonymous user upvotes attractions and generates itinerary" do
