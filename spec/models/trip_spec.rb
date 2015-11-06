@@ -1,6 +1,27 @@
 require 'rails_helper'
 
 RSpec.describe Trip, type: :model do
+
+  context "get next attraction" do
+    it "from highest votes" do
+      Attraction.delete_all
+      TripAttraction.delete_all
+      attraction_names = ["Louise M. Davies Symphony Hall", "Asian Art Museum", "Yerba Buena Gardens", "Huntington Park", "Corona Heights Park"]
+      trip_attractions = []
+      for i in 0...5
+        Attraction.create(id: i+1, name: attraction_names[i], latitude: 30, longitude: 30, rating: 10)
+        trip_attractions.append(TripAttraction.new(id: i+1, trip_id: 1, attraction_id: i+1, vote_count: i))
+      end
+      prev_attraction = Attraction.new(id: 6, name: "prev_attraction", latitude: 30, longitude: 30, rating: 10)
+      trip = Trip.new
+      start_time = DateTime.now.change({hour: 8})
+      result = trip.get_next_trip_attraction(prev_attraction, trip_attractions, start_time)[:trip_attraction]
+      # byebug
+      # post :get_next_trip_attraction, :prev_attraction => prev_attraction
+      expect(Attraction.find(result.attraction_id).name).to eq("Corona Heights Park")
+    end
+  end
+
   context "test travel time from San Francisco to Berkeley" do
     san_francisco = Attraction.new(latitude: 37.7833, longitude: -122.4167) # San Francisco
     berkeley = Attraction.new(latitude: 37.8717, longitude: -122.2728) # Berkeley
