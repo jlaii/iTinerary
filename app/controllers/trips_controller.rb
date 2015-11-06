@@ -6,6 +6,8 @@ class TripsController < ApplicationController
   def generate_itinerary
 
     #"please generate an itinerary for me according to this trip_id"
+    @trip = Trip.find(params[:id])
+    @trip.generate_itinerary(@trip.city)
     render "generate_itinerary"
   end
 
