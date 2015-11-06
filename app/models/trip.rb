@@ -8,7 +8,7 @@ class Trip < ActiveRecord::Base
   VOTE_WEIGHT = 10
   TRAVEL_WEIGHT = -0.05
   FOURSQUARE_WEIGHT = 0.5
-  NUM_ATTRACTIONS = 5
+  NUM_ATTRACTIONS = 4
   SEC_PER_DAY = 86400
 
   def trip_date_validation
@@ -19,12 +19,13 @@ class Trip < ActiveRecord::Base
 
   def generate_itinerary(city_name)
     # start_time = 800
+    had_lunch = false
     start_time = DateTime.new(self.start_time.year, self.start_time.month, self.start_time.day, 8)
     trip_attractions = TripAttraction.where(:trip_id => self.id).to_a
     city = City.find_by_name(city_name)
     curr_attraction = Attraction.new(:latitude => city.lat, :longitude => city.lng)
     itinerary = []
-    for i in 0...NUM_ATTRACTIONS * ((self.end_time - self.start_time).to_i/SEC_PER_DAY + 1)
+    for i in 1..NUM_ATTRACTIONS * ((self.end_time - self.start_time).to_i/SEC_PER_DAY + 1)
       trip_attraction_hash = self.get_next_trip_attraction(curr_attraction, trip_attractions, start_time)
       break if trip_attraction_hash == false
       next_attraction = trip_attraction_hash[:trip_attraction]
@@ -33,11 +34,17 @@ class Trip < ActiveRecord::Base
       curr_attraction = Attraction.find(next_attraction.attraction_id)
       # logger.debug trip_attraction_hash
       start_time += 2.hours + trip_attraction_hash[:travel_time].minutes
-      if i % NUM_ATTRACTIONS == 0 and i > 0
+      if start_time.hour >= 12 and not had_lunch
+        lunch = TripAttraction.new(:lunch => true, :start_time => start_time, :end_time => start_time + 1.hour)
+        itinerary.append(lunch)
+        start_time += 1.hour
+        had_lunch = true
+      end
+      if i % NUM_ATTRACTIONS == 0
         start_time = start_time.change({hour: 8})
         start_time += 1.days
+        had_lunch = false
 
-        # start_time = 800
       end
     end
     return itinerary
