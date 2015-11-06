@@ -18,8 +18,6 @@ class TripsController < ApplicationController
   def new
     params[:destination] = params[:destination].titleize
     city = params[:destination]
-    start_lst = params[:startdate].split("/")
-    end_lst = params[:enddate].split("/")
     start_time = DateTime.iso8601(params[:startdate])
     end_time = DateTime.iso8601(params[:enddate])
 
