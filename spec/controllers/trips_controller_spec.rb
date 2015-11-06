@@ -26,46 +26,23 @@ RSpec.describe TripsController, type: :controller do
     end
   end
 
-  context "test travel time from San Francisco to Berkeley" do
-    attraction_start = Attraction.new # San Francisco
-    attraction_start.latitude = 37.7833
-    attraction_start.longitude = 122.4167
-    attraction_end = Attraction.new # Berkeley
-    attraction_end.latitude = 37.8717
-    attraction_end.longitude = 122.2728
-    attraction_start1 = Attraction.new # San Francisco city center
-    attraction_start1.latitude = 37.77493
-    attraction_start1.longitude = -122.41942
-    attraction_end1 = Attraction.new # Asian Art Museum
-    attraction_end1.latitude = 37.7802804660325
-    attraction_end1.longitude = -122.416089177132
-
-    it "calculates euclidean distance" do
-      expect(Trip.calculate_distance_euclidean(attraction_start, attraction_end).round(3)).to eq(16.011)
-    end
-
-    it "calculates euclidean travel time" do
-      expect(Trip.calculate_travel_time_euclidean(attraction_start, attraction_end, 30).round(0)).to eq(32)
-    end
-
-    it "calculates manhattan distance" do
-      expect(Trip.calculate_distance_manhattan(attraction_start, attraction_end).round(3)).to eq(22.468)
-    end
-
-    it "calculates manhattan travel time" do
-      expect(Trip.calculate_travel_time_manhattan(attraction_start, attraction_end, 30).round(0)).to eq(45)
-    end
-
-    it "calculates euclidean travel time to itself" do
-      expect(Trip.calculate_travel_time_euclidean(attraction_start, attraction_start, 30).round(0)).to eq(0)
-    end
-
-    it "calculates manhattan travel time to itself" do
-      expect(Trip.calculate_travel_time_manhattan(attraction_start, attraction_start, 30).round(0)).to eq(0)
-    end
-
-    it "calculates manhattan travel time to itself" do
-      expect(Trip.calculate_travel_time_manhattan(attraction_start1, attraction_end1, 30).round(0)).to eq(2)
+  context "get next attraction" do
+    it "from highest votes" do
+      Attraction.delete_all
+      TripAttraction.delete_all
+      attraction_names = ["Louise M. Davies Symphony Hall", "Asian Art Museum", "Yerba Buena Gardens", "Huntington Park", "Corona Heights Park"]
+      trip_attractions = []
+      for i in 0...5
+        Attraction.create(id: i+1, name: attraction_names[i], latitude: 30, longitude: 30, rating: 10)
+        trip_attractions.append(TripAttraction.new(id: i+1, trip_id: 1, attraction_id: i+1, vote_count: i))
+      end
+      prev_attraction = Attraction.new(id: 6, name: "prev_attraction", latitude: 30, longitude: 30, rating: 10)
+      trip = Trip.new
+      start_time = DateTime.now.change({hour: 8})
+      result = trip.get_next_trip_attraction(prev_attraction, trip_attractions, start_time)[:trip_attraction]
+      # byebug
+      # post :get_next_trip_attraction, :prev_attraction => prev_attraction
+      expect(Attraction.find(result.attraction_id).name).to eq("Corona Heights Park")
     end
   end
 
