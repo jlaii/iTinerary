@@ -61,8 +61,24 @@ RSpec.describe TripsController, type: :controller do
       # "41"=>"0", "42"=>"0", "43"=>"0", "44"=>"0", "45"=>"0", "46"=>"0", "47"=>"0", "48"=>"0", "49"=>"0", "50"=>"0"
       expect(Trip.count).to eq 1
       expect(TripAttraction.count).to eq 3
-      trip = Trip.find_by_city("San Francisco")
+    end
+  end
+
+  context "generate itinerary" do
+    it "" do
+      City.delete_all
+      Trip.delete_all
+      Attraction.delete_all
+      TripAttraction.delete_all
+      Attraction.import_foursquare_attractions("Taipei", 20)
+      post :new, :destination => "Taipei", :startdate => "2015-11-02T00:00:00+00:00", :enddate => "2015-11-03T00:00:00+00:00",
+           "1"=>"0", "2"=>"0", "3"=>"0", "4"=>"0", "5"=>"0", "6"=>"0", "7"=>"0", "8"=>"0", "9"=>"0"
+      trip = Trip.find_by_city("Taipei")
       post :generate_itinerary, :id => trip.id
+      trip_attractions = TripAttraction.where.not(end_time: nil)
+      puts TripAttraction.all
+      puts trip_attractions.length
+      expect(trip_attractions.length).to eq(8)
     end
   end
 end
