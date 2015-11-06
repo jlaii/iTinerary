@@ -4,10 +4,10 @@ class Trip < ActiveRecord::Base
   validate :trip_date_validation
   RAD_PER_DEG = Math::PI/180
   EARTH_R_KM = 6371 # Radius of Earth in Km
-  DRIVING_SPEED = 40 # km/hr
-  VOTE_WEIGHT = 1
-  TRAVEL_WEIGHT = 0.01
-  FOURSQUARE_WEIGHT = 0.3
+  DRIVING_SPEED = 20 # km/hr
+  VOTE_WEIGHT = 10
+  TRAVEL_WEIGHT = -0.05
+  FOURSQUARE_WEIGHT = 0.5
   NUM_ATTRACTIONS = 5
 
   def trip_date_validation
@@ -17,48 +17,53 @@ class Trip < ActiveRecord::Base
   end
 
   def generate_itinerary(city_name)
-    num_days = 0
-    start_time = 800
+    # start_time = 800
+    start_time = DateTime.new(self.start_time.year, self.start_time.month, self.start_time.day, 8)
     trip_attractions = TripAttraction.where(:trip_id => self.id).to_a
-    # 1/0
     city = City.find_by_name(city_name)
     curr_attraction = Attraction.new(:latitude => city.lat, :longitude => city.lng)
-    for i in 0...NUM_ATTRACTIONS * (self.end_time - self.start_time).to_i
-      trip_attraction_hash = self.get_next_trip_attraction(curr_attraction, trip_attractions, start_time, num_days)
+    itinerary = []
+    for i in 0...NUM_ATTRACTIONS * ((self.end_time - self.start_time).to_i + 1)
+      trip_attraction_hash = self.get_next_trip_attraction(curr_attraction, trip_attractions, start_time)
       break if trip_attraction_hash == false
       next_attraction = trip_attraction_hash[:trip_attraction]
+      itinerary.append(next_attraction)
       trip_attractions.delete(next_attraction)
       curr_attraction = Attraction.find(next_attraction.attraction_id)
-      start_time += 200 + trip_attraction_hash[:travel_time]
-      if i % NUM_ATTRACTIONS == 0
-        num_days += 1
-        start_time = 800
+      # logger.debug trip_attraction_hash
+      start_time += 2.hours + trip_attraction_hash[:travel_time].minutes
+      if i % NUM_ATTRACTIONS == 0 and i > 0
+        start_time = start_time.change({day: start_time.day + 1, hour: 8})
+
+        # start_time = 800
       end
     end
-    byebug
+    return itinerary
   end
 
-  def get_next_trip_attraction(prev_attraction, trip_attractions, start_time, num_days)
+  def get_next_trip_attraction(prev_attraction, trip_attractions, start_time)
     best_score = -100000000
     best_attraction = nil
     best_travel_time = 0
-    date_time = self.start_time + num_days
-    day_of_week = date_time.wday
+    day_of_week = start_time.wday
     for trip_attraction in trip_attractions
       attraction = Attraction.find(trip_attraction.attraction_id)
       travel_time = Trip.calculate_travel_time_manhattan(prev_attraction, attraction, DRIVING_SPEED)
       score = trip_attraction.vote_count * VOTE_WEIGHT + travel_time * TRAVEL_WEIGHT + attraction.rating * FOURSQUARE_WEIGHT
-      if score > best_score and attraction.is_open?(day_of_week, start_time, start_time + 200)
+      hour_minutes = start_time.hour * 100 + start_time.minute
+      if score > best_score and attraction.is_open?(day_of_week, hour_minutes, hour_minutes + 200)
         best_score = score
         best_attraction = trip_attraction
         best_travel_time = travel_time
+        puts "BETTER SCORE FOUND: " + best_attraction.to_s
       end
     end
     return false if best_attraction.nil?
-    best_attraction.update_attributes(:start_time => DateTime.new(date_time.year, date_time.month,
-                                                                  date_time.day, start_time / 100),
-                                      :end_time => DateTime.new(date_time.year, date_time.month,
-                                                                date_time.day, (start_time + 200) / 100))
+    puts best_attraction
+    best_attraction.update_attributes(:start_time => DateTime.new(start_time.year, start_time.month,
+                                                                  start_time.day, start_time.hour, start_time.minute),
+                                      :end_time => DateTime.new(start_time.year, start_time.month,
+                                                                start_time.day, start_time.hour + 2, start_time.minute))
     best_attraction.save
     return {:trip_attraction => best_attraction, :travel_time => best_travel_time}
 

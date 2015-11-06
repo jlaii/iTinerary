@@ -68,7 +68,12 @@
       </form>
 </div>
 
-    <div class="row">  
+    <div class = "row">
+        <% if @show_attractions %>
+            <h1>Attractions around <%= params[:destination] %></h1>
+        <% end %>
+
+    </div>
     <div class="col-md-1"></div>
     <div class="col-md-10">
       <div id = "attraction-group" class = "list-group">
