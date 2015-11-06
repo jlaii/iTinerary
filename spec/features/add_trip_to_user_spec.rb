@@ -22,89 +22,96 @@ RSpec.feature "Add Trip to User", :type => :feature do
   end
 
   scenario "User upvotes attractions" do
-    visit "/users/sign_in"
-    fill_in "Email", :with => "test@email.com"
-    fill_in "Password", :with => "12345678"
-    click_button "Log in"
-    expect(page).to have_text("Signed in successfully.")
+    # skip "logged in user generates voted itinerary redirects back to root" do
+      visit "/users/sign_in"
+      fill_in "Email", :with => "test@email.com"
+      fill_in "Password", :with => "12345678"
+      click_button "Log in"
+      expect(page).to have_text("Signed in successfully.")
 
-    visit "/"
-    fill_in "destination", :with => "San Francisco"
-    fill_in "startdate", :with => "10/23/2015"
-    fill_in "enddate", :with => "10/23/2015"
-    click_button "Submit"
-    expect(page).to have_text("Attractions around San Francisco")
+      visit "/"
+      fill_in "destination", :with => "San Francisco"
+      fill_in "startdate", :with => "10/23/2015"
+      fill_in "enddate", :with => "10/23/2015"
+      click_button "Submit"
+      expect(page).to have_text("Attractions around San Francisco")
 
-    choose "1 Louise M. Davies Symphony Hall"
-    click_button "Let's go!", :match => :first
+      choose "1 Louise M. Davies Symphony Hall"
+      click_button "Let's go!", :match => :first
 
-    expect(page).to have_text("You are going to: San Francisco")
-    expect(page).to have_text("Attractions you've upvoted for this trip:")
-    expect(page).to have_text("Louise M. Davies Symphony Hall")
+      expect(page).to have_text("You are going to: San Francisco")
+      expect(page).to have_text("Attractions you've upvoted for this trip:")
+      expect(page).to have_text("Louise M. Davies Symphony Hall")
 
-    click_button "Generate Itinerary"
-    expect(page).to have_text("Your Itinerary for San Francisco")
-    expect(page).to have_text("Louise M. Davies Symphony Hall")
+      click_button "Generate Itinerary"
+      expect(page).to have_text("Your Itinerary for San Francisco")
+      expect(page).to have_text("Louise M. Davies Symphony Hall")
+    # end
   end
 
   scenario "User upvotes no attractions" do
-    visit "/users/sign_in"
-    fill_in "Email", :with => "test@email.com"
-    fill_in "Password", :with => "12345678"
-    click_button "Log in"
-    expect(page).to have_text("Signed in successfully.")
+    # skip "passes locally" do
+      visit "/users/sign_in"
+      fill_in "Email", :with => "test@email.com"
+      fill_in "Password", :with => "12345678"
+      click_button "Log in"
+      expect(page).to have_text("Signed in successfully.")
 
-    visit "/"
-    fill_in "destination", :with => "New York"
-    fill_in "startdate", :with => "10/23/2015"
-    fill_in "enddate", :with => "10/23/2015"
-    click_button "Submit"
-    expect(page).to have_text("Attractions around New York")
+      visit "/"
+      fill_in "destination", :with => "New York"
+      fill_in "startdate", :with => "10/23/2015"
+      fill_in "enddate", :with => "10/23/2015"
+      click_button "Submit"
+      expect(page).to have_text("Attractions around New York")
 
-    click_button "Let's go!", :match => :first
+      click_button "Let's go!", :match => :first
 
-    expect(page).to have_text("You are going to: New York")
-    expect(page).to have_text("You haven't upvoted any attractions for this trip.")
+      expect(page).to have_text("You are going to: New York")
+      expect(page).to have_text("You haven't upvoted any attractions for this trip.")
 
-    click_button "Generate Itinerary"
-    expect(page).to have_text("Your Itinerary for New York")
-
+      click_button "Generate Itinerary"
+      expect(page).to have_text("Your Itinerary for New York")
+    # end
   end
 
   scenario "Anonymous user upvotes attractions and generates itinerary" do
-    visit "/"
-    fill_in "destination", :with => "San Francisco"
-    fill_in "startdate", :with => "10/23/2015"
-    fill_in "enddate", :with => "10/23/2015"
-    click_button "Submit"
-    expect(page).to have_text("Attractions around San Francisco")
+    # skip "anonymous user generates voted itinerary redirects back to root" do
+      visit "/"
+      fill_in "destination", :with => "San Francisco"
+      fill_in "startdate", :with => "10/23/2015"
+      fill_in "enddate", :with => "10/23/2015"
+      click_button "Submit"
+      expect(page).to have_text("Attractions around San Francisco")
 
-    choose "1 Louise M. Davies Symphony Hall"
-    click_button "Let's go!", :match => :first
+      choose "1 Louise M. Davies Symphony Hall"
+      click_button "Let's go!", :match => :first
 
-    expect(page).to have_text("You are going to: San Francisco")
-    expect(page).to have_text("Attractions you've upvoted for this trip:")
-    expect(page).to have_text("Louise M. Davies Symphony Hall")
+      expect(page).to have_text("You are going to: San Francisco")
+      expect(page).to have_text("Attractions you've upvoted for this trip:")
+      expect(page).to have_text("Louise M. Davies Symphony Hall")
 
-    click_button "Generate Itinerary"
-    expect(page).to have_text("Your Itinerary for San Francisco")
-    expect(page).to have_text("Louise M. Davies Symphony Hall")
+      click_button "Generate Itinerary"
+      expect(page).to have_text("Your Itinerary for San Francisco")
+      expect(page).to have_text("Louise M. Davies Symphony Hall")
+    # end
   end
 
   scenario "Anonymous user upvotes zero attractions and generates itinerary" do
-    visit "/"
-    fill_in "destination", :with => "San Francisco"
-    fill_in "startdate", :with => "10/23/2015"
-    fill_in "enddate", :with => "10/23/2015"
-    click_button "Submit"
-    expect(page).to have_text("Attractions around San Francisco")
+    # skip "passes locally" do
+      visit "/"
+      fill_in "destination", :with => "San Francisco"
+      fill_in "startdate", :with => "10/23/2015"
+      fill_in "enddate", :with => "10/23/2015"
+      click_button "Submit"
+      expect(page).to have_text("Attractions around San Francisco")
 
-    click_button "Let's go!", :match => :first
+      click_button "Let's go!", :match => :first
 
-    expect(page).to have_text("You are going to: San Francisco")
-    expect(page).to have_text("You haven't upvoted any attractions for this trip.")
+      expect(page).to have_text("You are going to: San Francisco")
+      expect(page).to have_text("You haven't upvoted any attractions for this trip.")
 
-    click_button "Generate Itinerary"
-    expect(page).to have_text("Your Itinerary for San Francisco")
+      click_button "Generate Itinerary"
+      expect(page).to have_text("Your Itinerary for San Francisco")
+    # end
   end
 end
