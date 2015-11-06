@@ -21,7 +21,7 @@ RSpec.feature "Add Trip to User", :type => :feature do
     expect(page).to have_text("Signed in successfully.")
   end
 
-  scenario "User upvotes attraction and generates itinerary" do
+  scenario "User upvotes no attractions" do
     visit "/"
     fill_in "destination", :with => "San Francisco"
     fill_in "startdate", :with => "10/23/2015"
@@ -29,17 +29,11 @@ RSpec.feature "Add Trip to User", :type => :feature do
     click_button "Submit"
     expect(page).to have_text("Attractions around San Francisco")
 
-    choose "1 1" #Louise M. Davies Symphony Hall
-    #choose "1 2" #Asian Art Museum
     click_button "Let's go!", :match => :first
 
     expect(page).to have_text("You are going to: San Francisco")
-    expect(page).to have_text("Attractions you've upvoted for this trip:")
-    expect(page).to have_text("Louise M. Davies Symphony Hall")
-    #expect(page).to have_text("Asian Art Museum")
+    expect(page).to have_text("You haven't upvoted any attractions for this trip.")
 
-    click_button "Generate Itinerary"
-    expect(page).to have_text("Your Itinerary for San Francisco")
   end
 
     
