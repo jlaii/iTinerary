@@ -20,6 +20,20 @@
 
 <script type="text/javascript">
   $(document).ready(function () {
+      var $_GET = {};
+      if(document.location.toString().indexOf('?') !== -1) {
+          var query = document.location
+                         .toString()
+                         // get the query string
+                         .replace(/^.*?\?/, '')
+                         // and remove any existing hash string (thanks, @vrijdenker)
+                         .replace(/#.*$/, '')
+                         .split('&');
+          for(var i=0, l=query.length; i<l; i++) {
+             var aux = decodeURIComponent(query[i]).split('=');
+             $_GET[aux[0]] = aux[1];
+          }
+      }
       $("#startdate").wijinputdate(
               {
                   showTrigger: true
@@ -28,6 +42,16 @@
               {
                   showTrigger: true
               });
+      var start = $_GET['startdate'].split("-")
+      var end = $_GET['enddate'].split("-")
+      startday = start[2].split("T")
+      endday = end[2].split("T")
+      startmonth = (parseInt(start[1])-1).toString()
+      endmonth = (parseInt(end[1])-1).toString()
+      var startjs = new Date(start[0], startmonth, startday[0]);
+      var endjs = new Date(end[0], endmonth, endday[0]);
+      $("#startdate").wijinputdate("option", "date", startjs.toString());
+      $("#enddate").wijinputdate("option", "date", endjs.toString());
   });
 </script>
 </head>
@@ -58,34 +82,39 @@
         <label for="enddate">Departure Date</label>
         <input name="enddate" class ="form-control" type="text" id="enddate" />
 
-        <input class ="btn btn-default" type="submit" value="Submit"/>
+      <input class ="btn btn-default" type="submit" value="Submit"/>
       </form>
 </div>
-    <div class = "container-fluid">
-      <div class = "row">
-      <% if @show_attractions %>
-          <h1>Attractions around <%= params[:destination] %></h1>
 
-      </div>
+    <div class = "row">
+        <% if @show_attractions %>
+            <h1>Attractions around <%= params[:destination] %></h1>
+        <% end %>
 
-    <div class="row">  
+    </div>
     <div class="col-md-1"></div>
     <div class="col-md-10">
       <div id = "attraction-group" class = "list-group">
-        
-        <% Attraction.where('city = ?', params[:destination]).find_each  do |attraction| %>
-
-          <div class="list-group">
-            <li class="list-group-item">
-            <h4 class="list-group-item-heading"> <%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %> </h4>
-              <p class="list-group-item-text">
-              (Foursquare Rating: <%= attraction.rating %>/10)</b>
-              <br> <%= attraction.description %>
-            </p>
-          </li>
-          </div>
-        <% end %>
-      <% end %>
+        <form class="form-inline" method='post' action='attractions/'>
+        <input class ="btn btn-default" type="submit" value="Let's go!"/>
+          <input type="hidden" name="destination" value="<%= params[:destination] %>" />
+          <input type="hidden" name="startdate" value="<%= params[:startdate] %>" />
+          <input type="hidden" name="enddate" value="<%= params[:enddate] %>" />
+          <% Attraction.where('city = ?', params[:destination]).find_each  do |attraction| %>
+            <div class="list-group">
+              <li class="list-group-item">
+                  <label for="destination"><h4 class="list-group-item-heading"> <%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %> </h4></label>
+                  <p class="list-group-item-text">
+                  (Foursquare Rating: <%= attraction.rating %>/10)</b>
+                  <br> <%= attraction.description %> <br>
+                  <br> <b>Do you want to go here?</b> <br><input type="radio" name=<%= attraction.id %> value="-1"> Nah.
+                    <input type="radio" name=<%= attraction.id %> value="0" checked="checked"> Maybe.
+                    <input type="radio" name=<%= attraction.id %> value="1"> YAAAS~!
+                </p>
+              </li>
+            </div>
+          <% end %>
+          <input class ="btn btn-default" type="submit" value="Let's go!"/>
       </div>
     </div>
     <div class="col-md-1"></div>
