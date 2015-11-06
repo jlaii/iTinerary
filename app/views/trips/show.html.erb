@@ -4,6 +4,11 @@ Your trip starts: <%= @trip.start_time %><br>
 Your trip ends: <%= @trip.end_time %>
 <br><br>
 
+<div class = "container-fluid">
+  <div class = "row">
+    <%= button_to "Generate Itinerary", generate_itinerary_path(params[:id]), method: :post %>
+  </div>
+
 Attractions you've chosen for this trip:
 <ul>
   <% if @trip.trip_attractions.empty? %>
@@ -11,7 +16,8 @@ Attractions you've chosen for this trip:
   <% else %>
       <ul>
         <% @trip.trip_attractions.each do |attraction| %>
-            <li><h3><%= link_to Attraction.find(attraction.attraction_id).name, attraction_show_by_id_path(attraction.attraction_id) %></h3>
+            <li><h3></h3>
+
             </li>
             <br><br>
         <% end %>
