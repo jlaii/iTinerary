@@ -12,7 +12,7 @@ class TripsController < ApplicationController
   end
 
   def show_itinerary
-
+    render "show_itinerary"
   end
 
   def new
