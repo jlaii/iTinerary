@@ -14,7 +14,7 @@ RSpec.feature "Add Trip to User", :type => :feature do
     fill_in "enddate", :with => "10/23/2015"
     click_button "Submit"
     expect(page).to have_text("Attractions around San Francisco")
-    click_link "Go to your dashboard"
+    click_link "My Dashboard"
 
     user = User.find_by_email("test@email.com")
     for trip in user.trips
