@@ -20,8 +20,8 @@ class TripsController < ApplicationController
     city = params[:destination]
     start_lst = params[:startdate].split("/")
     end_lst = params[:enddate].split("/")
-    start_time = DateTime.iso8601(params[:startdate])
-    end_time = DateTime.iso8601(params[:enddate])
+    start_time = DateTime.new(start_lst[2].to_i, start_lst[1].to_i, start_lst[0].to_i, 0, 0, 0)
+    end_time = DateTime.new(end_lst[2].to_i, end_lst[1].to_i, end_lst[0].to_i, 0, 0, 0)
 
     newTrip = Trip.new(city: city, start_time: start_time, end_time: end_time)
     if current_user
