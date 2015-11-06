@@ -1,4 +1,4 @@
-<h3>This is your trip title: <%= @trip.name %></h3><br>
+<%= render 'layouts/navigation' %>
 You are going to: <%= @trip.city %><br>
 Your trip starts: <%= @trip.start_time %><br>
 Your trip ends: <%= @trip.end_time %>
@@ -9,18 +9,26 @@ Your trip ends: <%= @trip.end_time %>
     <%= button_to "Generate Itinerary", generate_itinerary_path(params[:id]), method: :post %>
   </div>
 
-Attractions you've chosen for this trip:
-<ul>
-  <% if @trip.trip_attractions.empty? %>
-      You haven't chosen any attractions for this trip, hurry go add some :D
-  <% else %>
-      <ul>
-        <% @trip.trip_attractions.each do |attraction| %>
-            <li><h3></h3>
-
-            </li>
-            <br><br>
-        <% end %>
-      </ul>
+  <% has_votes = false %>
+  <% @trip.trip_attractions.each do |attraction| %>
+      <% if attraction.vote_count > 0 %>
+          <% has_votes = true %>
+          <% break %>
+      <% end %>
   <% end %>
-</ul>
+  <% if has_votes %>
+      Attractions you've upvoted for this trip:
+
+        <% @trip.trip_attractions.each do |trip_attraction| %>
+            <% if trip_attraction.vote_count > 0 %>
+              <% attraction = Attraction.find(trip_attraction.attraction_id) %>
+              <li>
+                <label for="destination"><h4 class="list-group-item-heading">
+                  <%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %> </h4></label>
+              </li>
+            <% end %>
+        <% end %>
+  <% else %>
+      You haven't upvoted any attractions for this trip. Hurry, go vote! :D
+  <% end %>
+<%= render 'layouts/footer' %>

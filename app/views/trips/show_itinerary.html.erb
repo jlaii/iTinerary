@@ -1,0 +1,18 @@
+<%= render 'layouts/navigation' %>
+<h1> Your Itinerary for <%= @trip.city %> </h1>
+
+<% for trip_attraction in @itinerary %>
+    <% attraction = Attraction.find(trip_attraction.attraction_id) %>
+    <h3><%= attraction.name %></h3><br>
+    <b>Start time: <%= trip_attraction.start_time %></b><br>
+    <b>End time: <%= trip_attraction.end_time %></b><br>
+    <img src=<%= Picture.find(attraction.picture_id).path %>><br>
+    <b>City: </b> <%= attraction.city %><br>
+    <b>Category: </b> <%= attraction.category %><br>
+    <b>Tip from FourSquare: </b><%= attraction.description %><br>
+    <b>Address: </b><%= attraction.address%><br>
+    <b>FourSquare Rating: </b><%= attraction.rating %>/10<br>
+    <%= link_to attraction.url , attraction.url %>
+
+<% end %>
+<%= render 'layouts/footer' %>
