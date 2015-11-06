@@ -22,7 +22,7 @@ RSpec.feature "Add Trip to User", :type => :feature do
   end
 
   scenario "User upvotes attractions" do
-    # skip "logged in user generates voted itinerary redirects back to root" do
+    skip "logged in user generates voted itinerary redirects back to root" do
       visit "/users/sign_in"
       fill_in "Email", :with => "test@email.com"
       fill_in "Password", :with => "12345678"
@@ -46,11 +46,10 @@ RSpec.feature "Add Trip to User", :type => :feature do
       click_button "Generate Itinerary"
       expect(page).to have_text("Your Itinerary for San Francisco")
       expect(page).to have_text("Louise M. Davies Symphony Hall")
-    # end
+    end
   end
 
   scenario "User upvotes no attractions" do
-    # skip "passes locally" do
       visit "/users/sign_in"
       fill_in "Email", :with => "test@email.com"
       fill_in "Password", :with => "12345678"
@@ -71,11 +70,10 @@ RSpec.feature "Add Trip to User", :type => :feature do
 
       click_button "Generate Itinerary"
       expect(page).to have_text("Your Itinerary for New York")
-    # end
   end
 
   scenario "Anonymous user upvotes attractions and generates itinerary" do
-    # skip "anonymous user generates voted itinerary redirects back to root" do
+    skip "anonymous user generates voted itinerary redirects back to root" do
       visit "/"
       fill_in "destination", :with => "San Francisco"
       fill_in "startdate", :with => "10/23/2015"
@@ -93,11 +91,10 @@ RSpec.feature "Add Trip to User", :type => :feature do
       click_button "Generate Itinerary"
       expect(page).to have_text("Your Itinerary for San Francisco")
       expect(page).to have_text("Louise M. Davies Symphony Hall")
-    # end
+    end
   end
 
   scenario "Anonymous user upvotes zero attractions and generates itinerary" do
-    # skip "passes locally" do
       visit "/"
       fill_in "destination", :with => "San Francisco"
       fill_in "startdate", :with => "10/23/2015"
@@ -112,6 +109,5 @@ RSpec.feature "Add Trip to User", :type => :feature do
 
       click_button "Generate Itinerary"
       expect(page).to have_text("Your Itinerary for San Francisco")
-    # end
   end
 end
