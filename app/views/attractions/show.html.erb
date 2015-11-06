@@ -33,19 +33,13 @@
 </head>
 
 <body id="attractions-show-body">
+
+
+
 <% if flash[:error] %>
     <div class="notice"><b><%= flash[:error] %></b></div>
 <% end %>
-<% if user_signed_in? %>
-    logged in as <%= current_user.email %>
-    <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-    <br>
-    <%= link_to 'Go to your dashboard', user_show_path %>
-<% else %>
-    <%= link_to "Sign up", new_user_registration_path %> |
-    <%= link_to "Login", new_user_session_path %> |
-    <%= link_to "Login with Facebook", user_omniauth_authorize_path(:facebook) %>
-<% end %>
+<%= render 'layouts/navigation' %>
 
 
 <div class="row">
@@ -93,13 +87,12 @@
         <% end %>
       <% end %>
       </div>
-
-
-    Attraction data gathered using Foursquare API.
     </div>
     <div class="col-md-1"></div>
     </div>
   </div>
+
+  <%= render 'layouts/footer' %>
 
 </body>
 

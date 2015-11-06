@@ -1,6 +1,6 @@
-User's dash board!
-
+<html>
 <body>
+  <%= render 'layouts/navigation' %>
     <div id = "user_info">
       <h3>Hi there, <b><%= @user.first_name if @user.first_name %> <%= @user.last_name if @user.last_name %></h3></b>
 
@@ -26,3 +26,4 @@ User's dash board!
         <br><br><br>
     </div>
 </body>
+</html>
