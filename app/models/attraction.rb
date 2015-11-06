@@ -47,7 +47,10 @@ class Attraction < ActiveRecord::Base
   #end_time: int, e.g. 1600
   def is_open?(day, start_time, end_time)
     #hours_json format: https://developer.foursquare.com/docs/explore#req=venues/40a55d80f964a52020f31ee3/hours
-    import_hours_json if self.hours_json.nil?
+    if self.hours_json.nil?
+      self.import_hours_json
+    end
+    return true if self.hours_json["hours"].nil?
     timeframes = self.hours_json["hours"]["timeframes"]
     return true if timeframes.nil?
 
@@ -73,7 +76,8 @@ class Attraction < ActiveRecord::Base
   def import_hours_json
     attraction_hours_url = "https://api.foursquare.com/v2/venues/#{self.id}/hours?#{AUTH_STRING}"
     attraction_hours_response = JSON.parse(HTTParty.get(attraction_hours_url).body)["response"]
-    self.update_attributes(:hours_json, attraction_hours_response)
+    self.update_attributes(:hours_json => attraction_hours_response)
+    self.save
   end
 
 end

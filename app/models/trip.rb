@@ -20,25 +20,30 @@ class Trip < ActiveRecord::Base
     num_days = 0
     start_time = 800
     trip_attractions = TripAttraction.where(:trip_id => self.id).to_a
+    # 1/0
     city = City.find_by_name(city_name)
     curr_attraction = Attraction.new(:latitude => city.lat, :longitude => city.lng)
     for i in 0...NUM_ATTRACTIONS * (self.end_time - self.start_time).to_i
       trip_attraction_hash = self.get_next_trip_attraction(curr_attraction, trip_attractions, start_time, num_days)
-      trip_attractions.delete(trip_attraction_hash[:trip_attraction])
-      curr_attraction = next_attraction
+      break if trip_attraction_hash == false
+      next_attraction = trip_attraction_hash[:trip_attraction]
+      trip_attractions.delete(next_attraction)
+      curr_attraction = Attraction.find(next_attraction.attraction_id)
       start_time += 200 + trip_attraction_hash[:travel_time]
       if i % NUM_ATTRACTIONS == 0
         num_days += 1
         start_time = 800
       end
     end
+    byebug
   end
 
   def get_next_trip_attraction(prev_attraction, trip_attractions, start_time, num_days)
-    best_score = -1
+    best_score = -100000000
     best_attraction = nil
+    best_travel_time = 0
     date_time = self.start_time + num_days
-    day_of_week = date_time.cwday
+    day_of_week = date_time.wday
     for trip_attraction in trip_attractions
       attraction = Attraction.find(trip_attraction.attraction_id)
       travel_time = Trip.calculate_travel_time_manhattan(prev_attraction, attraction, DRIVING_SPEED)
@@ -46,15 +51,16 @@ class Trip < ActiveRecord::Base
       if score > best_score and attraction.is_open?(day_of_week, start_time, start_time + 200)
         best_score = score
         best_attraction = trip_attraction
+        best_travel_time = travel_time
       end
     end
+    return false if best_attraction.nil?
     best_attraction.update_attributes(:start_time => DateTime.new(date_time.year, date_time.month,
                                                                   date_time.day, start_time / 100),
                                       :end_time => DateTime.new(date_time.year, date_time.month,
                                                                 date_time.day, (start_time + 200) / 100))
     best_attraction.save
-    {:trip_attraction => best_attraction, :travel_time => travel_time}
-
+    return {:trip_attraction => best_attraction, :travel_time => best_travel_time}
 
 
 

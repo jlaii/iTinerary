@@ -30,9 +30,11 @@ class TripsController < ApplicationController
     saved = newTrip.save
     if saved
       #add in all the trip_attractions to this trip
-      params.each do |attraction_id, vote|
-        if (attraction_id != "destination" && attraction_id != "startdate" && attraction_id != "enddate")
-          newTripAttraction = TripAttraction.new(attraction_id:attraction_id, trip_id:newTrip.id, vote_count:vote)
+      # byebug
+      params.each do |key, value|
+        # if (attraction_id != "destination" && attraction_id != "startdate" && attraction_id != "enddate")
+        if key.to_i.to_s == key
+          newTripAttraction = TripAttraction.new(attraction_id:key, trip_id:newTrip.id, vote_count:value)
           newTripAttraction.save
         end
       end
