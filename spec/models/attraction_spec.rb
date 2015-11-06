@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'HTTParty'
 
 RSpec.describe Attraction, type: :model do
   def fake_api_call
