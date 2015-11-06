@@ -64,20 +64,15 @@ class Trip < ActiveRecord::Base
         best_score = score
         best_attraction = trip_attraction
         best_travel_time = travel_time
-        puts "BETTER SCORE FOUND: " + best_attraction.to_s
       end
     end
     return false if best_attraction.nil?
-    puts best_attraction
     best_attraction.update_attributes(:start_time => DateTime.new(start_time.year, start_time.month,
                                                                   start_time.day, start_time.hour, start_time.minute),
                                       :end_time => DateTime.new(start_time.year, start_time.month,
                                                                 start_time.day, start_time.hour + 2, start_time.minute))
     best_attraction.save
     return {:trip_attraction => best_attraction, :travel_time => best_travel_time}
-
-
-
   end
 
   # Returns the euclidean distance in Km between the two attractions by their coordinates
