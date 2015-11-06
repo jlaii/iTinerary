@@ -1,6 +1,7 @@
 <%= render 'layouts/navigation' %>
 <h1> Your Itinerary for <%= @trip.city %> </h1>
 
+<% attraction_count = 0 %>
 <% for trip_attraction in @itinerary %>
     <% if trip_attraction.lunch %>
         <h3> Enjoy Lunch in the Area :) </h3>
@@ -9,6 +10,9 @@
         <img src="http://cdn.sheknows.com/articles/2012/05/grab_your_fork.jpg">
 
     <% else %>
+        <% if attraction_count % Trip::NUM_ATTRACTIONS == 0%>
+            <h1>DAY <%= attraction_count / Trip::NUM_ATTRACTIONS + 1%></h1>
+        <% end %>
         <% attraction = Attraction.find(trip_attraction.attraction_id) %>
         <h3><%= attraction.name %></h3><br>
         <b>Start time: <%= trip_attraction.start_time %></b><br>
@@ -20,6 +24,7 @@
         <b>Address: </b><%= attraction.address%><br>
         <b>FourSquare Rating: </b><%= attraction.rating %>/10<br>
         <%= link_to attraction.url , attraction.url %>
+        <% attraction_count += 1 %>
     <% end %>
 
 <% end %>
