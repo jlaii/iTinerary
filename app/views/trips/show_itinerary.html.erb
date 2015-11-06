@@ -1,3 +1,4 @@
+<%= render 'layouts/navigation' %>
 <h1> Your Itinerary for <%= @trip.city %> </h1>
 
 <% for trip_attraction in @itinerary %>
@@ -14,3 +15,4 @@
     <%= link_to attraction.url , attraction.url %>
 
 <% end %>
+<%= render 'layouts/footer' %>

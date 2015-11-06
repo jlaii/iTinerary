@@ -72,7 +72,7 @@
     <div class="col-md-10">
       <div id = "attraction-group" class = "list-group">
         <form class="form-inline" method='post' action='attractions/'>
-        <input class ="btn btn-default" type="submit" value="Submit"/>
+        <input class ="btn btn-default" type="submit" value="Let's go!"/>
           <input type="hidden" name="destination" value="<%= params[:destination] %>" />
           <input type="hidden" name="startdate" value="<%= params[:startdate] %>" />
           <input type="hidden" name="enddate" value="<%= params[:enddate] %>" />
@@ -82,15 +82,15 @@
                   <label for="destination"><h4 class="list-group-item-heading"> <%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %> </h4></label>
                   <p class="list-group-item-text">
                   (Foursquare Rating: <%= attraction.rating %>/10)</b>
-                  <br> <%= attraction.description %>
-                  <br> Current Voted Rating: <br>
-                  <br> Your Vote: <input type="radio" name=<%= attraction.id %> value="1"> 1
-                    <input type="radio" name=<%= attraction.id %> value="0" checked="checked"> 0
-                    <input type="radio" name=<%= attraction.id %> value="-1"> -1
+                  <br> <%= attraction.description %> <br>
+                  <br> <b>Do you want to go here?</b> <br><input type="radio" name=<%= attraction.id %> value="-1"> Nah.
+                    <input type="radio" name=<%= attraction.id %> value="0" checked="checked"> Maybe.
+                    <input type="radio" name=<%= attraction.id %> value="1"> YAAAS~!
                 </p>
               </li>
             </div>
           <% end %>
+          <input class ="btn btn-default" type="submit" value="Let's go!"/>
       </div>
     </div>
     <div class="col-md-1"></div>
