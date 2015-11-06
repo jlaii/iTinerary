@@ -22,7 +22,9 @@ RSpec.feature "Add Trip to User", :type => :feature do
     click_button "Log in"
     expect(page).to have_text("Signed in successfully.")
   end
-
+  before do
+    Attraction.delete_all
+  end
   scenario "User upvotes attractions" do
     visit "/users/sign_in"
     fill_in "Email", :with => "test@email.com"
@@ -37,7 +39,7 @@ RSpec.feature "Add Trip to User", :type => :feature do
     click_button "Submit"
     expect(page).to have_text("Attractions around San Francisco")
 
-    choose "1 1"
+    choose "1 Louise M. Davies Symphony Hall"
     click_button "Let's go!", :match => :first
 
     expect(page).to have_text("You are going to: San Francisco")
@@ -109,7 +111,7 @@ RSpec.feature "Add Trip to User", :type => :feature do
     click_button "Submit"
     expect(page).to have_text("Attractions around San Francisco")
 
-    choose "1 1"
+    choose "1 Louise M. Davies Symphony Hall"
     click_button "Let's go!", :match => :first
 
     expect(page).to have_text("You are going to: San Francisco")
