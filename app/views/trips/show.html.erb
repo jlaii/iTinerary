@@ -5,9 +5,6 @@ Your trip ends: <%= @trip.end_time %>
 <br><br>
 
 <div class = "container-fluid">
-  <div class = "row">
-    <%= button_to "Generate Itinerary", generate_itinerary_path(params[:id]), method: :post %>
-  </div>
 
   <% has_votes = false %>
   <% @trip.trip_attractions.each do |attraction| %>
@@ -16,19 +13,23 @@ Your trip ends: <%= @trip.end_time %>
           <% break %>
       <% end %>
   <% end %>
-  <% if has_votes %>
-      Attractions you've upvoted for this trip:
 
-        <% @trip.trip_attractions.each do |trip_attraction| %>
-            <% if trip_attraction.vote_count > 0 %>
-              <% attraction = Attraction.find(trip_attraction.attraction_id) %>
-              <li>
-                <label for="destination"><h4 class="list-group-item-heading">
-                  <%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %> </h4></label>
-              </li>
+      <div class = "row">
+        <%= button_to "Generate Itinerary", generate_itinerary_path(params[:id]), method: :post %>
+      </div>
+      <% if has_votes %>
+          Attractions you've upvoted for this trip:
+
+            <% @trip.trip_attractions.each do |trip_attraction| %>
+                <% if trip_attraction.vote_count > 0 %>
+                  <% attraction = Attraction.find(trip_attraction.attraction_id) %>
+                  <li>
+                    <label for="destination"><h4 class="list-group-item-heading">
+                      <%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %> </h4></label>
+                  </li>
+                <% end %>
             <% end %>
+      <% else %>
+          You haven't upvoted any attractions for this trip. Hurry, go vote! :D
         <% end %>
-  <% else %>
-      You haven't upvoted any attractions for this trip. Hurry, go vote! :D
-  <% end %>
 <%= render 'layouts/footer' %>

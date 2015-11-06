@@ -16,10 +16,23 @@
         <% else %>
             <ul>
               <% @user.trips.each do |trip| %>
-                  <li><h3><%= link_to trip.name, trip_show_path(trip.id) %></h3>
-                    <%= trip.start_time %></li> to <%= trip.end_time %><br><%= trip.note %>
-                  </li>
-                  <br><br>
+                  <% has_itinerary = false %>
+                  <% trip.trip_attractions.each do |attraction| %>
+                      <% if attraction.start_time != nil %>
+                          <% has_itinerary = true %>
+                          <% break %>
+                      <% end %>
+                  <% end %>
+                  <% if has_itinerary %>
+                      <li><h3><%= link_to trip.city, generate_itinerary_path(trip.id) %></h3>
+                      <%= trip.start_time %></li> to <%= trip.end_time %><br><%= trip.note %>
+                      </li>
+                  <% else %>
+                      <li><h3><%= link_to trip.city, trip_show_path(trip.id) %></h3>
+                        <%= trip.start_time %></li> to <%= trip.end_time %><br><%= trip.note %>
+                      </li>
+                      <br><br>
+                  <% end %>
               <% end %>
             </ul>
         <% end %>

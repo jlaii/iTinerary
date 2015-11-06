@@ -52,7 +52,7 @@ RSpec.describe TripsController, type: :controller do
       attraction3.save
       expect(Trip.count).to eq 0
       expect(TripAttraction.count).to eq 0
-      post :new, :destination => "San Francisco", :startdate => "2015-11-06T00:00:00+00:00", :enddate => "2015-11-10T00:00:00+00:00", 
+      post :new, :destination => "San Francisco", :startdate => "11/16/2015", :enddate => "11/18/2015",
       "1"=>"0", "2"=>"0", "3"=>"0"
       #, "4"=>"0", "5"=>"0", "6"=>"0", "7"=>"0", "8"=>"0", "9"=>"0", "10"=>"0",
       # "11"=>"0", "12"=>"0", "13"=>"0", "14"=>"0", "15"=>"0", "16"=>"0", "17"=>"0", "18"=>"0", "19"=>"0", "20"=>"0",
@@ -106,7 +106,7 @@ RSpec.describe TripsController, type: :controller do
       start_id = Attraction.first.id
       fake_hours_api_call
       HTTParty.should_receive(:get).at_most(20).times.and_return(@fake_response)
-      post :new, :destination => "Taipei", :startdate => "2015-11-02T00:00:00+00:00", :enddate => "2015-11-03T00:00:00+00:00",
+      post :new, :destination => "Taipei", :startdate => "11/02/2015", :enddate => "11/03/2015",
            start_id.to_s =>"0", (start_id+1).to_s=>"0", (start_id+2).to_s=>"0", (start_id+3).to_s=>"0", (start_id+4).to_s=>"0", (start_id+5).to_s=>"0", (start_id+6).to_s=>"0", (start_id+7).to_s=>"0", (start_id+8).to_s=>"0"
       trip = Trip.find_by_city("Taipei")
       post :generate_itinerary, :id => trip.id

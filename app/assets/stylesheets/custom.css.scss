@@ -9,8 +9,14 @@ $gray-medium-light: #eaeaea;
 
 /* universal */
 
+html{
+  position:relative;
+  min-height: 100%;
+}
+
 body {
   padding-top: 60px;
+  margin-bottom: 60px;
 }
 
 section {
@@ -82,6 +88,10 @@ p {
 /* footer */
 
 footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
   margin-top: 45px;
   padding-top: 5px;
   border-top: 1px solid $gray-medium-light;
