@@ -1,5 +1,8 @@
 require "rails_helper"
 RSpec.feature "Add Trip to User", :type => :feature do
+  before do
+
+  end
   scenario "User logs in and creates a trip" do
     visit "/users/sign_up"
 
