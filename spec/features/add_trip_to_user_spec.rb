@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.feature "Add Trip to User", :type => :feature do
   before do
-    Attraction.clear_all
+    Attraction.delete_all
   end
   scenario "User signs up" do
     visit "/users/sign_up"
