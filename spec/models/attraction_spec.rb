@@ -10,7 +10,7 @@ RSpec.describe Attraction, type: :model do
     @response_object['last-modified'] = @last_modified
     @response_object['content-length'] = @content_length
     @parsed_response = lambda { {"foo" => "bar"} }
-    @response = HTTParty::Response.new(@request_object, @response_object, @parsed_response)
+    @fake_response = HTTParty::Response.new(@request_object, @response_object, @parsed_response)
   end
 
   context "importing attractions using FourSquare" do
@@ -31,14 +31,14 @@ RSpec.describe Attraction, type: :model do
     it "imports attractions for a city" do
       expect(Attraction.count).to eq 0
       expect(City.count).to eq 0
-      HTTParty.should_receive(:get).and_return(@response)
+      HTTParty.should_receive(:get).and_return(@fake_response)
       Attraction.import_foursquare_attractions("San Francisco", num_attractions = 1)
       expect(City.count).to eq 1
       expect(Attraction.count).to eq 1
     end
 
     it "returns true if city exists" do
-      HTTParty.should_receive(:get).and_return(@response)
+      HTTParty.should_receive(:get).and_return(@fake_response)
       expect(Attraction.import_foursquare_attractions("San Francisco", 1)).to eq true
     end
 
@@ -60,7 +60,7 @@ RSpec.describe Attraction, type: :model do
       fake_api_call
     end
     it "an attraction and city contains all necessary relevant info" do
-      HTTParty.should_receive(:get).and_return(@response)
+      HTTParty.should_receive(:get).and_return(@fake_response)
       Attraction.import_foursquare_attractions("San Francisco", 1)
       attraction = Attraction.first
       expect(attraction.city).to_not eq nil
