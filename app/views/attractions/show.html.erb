@@ -74,7 +74,7 @@
     <form class="form-inline" method='post' action='welcome/save'>
 
         <label for="destination">Destination</label>
-        <input name="destination" class ="form-control" type="text"value="<%= params[:destination] %>" required>
+        <input name="destination" class ="form-control" type="text"value="<%= params[:destination].titleize %>" required>
 
         <label for="startdate">Arrival Date</label>
         <input name="startdate" class ="form-control" type="text" id="startdate" />
@@ -87,7 +87,7 @@
 
 <div class = "row">
   <% if @show_attractions %>
-      <h1>Attractions around <%= params[:destination] %></h1>
+      <h1>Attractions around <%= params[:destination].titleize %></h1>
   <% end %>
 
 </div>
@@ -101,7 +101,7 @@
         <input type="hidden" name="destination" value="<%= params[:destination] %>" />
         <input type="hidden" name="startdate" value="<%= params[:startdate] %>" />
         <input type="hidden" name="enddate" value="<%= params[:enddate] %>" />
-        <% Attraction.where('city = ?', params[:destination]).find_each  do |attraction| %>
+        <% Attraction.where('city = ?', params[:destination].titleize).find_each  do |attraction| %>
           <div class="list-group">
             <li class="list-group-item">
                 <label for="destination"><h4 class="list-group-item-heading"> <%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %> </h4></label>
