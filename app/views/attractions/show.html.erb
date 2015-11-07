@@ -42,14 +42,12 @@
               {
                   showTrigger: true
               });
-      var start = $_GET['startdate'].split("-")
-      var end = $_GET['enddate'].split("-")
-      startday = start[2].split("T")
-      endday = end[2].split("T")
-      startmonth = (parseInt(start[1])-1).toString()
-      endmonth = (parseInt(end[1])-1).toString()
-      var startjs = new Date(start[0], startmonth, startday[0]);
-      var endjs = new Date(end[0], endmonth, endday[0]);
+      var start = $_GET['startdate'].split("/")
+      var end = $_GET['enddate'].split("/")
+      startmonth = (parseInt(start[0])-1).toString()
+      endmonth = (parseInt(end[0])-1).toString()
+      var startjs = new Date(start[2], startmonth, start[1]);
+      var endjs = new Date(end[2], endmonth, end[1]);
       $("#startdate").wijinputdate("option", "date", startjs.toString());
       $("#enddate").wijinputdate("option", "date", endjs.toString());
   });
