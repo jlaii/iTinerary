@@ -60,7 +60,7 @@ class Attraction < ActiveRecord::Base
     end
   end
 
-  def popularity_in_timeframe(start_time)
+  def num_hours_popular(start_time)
     count = 0
     hour_minutes = start_time.hour * 100 + start_time.minute
     if in_timeframe? start_time.wday, hour_minutes, hour_minutes + 100, "popular"
@@ -71,6 +71,7 @@ class Attraction < ActiveRecord::Base
     end
     return count
   end
+
   def in_timeframe?(day, start_time, end_time, hours_type)
     #hours_json format: https://developer.foursquare.com/docs/explore#req=venues/40a55d80f964a52020f31ee3/hours
     if self.hours_json.nil?

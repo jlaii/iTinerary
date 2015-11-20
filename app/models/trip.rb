@@ -28,7 +28,6 @@ class Trip < ActiveRecord::Base
     itinerary = []
     for i in 1..NUM_ATTRACTIONS * ((self.end_time - self.start_time).to_i/SEC_PER_DAY + 1)
       trip_attraction_hash = self.get_next_trip_attraction(curr_attraction, trip_attractions, start_time)
-      # logger.debug trip_attraction_hash
       break if trip_attraction_hash == false
       next_attraction = trip_attraction_hash[:trip_attraction]
       itinerary.append(next_attraction)
@@ -81,7 +80,7 @@ class Trip < ActiveRecord::Base
     travel_weight = start_time.hour == FIRST_HOUR ? 0 : TRAVEL_WEIGHT
     # if this is the first attraction of the day, travel_score will not be factored into overall score
     travel_score = travel_time * travel_weight
-    popular_bonus = attraction.popularity_in_timeframe(start_time) * POPULAR_HOUR_WEIGHT
+    popular_bonus = attraction.num_hours_popular(start_time) * POPULAR_HOUR_WEIGHT
     foursquare_score = attraction.rating * FOURSQUARE_WEIGHT
     total_score = vote_score + travel_score + foursquare_score + popular_bonus
     return {:score => total_score, :travel_time => travel_time}
