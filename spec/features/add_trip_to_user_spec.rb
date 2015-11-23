@@ -38,14 +38,8 @@ RSpec.feature "Add Trip to User", :type => :feature do
 
       choose "1 Louise M. Davies Symphony Hall"
       click_button "Let's go!", :match => :first
-
-      expect(page).to have_text("You are going to: San Francisco")
-      expect(page).to have_text("Attractions you've upvoted for this trip:")
-      expect(page).to have_text("Louise M. Davies Symphony Hall")
-
-      click_button "Generate Itinerary"
       expect(page).to have_text("Your Itinerary for San Francisco")
-      expect(page).to have_text("Louise M. Davies Symphony Hall")
+
     end
   end
 
