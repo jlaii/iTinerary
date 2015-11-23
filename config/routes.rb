@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get 'trips/:id' => 'trips#show', as: :trip_show
   get 'trips/:id/itinerary' => 'trips#generate_itinerary', as: :generate_itinerary
   post 'trips/:id/itinerary' => 'trips#generate_itinerary'
+  post 'dashboard/:id' => 'trips#delete', as: :delete_trip
 
   post 'attractions/' => 'trips#new', as: :trip_new
 

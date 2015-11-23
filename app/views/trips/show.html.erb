@@ -26,6 +26,7 @@ Your trip ends: <%= @trip.end_time %>
                   <li>
                     <label for="destination"><h4 class="list-group-item-heading">
                       <%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %> </h4></label>
+                        Current vote: <%= trip_attraction.vote_count %>
                   </li>
                 <% end %>
             <% end %>
