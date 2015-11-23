@@ -51,7 +51,7 @@ class TripsController < ApplicationController
           trip.trip_attractions.where(:attraction_id => key).first.increment!(:vote_count, value.to_i)
         end
       end
-      redirect_to trip_show_path(:id => trip.id)
+      redirect_to generate_itinerary_path(trip.id)
     elsif saved && !has_trip
       #add in all the trip_attractions to this trip
       # byebug
@@ -62,7 +62,7 @@ class TripsController < ApplicationController
           newTripAttraction.save
         end
       end
-      redirect_to trip_show_path(:id => trip.id)
+      redirect_to generate_itinerary_path(trip.id)
     else
       flash[:error] = "Start date cannot be later than end date."
       redirect_to root_path

@@ -1,7 +1,7 @@
 <%= render 'layouts/navigation' %>
-You are going to: <%= @trip.city %><br>
-Your trip starts: <%= @trip.start_time %><br>
-Your trip ends: <%= @trip.end_time %>
+You are going to: <b><%= @trip.city %></b><br>
+Your trip starts: <b><%= @trip.start_time %></b><br>
+Your trip ends: <b><%= @trip.end_time %></b>
 <br><br>
 
 <div class = "container-fluid">
@@ -15,8 +15,8 @@ Your trip ends: <%= @trip.end_time %>
   <% end %>
 
       <div class = "row">
-        <%= button_to "Generate Itinerary", generate_itinerary_path(params[:id]), method: :post %>
-      </div>
+        <%= button_to "View Itinerary", generate_itinerary_path(params[:id]), method: :post %>
+      </div><br>
       <% if has_votes %>
           Attractions you've upvoted for this trip:
 

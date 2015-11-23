@@ -26,7 +26,8 @@
                   <% end %>
                   <h3><%= trip.city %></h3>
                   <%= trip.start_time %></li> to <%= trip.end_time %><br><%= trip.note %>
-                  <%= link_to "vote/edit votes", show_attractions_path(:destination => trip.city) %>
+                  <%= link_to "Revote", show_attractions_path(:destination => trip.city) %>
+                  <%= link_to "View votes", trip_show_path(:id => trip.id) %>
                   <% if has_itinerary %>
                       <%= link_to "view previous itinerary", generate_itinerary_path(trip.id) %>
                   <% else %>
