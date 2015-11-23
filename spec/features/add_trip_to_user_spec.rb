@@ -64,50 +64,6 @@ RSpec.feature "Add Trip to User", :type => :feature do
       expect(page).to have_text("Attractions around New York")
 
       click_button "Let's go!", :match => :first
-
-      expect(page).to have_text("You are going to: New York")
-      expect(page).to have_text("You haven't upvoted any attractions for this trip.")
-
-      click_button "Generate Itinerary"
       expect(page).to have_text("Your Itinerary for New York")
-  end
-
-  scenario "Anonymous user upvotes attractions and generates itinerary" do
-    skip "anonymous user generates voted itinerary redirects back to root" do
-      visit "/"
-      fill_in "destination", :with => "San Francisco"
-      fill_in "startdate", :with => "10/23/2015"
-      fill_in "enddate", :with => "10/23/2015"
-      click_button "Submit"
-      expect(page).to have_text("Attractions around San Francisco")
-
-      choose "1 Louise M. Davies Symphony Hall"
-      click_button "Let's go!", :match => :first
-
-      expect(page).to have_text("You are going to: San Francisco")
-      expect(page).to have_text("Attractions you've upvoted for this trip:")
-      expect(page).to have_text("Louise M. Davies Symphony Hall")
-
-      click_button "Generate Itinerary"
-      expect(page).to have_text("Your Itinerary for San Francisco")
-      expect(page).to have_text("Louise M. Davies Symphony Hall")
-    end
-  end
-
-  scenario "Anonymous user upvotes zero attractions and generates itinerary" do
-      visit "/"
-      fill_in "destination", :with => "San Francisco"
-      fill_in "startdate", :with => "10/23/2015"
-      fill_in "enddate", :with => "10/23/2015"
-      click_button "Submit"
-      expect(page).to have_text("Attractions around San Francisco")
-
-      click_button "Let's go!", :match => :first
-
-      expect(page).to have_text("You are going to: San Francisco")
-      expect(page).to have_text("You haven't upvoted any attractions for this trip.")
-
-      click_button "Generate Itinerary"
-      expect(page).to have_text("Your Itinerary for San Francisco")
   end
 end
