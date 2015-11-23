@@ -46,13 +46,53 @@ class Attraction < ActiveRecord::Base
   #start_time: int, e.g. 0800
   #end_time: int, e.g. 1600
   def is_open?(day, start_time, end_time)
+    in_timeframe? day, start_time, end_time, "hours"
+  end
+
+  #day: int representing Mon-Sun as an int (1-7)
+  #start_time: int, e.g. 0800
+  #end_time: int, e.g. 1600
+  def popular_time_weight(day, start_time, end_time)
+    if in_timeframe? day, start_time, end_time, "popular"
+      return POPULAR_HOUR_WEIGHT
+    else
+      return 0
+    end
+  end
+
+  def num_hours_popular(start_time)
+    count = 0
+    hour_minutes = start_time.hour * 100 + start_time.minute
+    if in_timeframe? start_time.wday, hour_minutes, hour_minutes + 100, "popular"
+      count += 1
+    end
+    if in_timeframe? start_time.wday, hour_minutes + 100, hour_minutes + 200, "popular"
+      count += 1
+    end
+    return count
+  end
+
+  def in_timeframe?(day, start_time, end_time, hours_type)
     #hours_json format: https://developer.foursquare.com/docs/explore#req=venues/40a55d80f964a52020f31ee3/hours
     if self.hours_json.nil?
       self.import_hours_json
     end
-    return true if self.hours_json["hours"].nil?
-    timeframes = self.hours_json["hours"]["timeframes"]
-    return true if timeframes.nil?
+    if self.hours_json[hours_type].nil?
+      if hours_type == "hours"
+        return true
+      else
+        return false
+      end
+
+    end
+    timeframes = self.hours_json[hours_type]["timeframes"]
+    if timeframes.nil?
+      if hours_type == "hours"
+        return true
+      else
+        return false
+      end
+    end
 
     for timeframe in timeframes
       if timeframe["days"].include? day
@@ -72,7 +112,6 @@ class Attraction < ActiveRecord::Base
     return false
 
   end
-
   def import_hours_json
     attraction_hours_url = "https://api.foursquare.com/v2/venues/#{self.id}/hours?#{AUTH_STRING}"
     attraction_hours_response = JSON.parse(HTTParty.get(attraction_hours_url).body)["response"]

@@ -8,8 +8,10 @@ class Trip < ActiveRecord::Base
   VOTE_WEIGHT = 10
   TRAVEL_WEIGHT = -0.05
   FOURSQUARE_WEIGHT = 0.5
+  POPULAR_HOUR_WEIGHT = 1
   NUM_ATTRACTIONS = 4
   SEC_PER_DAY = 86400
+  FIRST_HOUR = 8
 
   def trip_date_validation
   	if self.start_time.to_i > self.end_time.to_i
@@ -19,14 +21,13 @@ class Trip < ActiveRecord::Base
 
   def generate_itinerary(city_name)
     had_lunch = false
-    start_time = DateTime.new(self.start_time.year, self.start_time.month, self.start_time.day, 8)
+    start_time = DateTime.new(self.start_time.year, self.start_time.month, self.start_time.day, FIRST_HOUR)
     trip_attractions = TripAttraction.where(:trip_id => self.id).to_a
     city = City.find_by_name(city_name)
     curr_attraction = Attraction.new(:latitude => city.lat, :longitude => city.lng)
     itinerary = []
     for i in 1..NUM_ATTRACTIONS * ((self.end_time - self.start_time).to_i/SEC_PER_DAY + 1)
       trip_attraction_hash = self.get_next_trip_attraction(curr_attraction, trip_attractions, start_time)
-      # logger.debug trip_attraction_hash
       break if trip_attraction_hash == false
       next_attraction = trip_attraction_hash[:trip_attraction]
       itinerary.append(next_attraction)
@@ -52,13 +53,13 @@ class Trip < ActiveRecord::Base
     best_score = -100000000
     best_attraction = nil
     best_travel_time = 0
-    day_of_week = start_time.wday
     for trip_attraction in trip_attractions
       attraction = Attraction.find(trip_attraction.attraction_id)
-      travel_time = Trip.calculate_travel_time_manhattan(prev_attraction, attraction, DRIVING_SPEED)
-      score = trip_attraction.vote_count * VOTE_WEIGHT + travel_time * TRAVEL_WEIGHT + attraction.rating * FOURSQUARE_WEIGHT
+      attraction_hash = calculate_attraction_score(trip_attraction, attraction, prev_attraction, start_time)
+      score = attraction_hash[:score]
+      travel_time = attraction_hash[:travel_time]
       hour_minutes = start_time.hour * 100 + start_time.minute
-      if score > best_score and attraction.is_open?(day_of_week, hour_minutes, hour_minutes + 200)
+      if score > best_score and attraction.is_open?(start_time.wday, hour_minutes, hour_minutes + 200)
         best_score = score
         best_attraction = trip_attraction
         best_travel_time = travel_time
@@ -70,7 +71,19 @@ class Trip < ActiveRecord::Base
                                       :end_time => DateTime.new(start_time.year, start_time.month,
                                                                 start_time.day, start_time.hour + 2, start_time.minute))
     best_attraction.save
-    return {:trip_attraction => best_attraction, :travel_time => best_travel_time}
+    return {:trip_attraction => best_attraction, :travel_time => best_travel_time, :best_score => best_score}
+  end
+
+  def calculate_attraction_score(trip_attraction, attraction, prev_attraction, start_time)
+    travel_time = Trip.calculate_travel_time_manhattan(prev_attraction, attraction, DRIVING_SPEED)
+    vote_score = trip_attraction.vote_count * VOTE_WEIGHT
+    travel_weight = start_time.hour == FIRST_HOUR ? 0 : TRAVEL_WEIGHT
+    # if this is the first attraction of the day, travel_score will not be factored into overall score
+    travel_score = travel_time * travel_weight
+    popular_bonus = attraction.num_hours_popular(start_time) * POPULAR_HOUR_WEIGHT
+    foursquare_score = attraction.rating * FOURSQUARE_WEIGHT
+    total_score = vote_score + travel_score + foursquare_score + popular_bonus
+    return {:score => total_score, :travel_time => travel_time}
   end
 
   # Returns the euclidean distance in Km between the two attractions by their coordinates
