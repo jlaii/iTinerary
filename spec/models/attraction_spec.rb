@@ -123,5 +123,17 @@ RSpec.describe Attraction, type: :model do
       expect(open_attraction.is_open? 7, 0000, 2400).to eq true
     end
 
+    it "returns the number of overlapping hours with a popular timeframe" do
+      #this attraction is popular from 800-1400 on tuesdays (11/24 is a tuesday)
+      popular_attraction = Attraction.new(:hours_json => @sample_hours_json)
+      time = DateTime.new(2015, 11, 24, 8)
+      expect(popular_attraction.num_hours_popular(time)).to eq 2
+      time = time.change({hour: 7})
+      expect(popular_attraction.num_hours_popular(time)).to eq 1
+      time = time.change({hour: 6})
+      expect(popular_attraction.num_hours_popular(time)).to eq 0
+
+    end
+
   end
 end

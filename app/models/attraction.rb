@@ -49,17 +49,6 @@ class Attraction < ActiveRecord::Base
     in_timeframe? day, start_time, end_time, "hours"
   end
 
-  #day: int representing Mon-Sun as an int (1-7)
-  #start_time: int, e.g. 0800
-  #end_time: int, e.g. 1600
-  def popular_time_weight(day, start_time, end_time)
-    if in_timeframe? day, start_time, end_time, "popular"
-      return POPULAR_HOUR_WEIGHT
-    else
-      return 0
-    end
-  end
-
   def num_hours_popular(start_time)
     count = 0
     hour_minutes = start_time.hour * 100 + start_time.minute
