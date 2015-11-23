@@ -22,14 +22,14 @@ RSpec.feature "Add Trip to User", :type => :feature do
   end
 
   scenario "User upvotes attractions" do
-    skip "logged in user generates voted itinerary redirects back to root" do
-      visit "/users/sign_in"
-      fill_in "Email", :with => "test@email.com"
-      fill_in "Password", :with => "12345678"
-      click_button "Log in"
-      expect(page).to have_text("Signed in successfully.")
+    # skip "logged in user generates voted itinerary redirects back to root" do
+    visit "/users/sign_in"
+    fill_in "Email", :with => "test@email.com"
+    fill_in "Password", :with => "12345678"
+    click_button "Log in"
+    expect(page).to have_text("Signed in successfully.")
 
-      visit "/"
+    visit "/"
       fill_in "destination", :with => "San Francisco"
       fill_in "startdate", :with => "10/23/2015"
       fill_in "enddate", :with => "10/23/2015"
@@ -39,18 +39,16 @@ RSpec.feature "Add Trip to User", :type => :feature do
       choose "1 Louise M. Davies Symphony Hall"
       click_button "Let's go!", :match => :first
       expect(page).to have_text("Your Itinerary for San Francisco")
-
-    end
   end
 
   scenario "User upvotes no attractions" do
-      visit "/users/sign_in"
-      fill_in "Email", :with => "test@email.com"
-      fill_in "Password", :with => "12345678"
-      click_button "Log in"
-      expect(page).to have_text("Signed in successfully.")
+    visit "/users/sign_in"
+    fill_in "Email", :with => "test@email.com"
+    fill_in "Password", :with => "12345678"
+    click_button "Log in"
+    expect(page).to have_text("Signed in successfully.")
 
-      visit "/"
+    visit "/"
       fill_in "destination", :with => "New York"
       fill_in "startdate", :with => "10/23/2015"
       fill_in "enddate", :with => "10/23/2015"
@@ -60,4 +58,6 @@ RSpec.feature "Add Trip to User", :type => :feature do
       click_button "Let's go!", :match => :first
       expect(page).to have_text("Your Itinerary for New York")
   end
+
+  
 end
