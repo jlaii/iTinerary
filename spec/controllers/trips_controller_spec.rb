@@ -62,6 +62,12 @@ RSpec.describe TripsController, type: :controller do
       post :new, :destination => "San Francisco", "1"=>"1", "2"=>"0", "3"=>"0"
       expect(TripAttraction.find(1).vote_count).to eq 1
     end
+    
+    it "should fail to create trip- end_date before start_date" do
+      post :new, :destination => "San Francisco", :startdate => "11/18/2015", :enddate => "11/16/2015",
+           "1"=>"0", "2"=>"0", "3"=>"0"
+      expect { raise "start_date later than end_date" }.to raise_error
+    end
   end
 
   context "generate itinerary" do
