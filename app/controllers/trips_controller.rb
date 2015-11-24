@@ -12,6 +12,8 @@ class TripsController < ApplicationController
   end
 
   def show_itinerary
+    @trip = Trip.find(params[:id])
+    @itinerary = TripAttraction.where(:trip_id => params[:id]).where.not(:start_time => nil).order(:start_time)
     render "show_itinerary"
   end
 
