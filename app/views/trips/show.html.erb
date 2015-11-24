@@ -15,7 +15,7 @@ Your trip ends: <b><%= @trip.end_time %></b>
   <% end %>
 
       <div class = "row">
-        <%= button_to "View Itinerary", generate_itinerary_path(params[:id]), method: :post %>
+        <button><%= link_to "View Itinerary", show_itinerary_path(:trip_id => params[:id])%></button>
       </div><br>
       <% if has_votes %>
           Attractions you've upvoted for this trip:

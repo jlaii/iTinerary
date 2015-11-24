@@ -20,6 +20,13 @@ class Trip < ActiveRecord::Base
   end
 
   def generate_itinerary(city_name)
+    trip = Trip.find(self.id)
+    trip.trip_attractions.each do |attraction|
+      if attraction.start_time != nil || attraction.end_time != nil
+        attraction.update_attributes(:start_time => nil)
+        attraction.update_attributes(:end_time => nil)
+      end
+    end
     had_lunch = false
     start_time = DateTime.new(self.start_time.year, self.start_time.month, self.start_time.day, FIRST_HOUR)
     trip_attractions = TripAttraction.where(:trip_id => self.id).to_a
