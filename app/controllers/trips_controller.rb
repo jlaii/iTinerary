@@ -1,4 +1,24 @@
 class TripsController < ApplicationController
+
+  # To access Devise view in this controller
+  before_action :configure_permitted_parameters, :if => :devise_controller?
+
+  def resource_name
+    :user
+  end
+
+  def resource
+    @resource ||= User.new
+  end
+
+  def devise_mapping
+    @devise_mapping ||= Devise.mappings[:user]
+  end
+
+  helper_method :resource, :resource_name, :devise_mapping
+  # End devise
+
+
   def show
     @trip = Trip.find(params[:id])
   end
@@ -12,19 +32,26 @@ class TripsController < ApplicationController
   end
 
   def show_itinerary
-    @trip = Trip.find(params[:trip_id])
-    has_itinerary = false
-    @trip.trip_attractions.each do |attraction|
-      if attraction.start_time != nil
-        has_itinerary = true
-        break
+    if current_user
+
+      @trip = Trip.find(params[:trip_id])
+      has_itinerary = false
+      @trip.trip_attractions.each do |attraction|
+        if attraction.start_time != nil
+          has_itinerary = true
+          break
+        end
       end
+      if !has_itinerary
+        generate_itinerary(params[:trip_id])
+      end
+      @itinerary = TripAttraction.where(:trip_id => @trip.id).where.not(:start_time => nil).order(:start_time)
+      render "show_itinerary"
+    else
+      session[:previous_url] = request.fullpath
+      flash[:notice] = "Ooops! You do not have permission to view this page. Please sign up or log in."
+      render "devise/registrations/new"
     end
-    if !has_itinerary
-      generate_itinerary(params[:trip_id])
-    end
-    @itinerary = TripAttraction.where(:trip_id => @trip.id).where.not(:start_time => nil).order(:start_time)
-    render "show_itinerary"
   end
 
   def new
