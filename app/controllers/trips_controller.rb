@@ -32,21 +32,26 @@ class TripsController < ApplicationController
   end
 
   def show_itinerary
+    @trip = Trip.find(params[:trip_id])
     if current_user
-
-      @trip = Trip.find(params[:trip_id])
-      has_itinerary = false
-      @trip.trip_attractions.each do |attraction|
-        if attraction.start_time != nil
-          has_itinerary = true
-          break
+      if current_user.id == @trip.user_id || !UserTrip.where(user_id: current_user.id, trip_id: @trip.id).blank?
+        has_itinerary = false
+        @trip.trip_attractions.each do |attraction|
+          if attraction.start_time != nil
+            has_itinerary = true
+            break
+          end
         end
+        if !has_itinerary
+          generate_itinerary(params[:trip_id])
+        end
+        @itinerary = TripAttraction.where(:trip_id => @trip.id).where.not(:start_time => nil).order(:start_time)
+        render "show_itinerary"
+      else
+        session[:previous_url] = request.fullpath
+        flash[:notice] = "Ooops! Your account does not have permission to view this page."
+        render "no_permission"
       end
-      if !has_itinerary
-        generate_itinerary(params[:trip_id])
-      end
-      @itinerary = TripAttraction.where(:trip_id => @trip.id).where.not(:start_time => nil).order(:start_time)
-      render "show_itinerary"
     else
       session[:previous_url] = request.fullpath
       flash[:notice] = "Ooops! You do not have permission to view this page. Please sign up or log in."
