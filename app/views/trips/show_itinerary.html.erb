@@ -2,7 +2,7 @@
 <h1> Your Itinerary for <%= @trip.city %> </h1>
 <div>
   <b>To invite your friends send them this link:</b><br>
-  <%= request.original_url %>/?invitation_code=<%= @trip.uuid%>
+  <%= request.base_url + request.path %>/?invitation_code=<%= @trip.uuid%>
 </div>
 <% attraction_count = 0 %>
 <% for trip_attraction in @itinerary %>

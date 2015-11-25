@@ -52,8 +52,12 @@ class TripsController < ApplicationController
         @itinerary = TripAttraction.where(:trip_id => @trip.id).where.not(:start_time => nil).order(:start_time)
         render "show_itinerary"
       else
+        if @invitation_code
+          flash[:notice] = "Ooops! Your invitation code seems incorrect. Please double check the code with the owner."
+        else
+          flash[:notice] = "Ooops! Your account does not have permission to vitrip or itinerary. Please contact the owner of the trip or itinerary to grant you permissionis page."
+        end
         session[:previous_url] = request.fullpath
-        flash[:notice] = "Ooops! Your account does not have permission to view this page."
         render "no_permission"
       end
     else

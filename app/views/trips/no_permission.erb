@@ -1,3 +1,6 @@
 <%= render 'layouts/navigation' %>
-<h3>Ooops! Your account does not have permission to view this trip or itinerary. Please contact the owner of the trip or itinerary to grant you permission</h3>
+<% flash.each do |name, msg| %>
+    <b><%= msg%></b>
+    <br>
+<% end %>
 <%= render 'layouts/footer' %>

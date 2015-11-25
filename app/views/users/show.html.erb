@@ -1,6 +1,6 @@
 <html>
 <body>
-  <%= render 'layouts/navigation' %>
+    <%= render 'layouts/navigation' %>
     <div id = "user_info">
       <h3>Hi there, <b><%= @user.first_name if @user.first_name %> <%= @user.last_name if @user.last_name %></h3></b>
 
@@ -10,13 +10,13 @@
     </div>
 
     <div id = "trips">
-        <% if @user.trips.empty? %>
+        <% if @trips.empty? %>
             <h4><%= link_to "You have no trips! Hurry go make some :D", root_path %></h4>
         <% else %>
             <h3>Your Trips:</h3>
             <h5><button><%= link_to "Create another trip", root_path %></button></h5>
             <ul>
-              <% @user.trips.each do |trip| %>
+              <% @trips.each do |trip| %>
                   <% has_itinerary = false %>
                   <% trip.trip_attractions.each do |attraction| %>
                       <% if attraction.start_time != nil %>
