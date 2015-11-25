@@ -1,5 +1,4 @@
 <%= render 'layouts/navigation' %>
-
 <div class="container-fluid">
 
   <div class = "row">
@@ -23,15 +22,9 @@
       <%= button_to "Generate Itinerary", generate_itinerary_path(params[:id]), method: :post %>
     </div>
 
-
-
-    <div class = "col-md-4">
-      
-
-      
-      <br>
-      
-      
+      <div class = "row col-md-4">
+        <button><%= link_to "View Itinerary", show_itinerary_path(:trip_id => params[:id])%></button>
+      </div><br>
       <% if has_votes %>
           Attractions you've upvoted for this trip:
 
@@ -41,6 +34,7 @@
                   <li>
                     <label for="destination"><h4 class="list-group-item-heading">
                       <%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %> </h4></label>
+                        Current vote: <%= trip_attraction.vote_count %>
                   </li>
                 <% end %>
             <% end %>

@@ -16,8 +16,10 @@
       <div id="trips">
       <h4>Your Trips:<h4>
         <% if @user.trips.empty? %>
-            You have no trips! Hurry go make some :D
+            <h4><%= link_to "You have no trips! Hurry go make some :D", root_path %></h4>
         <% else %>
+            <h3>Your Trips:</h3>
+            <h5><button><%= link_to "Create another trip", root_path %></button></h5>
             <ul>
               <% @user.trips.each do |trip| %>
                   <% has_itinerary = false %>
@@ -27,16 +29,14 @@
                           <% break %>
                       <% end %>
                   <% end %>
+                  <h3><%= trip.city %></h3>
+                  <%= trip.start_time %></li> to <%= trip.end_time %><br><%= trip.note %>
+                  <button><%= link_to "Revote", show_attractions_path(:destination => trip.city) %></button>
+                  <button><%= link_to "View votes", trip_show_path(:id => trip.id) %></button>
                   <% if has_itinerary %>
-                      <li><h3><%= link_to trip.city, generate_itinerary_path(trip.id) %></h3>
-                      <%= trip.start_time %></li> to <%= trip.end_time %><br><%= trip.note %>
-                      </li>
-                  <% else %>
-                      <li><h3><%= link_to trip.city, trip_show_path(trip.id) %></h3>
-                        <%= trip.start_time %></li> to <%= trip.end_time %><br><%= trip.note %>
-                      </li>
-                      <br><br>
+                      <button><%= link_to "View itinerary", show_itinerary_path(:trip_id => trip.id) %></button>
                   <% end %>
+                  <%= button_to "delete this trip", delete_trip_path(trip.id) %><br>
               <% end %>
             </ul>
         <% end %>

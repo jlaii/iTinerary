@@ -20,10 +20,11 @@ Rails.application.routes.draw do
 
   get 'attractions/' => 'attractions#show', as: :show_attractions
   get 'trips/:id' => 'trips#show', as: :trip_show
-  get 'trips/:id/itinerary' => 'trips#generate_itinerary', as: :generate_itinerary
-  post 'trips/:id/itinerary' => 'trips#generate_itinerary'
+  get 'trips/:trip_id/itinerary' => 'trips#show_itinerary', as: :show_itinerary
+  post 'dashboard/:id' => 'trips#delete', as: :delete_trip
 
   post 'attractions/' => 'trips#new', as: :trip_new
+  get 'trips/' => 'trips#create_and_save_trip', as: :trip_create_save
 
   post 'welcome/save' => 'welcome#save', as: :trip_save
   # post 'submitClicked' => 'welcome#submitClicked'

@@ -45,6 +45,7 @@ RSpec.describe TripsController, type: :controller do
       Trip.delete_all
     end
 
+    login_user
     it "generate trip and trip attractions" do
       city = City.new(:name => "San Francisco", :lat => 37.7833, :lng => 122.4167)
       city.save
@@ -61,13 +62,17 @@ RSpec.describe TripsController, type: :controller do
       expect(TripAttraction.count).to eq 0
       post :new, :destination => "San Francisco", :startdate => "11/16/2015", :enddate => "11/18/2015",
       "1"=>"0", "2"=>"0", "3"=>"0"
-      #, "4"=>"0", "5"=>"0", "6"=>"0", "7"=>"0", "8"=>"0", "9"=>"0", "10"=>"0",
-      # "11"=>"0", "12"=>"0", "13"=>"0", "14"=>"0", "15"=>"0", "16"=>"0", "17"=>"0", "18"=>"0", "19"=>"0", "20"=>"0",
-      # "21"=>"0", "22"=>"0", "23"=>"0", "24"=>"0", "25"=>"0", "26"=>"0", "27"=>"0", "28"=>"0", "29"=>"0", "30"=>"0",
-      # "31"=>"0", "32"=>"0", "33"=>"0", "34"=>"0", "35"=>"0", "36"=>"0", "37"=>"0", "38"=>"0", "39"=>"0", "40"=>"0",
-      # "41"=>"0", "42"=>"0", "43"=>"0", "44"=>"0", "45"=>"0", "46"=>"0", "47"=>"0", "48"=>"0", "49"=>"0", "50"=>"0"
       expect(Trip.count).to eq 1
       expect(TripAttraction.count).to eq 3
+      # change vote counts for trip_attraction id:1
+      # post :new, :destination => "San Francisco", "1"=>"1", "2"=>"0", "3"=>"0"
+      # expect(TripAttraction.find(1).vote_count).to eq 1
+    end
+
+    it "should fail to create trip- end_date before start_date" do
+      post :new, :destination => "San Francisco", :startdate => "11/18/2015", :enddate => "11/16/2015",
+           "1"=>"0", "2"=>"0", "3"=>"0"
+      expect { raise "start_date later than end_date" }.to raise_error
     end
   end
 
@@ -79,12 +84,12 @@ RSpec.describe TripsController, type: :controller do
       Attraction.import_foursquare_attractions("Taipei", 20)
     end
 
+    login_user
     it "test number of trip attractions in itinerary" do
       start_id = Attraction.first.id
       post :new, :destination => "Taipei", :startdate => "11/02/2015", :enddate => "11/03/2015",
            start_id.to_s =>"0", (start_id+1).to_s=>"0", (start_id+2).to_s=>"0", (start_id+3).to_s=>"0", (start_id+4).to_s=>"0", (start_id+5).to_s=>"0", (start_id+6).to_s=>"0", (start_id+7).to_s=>"0", (start_id+8).to_s=>"0"
       trip = Trip.find_by_city("Taipei")
-      post :generate_itinerary, :id => trip.id
       trip_attractions = TripAttraction.where.not(end_time: nil)
       expect(trip_attractions.length).to eq(8)
     end
