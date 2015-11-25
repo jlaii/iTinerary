@@ -12,10 +12,12 @@ RSpec.describe Attraction, type: :model do
 
     before do
       Attraction.delete_all
+      City.delete_all
     end
 
     after do
       Attraction.delete_all
+      City.delete_all
     end
 
     it "imports attractions for a city" do
@@ -43,9 +45,11 @@ RSpec.describe Attraction, type: :model do
   context "after importing attractions" do
     before do
       Attraction.delete_all
+      City.delete_all
     end
     after do
       Attraction.delete_all
+      City.delete_all
     end
     it "an attraction and city contains all necessary relevant info" do
       Foursquare.should_receive(:import_attractions).and_return(@fake_api_response)
