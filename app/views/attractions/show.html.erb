@@ -64,10 +64,6 @@
 <%= render 'layouts/navigation' %>
 
 
-<div class="row">
-<h1>iTinerary</h1>
-</div>
-
 <div id="date-form" class="row">
     <form class="form-inline" method='post' action='welcome/save'>
 
@@ -79,7 +75,7 @@
         <label for="enddate">Departure Date</label>
         <input name="enddate" class ="form-control" type="text" id="enddate" />
 
-      <input class ="btn btn-default" type="submit" value="Submit"/>
+      <input class ="btn btn-default" type="submit" value="Update"/>
       </form>
 </div>
 
@@ -90,38 +86,43 @@
 
 </div>
 
-<div class="row">
-  <div class="col-md-1"></div>
-  <div class="col-md-10">
-    <div id = "attraction-group" class = "list-group">
-      <form class="form-inline" method='post' action='attractions/'>
-      <input class ="btn btn-default" type="submit" id="first-go" value="Let's go!"/>
-        <input type="hidden" name="destination" value="<%= params[:destination] %>" />
-        <input type="hidden" name="startdate" value="<%= params[:startdate] %>" />
-        <input type="hidden" name="enddate" value="<%= params[:enddate] %>" />
-        <% Attraction.where('city = ?', params[:destination].titleize).find_each  do |attraction| %>
-          <div class="list-group">
-            <li class="list-group-item">
-                <label for="destination"><h4 class="list-group-item-heading"> <%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %> </h4></label>
-                <p class="list-group-item-text">
-                (Foursquare Rating: <%= attraction.rating %>/10)</b>
-                <br> <%= attraction.description %> <br>
+<div class="row center" id="lets-go-row">
 
-                <br> <b>Do you want to go here?</b> 
-                <br>
-                <input type="radio" id = "-1 <%= attraction.name %>" name=<%= attraction.id %> value="-1"> No&#x1F62D;
-                <input type="radio" id = "0 <%= attraction.name %>" name=<%= attraction.id %> value="0" checked="checked"> Maybe&#x1F60F;
-                <input type="radio" id = "1 <%= attraction.name %>" name=<%= attraction.id %> value="1"> Yes&#x1F603;
-                </p>
-            </li>
-          </div>
-        <% end %>
-        <input class ="btn btn-default" type="submit" value="Let's go!"/>
-        <br><br><br>
-    </div>
-  </div>
-  <div class="col-md-1"></div>
+  <form class="form-inline" method='post' action='attractions/'>
+    <input class ="btn btn-primary" type="submit" id="first-go" value="Let's go!"/>
+    <input type="hidden" name="destination" value="<%= params[:destination] %>" />
+    <input type="hidden" name="startdate" value="<%= params[:startdate] %>" />
+    <input type="hidden" name="enddate" value="<%= params[:enddate] %>" />
+  
 </div>
+
+<div class="row equal-columns-row">
+  <% Attraction.where('city = ?', params[:destination].titleize).find_each  do |attraction| %>
+
+    <div class="col-sm-6 col-md-4 equal-height-columns center">
+      <div class="thumbnail">
+        <img src=<%= Picture.find(attraction.picture_id).path %>>
+        <div class="caption">
+          <h4><%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %>
+          </h4>
+          <b>(Foursquare Rating: <%= attraction.rating %>/10)</b>
+          <p><%= attraction.description %>
+          <br>
+          <b>Do you want to go here?</b><br> </p>
+          <input type="radio" id = "-1 <%= attraction.name %>" name=<%= attraction.id %> value="-1"> No&#x1F62D; 
+          <input type="radio" id = "0 <%= attraction.name %>" name=<%= attraction.id %> value="0" checked="checked"> Maybe &#x1F60F; 
+          <input type="radio" id = "1 <%= attraction.name %>" name=<%= attraction.id %> value="1"> Yes&#x1F603; 
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class="row center">
+  <input class ="btn btn-primary" id="second-go" type="submit" value="Let's go!"/>
+</div>
+
+
 
 
   <%= render 'layouts/footer' %>

@@ -1,15 +1,20 @@
 <html>
 <body>
   <%= render 'layouts/navigation' %>
-    <div id = "user_info">
-      <h3>Hi there, <b><%= @user.first_name if @user.first_name %> <%= @user.last_name if @user.last_name %></h3></b>
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-4">
+        <div id = "user_info">
+          <h3>Hi there, <b><%= @user.first_name if @user.first_name %> <%= @user.last_name if @user.last_name %></h3></b>
 
-      <ul><p><b>YOUR EMAIL:</b> <%= @user.email if @user.email %></p></ul>
-      <br><br>
-
-    </div>
-
-    <div id = "trips">
+          <ul><p><b>YOUR EMAIL:</b> <%= @user.email if @user.email %></p></ul>
+          <br>
+        </div>
+      </div>
+      <div class="col-md-4">
+      <div id="trips">
+      <h4>Your Trips:<h4>
         <% if @user.trips.empty? %>
             <h4><%= link_to "You have no trips! Hurry go make some :D", root_path %></h4>
         <% else %>
@@ -36,6 +41,11 @@
             </ul>
         <% end %>
         <br><br><br>
-    </div>
+      </div>
+    <div class="col-md-2"></div>
+  </div>
+
+</div>
+<%= render 'layouts/footer' %>
 </body>
 </html>
