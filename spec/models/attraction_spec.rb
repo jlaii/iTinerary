@@ -1,47 +1,26 @@
 require 'rails_helper'
+require 'Foursquare'
 # require 'yaml'
 # fake_api = YAML.load_file('spec/fake_api.yml')
 
 RSpec.describe Attraction, type: :model do
-  def fake_api_call
-    fake_api_response = File.read('spec/data/fake_api.json')
-    @last_modified = Date.new(2010, 1, 15).to_s
-    @content_length = '3533'
-    @request_object = HTTParty::Request.new Net::HTTP::Get, '/'
-    @response_object = Net::HTTPOK.new('1.1', 200, 'OK')
-    allow(@response_object).to receive_messages(body: fake_api_response)
-    @response_object['last-modified'] = @last_modified
-    @response_object['content-length'] = @content_length
-    @parsed_response = lambda { {"foo" => "bar"} }
-    @fake_response = HTTParty::Response.new(@request_object, @response_object, @parsed_response)
+  before(:all) do
+    @fake_api_response = File.read('spec/data/fake_api.json')
   end
 
   context "importing attractions using FourSquare" do
-    before(:context) do
-      Attraction.delete_all
-      City.delete_all
-    end
-    after(:context) do
-      Attraction.delete_all
-      City.delete_all
-    end
-
-    before do
-      fake_api_call
-    end
-
 
     it "imports attractions for a city" do
       expect(Attraction.count).to eq 0
       expect(City.count).to eq 0
-      HTTParty.should_receive(:get).and_return(@fake_response)
+      Foursquare.should_receive(:import_attractions).and_return(@fake_api_response)
       Attraction.import_foursquare_attractions("San Francisco", num_attractions = 1)
       expect(City.count).to eq 1
       expect(Attraction.count).to eq 1
     end
 
     it "returns true if city exists" do
-      HTTParty.should_receive(:get).and_return(@fake_response)
+      Foursquare.should_receive(:import_attractions).and_return(@fake_api_response)
       expect(Attraction.import_foursquare_attractions("San Francisco", 1)).to eq true
     end
 
@@ -54,16 +33,8 @@ RSpec.describe Attraction, type: :model do
   end
 
   context "after importing attractions" do
-    after(:context) do
-      Attraction.delete_all
-      City.delete_all
-    end
-
-    before do
-      fake_api_call
-    end
     it "an attraction and city contains all necessary relevant info" do
-      HTTParty.should_receive(:get).and_return(@fake_response)
+      Foursquare.should_receive(:import_attractions).and_return(@fake_api_response)
       Attraction.import_foursquare_attractions("San Francisco", 1)
       attraction = Attraction.first
       expect(attraction.city).to_not eq nil

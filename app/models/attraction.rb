@@ -1,15 +1,13 @@
+require 'Foursquare'
 class Attraction < ActiveRecord::Base
   has_many :pictures
   validates :name, presence: true
-  AUTH_STRING = "client_id=#{FOURSQUARE_CLIENT_ID}&client_secret=#{FOURSQUARE_CLIENT_SECRET}&v=20151021"
 
 
   def self.import_foursquare_attractions(city, num_attractions = 50, trip_id = nil)
     begin
-      base_url = "https://api.foursquare.com/v2/venues/explore?"
-      query_string = "&section=sights&limit=#{num_attractions}&radius=50000&venuePhotos=1&near=#{city}"
-      request_url = base_url + AUTH_STRING + query_string
-      response = JSON.parse(HTTParty.get(request_url).body)
+      response = JSON.parse(Foursquare.import_attractions(city, num_attractions))
+
       attractions = response["response"]["groups"].first["items"]
       new_city = City.new(:name => city.titleize, :lat => response["response"]["geocode"]["center"]["lat"],
                           :lng => response["response"]["geocode"]["center"]["lng"])
@@ -101,9 +99,9 @@ class Attraction < ActiveRecord::Base
     return false
 
   end
+
   def import_hours_json
-    attraction_hours_url = "https://api.foursquare.com/v2/venues/#{self.id}/hours?#{AUTH_STRING}"
-    attraction_hours_response = JSON.parse(HTTParty.get(attraction_hours_url).body)["response"]
+    attraction_hours_response = JSON.parse(Foursquare.import_hours(self))["response"]
     self.update_attributes(:hours_json => attraction_hours_response)
     self.save
   end
