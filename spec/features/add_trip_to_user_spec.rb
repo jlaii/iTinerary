@@ -1,8 +1,15 @@
 require "rails_helper"
-
-
+require "Foursquare"
 
 RSpec.feature "Add Trip to User", :type => :feature do
+  def stub_api_calls
+      Foursquare.should_receive(:import_attractions).and_return(@fake_api_response)
+      Foursquare.should_receive(:import_hours).at_most(50).times.and_return(@fake_hours_response)
+  end
+  before(:all) do
+    @fake_api_response = File.read('spec/data/fake_api.json')
+    @fake_hours_response = File.read('spec/data/sample_hours.json')
+  end
 
   scenario "User signs up" do
     visit "/users/sign_up"
