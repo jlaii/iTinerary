@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   	if $params
   		trip_create_save_path($params) || root_path
   	else
-  		root_path
+			session[:previous_url] || root_path
   	end
 	end
 end

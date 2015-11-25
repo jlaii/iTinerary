@@ -1,49 +1,41 @@
 <%= render 'layouts/navigation' %>
 <div class="container-fluid">
-
   <div class = "row">
     <div class="col-md-2"></div>
-
     <div class ="col-md-4"><br>
       You are going to: <b><%= @trip.city %></b><br>
       Your trip starts: <i> <%= @trip.start_time %></i><br>
       Your trip ends: <i><%= @trip.end_time %></i>
-
-  
-
       <% has_votes = false %>
       <% @trip.trip_attractions.each do |attraction| %>
-          <% if attraction.vote_count > 0 %>
-              <% has_votes = true %>
-              <% break %>
-          <% end %>
+        <% if attraction.vote_count > 0 %>
+          <% has_votes = true %>
+          <% break %>
+        <% end %>
       <% end %>
       <br><br>
-      <%= button_to "Generate Itinerary", generate_itinerary_path(params[:id]), method: :post %>
+      <button><%= link_to "View Itinerary", show_itinerary_path(:trip_id => params[:id])%></button>
     </div>
-
-      <div class = "row col-md-4">
-        <button><%= link_to "View Itinerary", show_itinerary_path(:trip_id => params[:id])%></button>
-      </div><br>
+    <div class = "col-md-4">
+      <br>
       <% if has_votes %>
-          Attractions you've upvoted for this trip:
-
-            <% @trip.trip_attractions.each do |trip_attraction| %>
-                <% if trip_attraction.vote_count > 0 %>
-                  <% attraction = Attraction.find(trip_attraction.attraction_id) %>
-                  <li>
-                    <label for="destination"><h4 class="list-group-item-heading">
-                      <%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %> </h4></label>
-                        Current vote: <%= trip_attraction.vote_count %>
-                  </li>
-                <% end %>
-            <% end %>
-      <% else %>
-          You haven't upvoted any attractions for this trip. Hurry, go vote! :D
+        Attractions you've upvoted for this trip:
+        <% @trip.trip_attractions.each do |trip_attraction| %>
+          <% if trip_attraction.vote_count > 0 %>
+            <% attraction = Attraction.find(trip_attraction.attraction_id) %>
+            <li>
+              <label for="destination"><h4 class="list-group-item-heading">
+                <%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %> </h4></label>
+              Current vote: <%= trip_attraction.vote_count %>
+            </li>
+          <% end %>
         <% end %>
-      </div>
-      <div class="col-md-2">
-      </div>
+      <% else %>
+        You haven't upvoted any attractions for this trip. Hurry, go vote! :D
+      <% end %>
+    </div>
+    <div class="col-md-2">
+    </div>
   </div>
 </div>
 <%= render 'layouts/footer' %>

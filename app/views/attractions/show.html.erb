@@ -2,131 +2,120 @@
 <html>
 
 <head>
-<title>iTinerary</title>
-<!--jQuery References-->
-<script src="http://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
-<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.min.js" type="text/javascript"></script>
+    <title>iTinerary</title>
+    <!--jQuery References-->
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.min.js" type="text/javascript"></script>
 
-<!--Theme-->
-<link href="http://cdn.wijmo.com/themes/aristo/jquery-wijmo.css" rel="stylesheet" type="text/css" />
+    <!--Theme-->
+    <link href="http://cdn.wijmo.com/themes/aristo/jquery-wijmo.css" rel="stylesheet" type="text/css" />
 
-<!--Wijmo Widgets CSS-->
-<link href="http://cdn.wijmo.com/jquery.wijmo-pro.all.3.20152.78.min.css" rel="stylesheet" type="text/css" />
+    <!--Wijmo Widgets CSS-->
+    <link href="http://cdn.wijmo.com/jquery.wijmo-pro.all.3.20152.78.min.css" rel="stylesheet" type="text/css" />
 
-<!--Wijmo Widgets JavaScript-->
-<script src="http://cdn.wijmo.com/jquery.wijmo-open.all.3.20152.78.min.js" type="text/javascript"></script>
-<script src="http://cdn.wijmo.com/jquery.wijmo-pro.all.3.20152.78.min.js" type="text/javascript"></script>
-<script src="http://cdn.wijmo.com/interop/wijmo.data.ajax.3.20152.78.js" type="text/javascript"></script>
+    <!--Wijmo Widgets JavaScript-->
+    <script src="http://cdn.wijmo.com/jquery.wijmo-open.all.3.20152.78.min.js" type="text/javascript"></script>
+    <script src="http://cdn.wijmo.com/jquery.wijmo-pro.all.3.20152.78.min.js" type="text/javascript"></script>
+    <script src="http://cdn.wijmo.com/interop/wijmo.data.ajax.3.20152.78.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-  $(document).ready(function () {
-      var $_GET = {};
-      if(document.location.toString().indexOf('?') !== -1) {
-          var query = document.location
-                         .toString()
-                         // get the query string
-                         .replace(/^.*?\?/, '')
-                         // and remove any existing hash string (thanks, @vrijdenker)
-                         .replace(/#.*$/, '')
-                         .split('&');
-          for(var i=0, l=query.length; i<l; i++) {
-             var aux = decodeURIComponent(query[i]).split('=');
-             $_GET[aux[0]] = aux[1];
-          }
-      }
-      $("#startdate").wijinputdate(
-              {
-                  showTrigger: true
-              });
-      $("#enddate").wijinputdate(
-              {
-                  showTrigger: true
-              });
-      var start = $_GET['startdate'].split("/")
-      var end = $_GET['enddate'].split("/")
-      startmonth = (parseInt(start[0])-1).toString()
-      endmonth = (parseInt(end[0])-1).toString()
-      var startjs = new Date(start[2], startmonth, start[1]);
-      var endjs = new Date(end[2], endmonth, end[1]);
-      $("#startdate").wijinputdate("option", "date", startjs.toString());
-      $("#enddate").wijinputdate("option", "date", endjs.toString());
-  });
-</script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var $_GET = {};
+            if(document.location.toString().indexOf('?') !== -1) {
+                var query = document.location
+                               .toString()
+                               // get the query string
+                               .replace(/^.*?\?/, '')
+                               // and remove any existing hash string (thanks, @vrijdenker)
+                               .replace(/#.*$/, '')
+                               .split('&');
+                for(var i=0, l=query.length; i<l; i++) {
+                   var aux = decodeURIComponent(query[i]).split('=');
+                   $_GET[aux[0]] = aux[1];
+                }
+            }
+            $("#startdate").wijinputdate(
+                    {
+                        showTrigger: true
+                    });
+            $("#enddate").wijinputdate(
+                    {
+                        showTrigger: true
+                    });
+            var start = $_GET['startdate'].split("/")
+            var end = $_GET['enddate'].split("/")
+            startmonth = (parseInt(start[0])-1).toString()
+            endmonth = (parseInt(end[0])-1).toString()
+            var startjs = new Date(start[2], startmonth, start[1]);
+            var endjs = new Date(end[2], endmonth, end[1]);
+            $("#startdate").wijinputdate("option", "date", startjs.toString());
+            $("#enddate").wijinputdate("option", "date", endjs.toString());
+        });
+    </script>
 </head>
 
 <body id="attractions-show-body">
+    <% if flash[:error] %>
+        <div class="notice"><b><%= flash[:error] %></b></div>
+    <% end %>
+    <%= render 'layouts/navigation' %>
 
+    <div id="date-form" class="row">
+        <form class="form-inline" method='post' action='welcome/save'>
 
+            <label for="destination">Destination</label>
+            <input name="destination" class ="form-control" type="text"value="<%= params[:destination].titleize %>" required>
 
-<% if flash[:error] %>
-    <div class="notice"><b><%= flash[:error] %></b></div>
-<% end %>
-<%= render 'layouts/navigation' %>
+            <label for="startdate">Arrival Date</label>
+            <input name="startdate" class ="form-control" type="text" id="startdate" />
+            <label for="enddate">Departure Date</label>
+            <input name="enddate" class ="form-control" type="text" id="enddate" />
 
-
-<div id="date-form" class="row">
-    <form class="form-inline" method='post' action='welcome/save'>
-
-        <label for="destination">Destination</label>
-        <input name="destination" class ="form-control" type="text"value="<%= params[:destination].titleize %>" required>
-
-        <label for="startdate">Arrival Date</label>
-        <input name="startdate" class ="form-control" type="text" id="startdate" />
-        <label for="enddate">Departure Date</label>
-        <input name="enddate" class ="form-control" type="text" id="enddate" />
-
-      <input class ="btn btn-default" type="submit" value="Update"/>
-      </form>
-</div>
-
-<div class = "row">
-  <% if @show_attractions %>
-      <h1>Attractions around <%= params[:destination].titleize %></h1>
-  <% end %>
-
-</div>
-
-<div class="row center" id="lets-go-row">
-
-  <form class="form-inline" method='post' action='attractions/'>
-    <input class ="btn btn-primary" type="submit" id="first-go" value="Let's go!"/>
-    <input type="hidden" name="destination" value="<%= params[:destination] %>" />
-    <input type="hidden" name="startdate" value="<%= params[:startdate] %>" />
-    <input type="hidden" name="enddate" value="<%= params[:enddate] %>" />
-  
-</div>
-
-<div class="row equal-columns-row">
-  <% Attraction.where('city = ?', params[:destination].titleize).find_each  do |attraction| %>
-
-    <div class="col-sm-6 col-md-4 equal-height-columns center">
-      <div class="thumbnail">
-        <img src=<%= Picture.find(attraction.picture_id).path %>>
-        <div class="caption">
-          <h4><%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %>
-          </h4>
-          <b>(Foursquare Rating: <%= attraction.rating %>/10)</b>
-          <p><%= attraction.description %>
-          <br>
-          <b>Do you want to go here?</b><br> </p>
-          <input type="radio" id = "-1 <%= attraction.name %>" name=<%= attraction.id %> value="-1"> No&#x1F62D; 
-          <input type="radio" id = "0 <%= attraction.name %>" name=<%= attraction.id %> value="0" checked="checked"> Maybe &#x1F60F; 
-          <input type="radio" id = "1 <%= attraction.name %>" name=<%= attraction.id %> value="1"> Yes&#x1F603; 
-        </div>
-      </div>
+          <input class ="btn btn-default" type="submit" value="Update"/>
+          </form>
     </div>
-  <% end %>
-</div>
 
-<div class="row center">
-  <input class ="btn btn-primary" id="second-go" type="submit" value="Let's go!"/>
-</div>
+    <div class = "row">
+      <% if @show_attractions %>
+          <h1>Attractions around <%= params[:destination].titleize %></h1>
+      <% end %>
+    </div>
 
+    <div class="row center">
+        <form class="form-inline" method='post' action='attractions/'>
+            <input type="hidden" name="destination" value="<%= params[:destination] %>" />
+            <input type="hidden" name="startdate" value="<%= params[:startdate] %>" />
+            <input type="hidden" name="enddate" value="<%= params[:enddate] %>" />
+            <div id="lets-go-row">
+                <input class ="btn btn-primary" type="submit" id="first-go" value="Let's go!"/>
+            </div>
+            <br>
+            <div class="row equal-columns-row">
+                <% Attraction.where('city = ?', params[:destination].titleize).find_each  do |attraction| %>
+                    <div class="col-sm-6 col-md-4 equal-height-columns center">
+                        <div class="thumbnail">
+                            <img src=<%= Picture.find(attraction.picture_id).path %>>
+                            <div class="caption">
+                                <h4><%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %></h4>
+                                <b>(Foursquare Rating: <%= attraction.rating %>/10)</b>
+                                <p><%= attraction.description %>
+                                <br>
+                                <b>Do you want to go here?</b><br></p>
+                                <input type="radio" id = "-1 <%= attraction.name %>" name=<%= attraction.id %> value="-1"> No&#x1F62D;
+                                <input type="radio" id = "0 <%= attraction.name %>" name=<%= attraction.id %> value="0" checked="checked"> Maybe &#x1F60F;
+                                <input type="radio" id = "1 <%= attraction.name %>" name=<%= attraction.id %> value="1"> Yes&#x1F603;
+                            </div>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+            <div class="row center">
+                <input class ="btn btn-primary" id="second-go" type="submit" value="Let's go!"/>
+            </div>
+        </form>
+    </div>
 
-
-
-  <%= render 'layouts/footer' %>
-
+    <%= render 'layouts/footer' %>
 
 </body>
 

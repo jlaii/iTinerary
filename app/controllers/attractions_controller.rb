@@ -8,6 +8,7 @@ class AttractionsController < ApplicationController
     end
 
   end
+
   def show_by_id
     @attraction = Attraction.find(params[:id])
     render "/attractions/attraction"
