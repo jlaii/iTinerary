@@ -5,7 +5,7 @@
     </div>
     <div>
         <b>To invite your friends send them this link:</b><br>
-        <%= request.base_url + request.path %>/?invitation_code=<%= @trip.uuid%>
+        <label id="invitation_code" <%= request.base_url + request.path %>/?invitation_code=<%= @trip.uuid%></label>
     </div>
     <div class="row">
         <div class="col-md-2"></div>
