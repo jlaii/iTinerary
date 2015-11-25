@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   post 'dashboard/:id' => 'trips#delete', as: :delete_trip
 
   post 'attractions/' => 'trips#new', as: :trip_new
+  get 'trips/' => 'trips#create_and_save_trip', as: :trip_create_save
 
   post 'welcome/save' => 'welcome#save', as: :trip_save
   # post 'submitClicked' => 'welcome#submitClicked'
