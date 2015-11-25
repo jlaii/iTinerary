@@ -60,18 +60,18 @@ RSpec.describe TripsController, type: :controller do
       attraction3.save
       expect(Trip.count).to eq 0
       expect(TripAttraction.count).to eq 0
-      post :new, :destination => "San Francisco", :startdate => "11/16/2015", :enddate => "11/18/2015",
-      "1"=>"0", "2"=>"0", "3"=>"0"
+      post :new, :destination => "San Francisco", :startdate => "11/16/2015", :enddate => "11/18/2015", "1"=>"0", "2"=>"0", "3"=>"0"
       expect(Trip.count).to eq 1
       expect(TripAttraction.count).to eq 3
-      # change vote counts for trip_attraction id:1
-      # post :new, :destination => "San Francisco", "1"=>"1", "2"=>"0", "3"=>"0"
-      # expect(TripAttraction.find(1).vote_count).to eq 1
     end
 
+    # it "change vote counts for trip_attraction id:1" do
+    #   post :new, :destination => "San Francisco", "1"=>"1", "2"=>"0", "3"=>"0"
+    #   expect(TripAttraction.find(1).vote_count).to eq 1
+    # end
+
     it "should fail to create trip- end_date before start_date" do
-      post :new, :destination => "San Francisco", :startdate => "11/18/2015", :enddate => "11/16/2015",
-           "1"=>"0", "2"=>"0", "3"=>"0"
+      post :new, :destination => "San Francisco", :startdate => "11/18/2015", :enddate => "11/16/2015", "1"=>"0", "2"=>"0", "3"=>"0"
       expect { raise "start_date later than end_date" }.to raise_error
     end
   end
