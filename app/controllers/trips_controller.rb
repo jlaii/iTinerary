@@ -33,8 +33,12 @@ class TripsController < ApplicationController
 
   def show_itinerary
     @trip = Trip.find(params[:trip_id])
+    @invitation_code = params[:invitation_code]
     if current_user
-      if current_user.id == @trip.user_id || !UserTrip.where(user_id: current_user.id, trip_id: @trip.id).blank?
+      if current_user.id == @trip.user_id || !UserTrip.where(user_id: current_user.id, trip_id: @trip.id).blank? || @invitation_code == @trip.uuid
+        if @invitation_code
+          UserTrip.create(user_id: current_user.id, trip_id: @trip.id)
+        end
         has_itinerary = false
         @trip.trip_attractions.each do |attraction|
           if attraction.start_time != nil
@@ -84,24 +88,27 @@ class TripsController < ApplicationController
       trip = Trip.new(city: city, start_time: start_time, end_time: end_time, :user_id => current_user.id, :uuid => SecureRandom.uuid)
       saved = trip.save
     end
-    if saved && has_trip
-      params.each do |key, value|
-        if key.to_i.to_s == key
-          trip.trip_attractions.where(:attraction_id => key).first.increment!(:vote_count, value.to_i)
+    if saved
+      UserTrip.create(user_id: current_user.id, trip_id: trip.id)
+      if has_trip
+        params.each do |key, value|
+          if key.to_i.to_s == key
+            trip.trip_attractions.where(:attraction_id => key).first.increment!(:vote_count, value.to_i)
+          end
         end
-      end
-      generate_itinerary(trip.id)
-    elsif saved && !has_trip
-      #add in all the trip_attractions to this trip
-      # byebug
-      params.each do |key, value|
-        # if (attraction_id != "destination" && attraction_id != "startdate" && attraction_id != "enddate")
-        if key.to_i.to_s == key
-          newTripAttraction = TripAttraction.new(attraction_id:key, trip_id:trip.id, vote_count:value)
-          newTripAttraction.save
+        generate_itinerary(trip.id)
+      else
+        #add in all the trip_attractions to this trip
+        # byebug
+        params.each do |key, value|
+          # if (attraction_id != "destination" && attraction_id != "startdate" && attraction_id != "enddate")
+          if key.to_i.to_s == key
+            newTripAttraction = TripAttraction.new(attraction_id:key, trip_id:trip.id, vote_count:value)
+            newTripAttraction.save
+          end
         end
+        generate_itinerary(trip.id)
       end
-      generate_itinerary(trip.id)
     else
       flash[:error] = "Start date cannot be later than end date."
       redirect_to root_path
