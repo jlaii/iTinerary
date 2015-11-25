@@ -68,11 +68,17 @@ class TripsController < ApplicationController
   end
 
   def new
+    if !current_user # need to log in here
+      $params = params
+      redirect_to new_user_session_path
+    else
+      create_and_save_trip
+    end
+  end
+
+  def create_and_save_trip
     params[:destination] = params[:destination].titleize
     city = params[:destination]
-    if !current_user #need to log in -> call something to login first then return back to this code
-
-    end
 
     has_trip = false
     current_user.trips.each do |trip|

@@ -2,33 +2,11 @@ require 'rails_helper'
 require 'byebug'
 
 RSpec.describe AttractionsController, type: :controller do
-
-  def fake_api_call
-    fake_api_response = File.read('spec/data/fake_api.json')
-    @last_modified = Date.new(2010, 1, 15).to_s
-    @content_length = '3533'
-    @request_object = HTTParty::Request.new Net::HTTP::Get, '/'
-    @response_object = Net::HTTPOK.new('1.1', 200, 'OK')
-    allow(@response_object).to receive_messages(body: fake_api_response)
-    @response_object['last-modified'] = @last_modified
-    @response_object['content-length'] = @content_length
-    @parsed_response = lambda { {"foo" => "bar"} }
-    @fake_response = HTTParty::Response.new(@request_object, @response_object, @parsed_response)
+  before(:all) do
+    @fake_api_response = File.read('spec/data/fake_api.json')
   end
 
   context "shows a list of attractions" do
-    before(:each) do
-      Attraction.delete_all
-      City.delete_all
-    end
-    after(:each) do
-      Attraction.delete_all
-      City.delete_all
-    end
-
-    before do
-      fake_api_call
-    end
 
     it "retrieves attractions if city hasn't been loaded before" do
       expect(Attraction.find_by_city("San Francisco")).to eq nil
@@ -37,7 +15,7 @@ RSpec.describe AttractionsController, type: :controller do
     end
 
     it "doesn't retrieve new attractions if city has been loaded before" do
-      HTTParty.should_receive(:get).and_return(@fake_response)
+      Foursquare.should_receive(:import_attractions).and_return(@fake_api_response)
       Attraction.import_foursquare_attractions("San Francisco")
       expect(Attraction.find_by_city("San Francisco")).to_not eq nil
       expect(Attraction.count).to eq 1
@@ -55,16 +33,8 @@ RSpec.describe AttractionsController, type: :controller do
   end
 
   context "show by id" do
-    before(:context) do
-      Attraction.delete_all
-    end
-    after(:context) do
-      Attraction.delete_all
-      City.delete_all
-    end
     before do
-      fake_api_call
-      HTTParty.should_receive(:get).and_return(@fake_response)
+      Foursquare.should_receive(:import_attractions).and_return(@fake_api_response)
       Attraction.import_foursquare_attractions("San Francisco")
     end
     it "shows the attraction if the id exists" do
