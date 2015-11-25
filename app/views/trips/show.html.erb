@@ -1,22 +1,37 @@
 <%= render 'layouts/navigation' %>
-You are going to: <%= @trip.city %><br>
-Your trip starts: <%= @trip.start_time %><br>
-Your trip ends: <%= @trip.end_time %>
-<br><br>
 
-<div class = "container-fluid">
+<div class="container-fluid">
 
-  <% has_votes = false %>
-  <% @trip.trip_attractions.each do |attraction| %>
-      <% if attraction.vote_count > 0 %>
-          <% has_votes = true %>
-          <% break %>
+  <div class = "row">
+    <div class="col-md-2"></div>
+
+    <div class ="col-md-4"><br>
+      You are going to: <b><%= @trip.city %></b><br>
+      Your trip starts: <i> <%= @trip.start_time %></i><br>
+      Your trip ends: <i><%= @trip.end_time %></i>
+
+  
+
+      <% has_votes = false %>
+      <% @trip.trip_attractions.each do |attraction| %>
+          <% if attraction.vote_count > 0 %>
+              <% has_votes = true %>
+              <% break %>
+          <% end %>
       <% end %>
-  <% end %>
+      <br><br>
+      <%= button_to "Generate Itinerary", generate_itinerary_path(params[:id]), method: :post %>
+    </div>
 
-      <div class = "row">
-        <%= button_to "Generate Itinerary", generate_itinerary_path(params[:id]), method: :post %>
-      </div>
+
+
+    <div class = "col-md-4">
+      
+
+      
+      <br>
+      
+      
       <% if has_votes %>
           Attractions you've upvoted for this trip:
 
@@ -32,4 +47,9 @@ Your trip ends: <%= @trip.end_time %>
       <% else %>
           You haven't upvoted any attractions for this trip. Hurry, go vote! :D
         <% end %>
+      </div>
+      <div class="col-md-2">
+      </div>
+  </div>
+</div>
 <%= render 'layouts/footer' %>
