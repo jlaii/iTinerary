@@ -1,5 +1,3 @@
-require 'HTTParty'
-
 class Foursquare
   AUTH_STRING = "client_id=#{FOURSQUARE_CLIENT_ID}&client_secret=#{FOURSQUARE_CLIENT_SECRET}&v=20151021"
 
