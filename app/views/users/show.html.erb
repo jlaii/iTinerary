@@ -30,10 +30,10 @@
                                 <% end %>
                                 <h3><%= trip.city %></h3>
                                 <%= trip.start_time %></li> to <%= trip.end_time %><br><%= trip.note %>
-                                <button><%= link_to "Revote", show_attractions_path(:destination => trip.city) %></button>
-                                <button><%= link_to "View votes", trip_show_path(:id => trip.id) %></button>
+                                <button><%= link_to "Revote", show_attractions_path(destination: trip.city) %></button>
+                                <button><%= link_to "View votes", trip_show_path(id: trip.id) %></button>
                                 <% if has_itinerary %>
-                                    <button><%= link_to "View itinerary", show_itinerary_path(:trip_id => trip.id) %></button>
+                                    <button><%= link_to "View itinerary", show_itinerary_path(trip_id: trip.id) %></button>
                                 <% end %>
                                 <%= button_to "delete this trip", delete_trip_path(trip.id) %><br>
                             <% end %>

@@ -26,7 +26,6 @@ class TripsController < ApplicationController
   def generate_itinerary(trip_id)
     #"please generate an itinerary for me according to this trip_id"
     @trip = Trip.find(trip_id)
-
     @itinerary = @trip.generate_itinerary(@trip.city)
     redirect_to show_itinerary_path(:trip_id => trip_id)
   end
@@ -113,7 +112,7 @@ class TripsController < ApplicationController
         params.each do |key, value|
           # if (attraction_id != "destination" && attraction_id != "startdate" && attraction_id != "enddate")
           if key.to_i.to_s == key
-            newTripAttraction = TripAttraction.new(attraction_id:key, trip_id:trip.id, vote_count:value)
+            newTripAttraction = TripAttraction.new(attraction_id: key, trip_id: trip.id, vote_count: value)
             newTripAttraction.save
           end
         end
