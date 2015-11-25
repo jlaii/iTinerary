@@ -1,52 +1,43 @@
 require 'rails_helper'
+require 'Foursquare'
 # require 'yaml'
 # fake_api = YAML.load_file('spec/fake_api.yml')
 
 RSpec.describe Attraction, type: :model do
-  def fake_api_call
-    fake_api_response = File.read('spec/data/fake_api.json')
-    @last_modified = Date.new(2010, 1, 15).to_s
-    @content_length = '3533'
-    @request_object = HTTParty::Request.new Net::HTTP::Get, '/'
-    @response_object = Net::HTTPOK.new('1.1', 200, 'OK')
-    allow(@response_object).to receive_messages(body: fake_api_response)
-    @response_object['last-modified'] = @last_modified
-    @response_object['content-length'] = @content_length
-    @parsed_response = lambda { {"foo" => "bar"} }
-    @fake_response = HTTParty::Response.new(@request_object, @response_object, @parsed_response)
+  before(:all) do
+    @fake_api_response = File.read('spec/data/fake_api.json')
+    @nonexistent_city = File.read('spec/data/fake_city.json')
   end
 
   context "importing attractions using FourSquare" do
-    before(:context) do
-      Attraction.delete_all
-      City.delete_all
-    end
-    after(:context) do
-      Attraction.delete_all
-      City.delete_all
-    end
 
     before do
-      fake_api_call
+      Attraction.delete_all
+      City.delete_all
     end
 
+    after do
+      Attraction.delete_all
+      City.delete_all
+    end
 
     it "imports attractions for a city" do
       expect(Attraction.count).to eq 0
       expect(City.count).to eq 0
-      HTTParty.should_receive(:get).and_return(@fake_response)
+      Foursquare.should_receive(:import_attractions).and_return(@fake_api_response)
       Attraction.import_foursquare_attractions("San Francisco", num_attractions = 1)
       expect(City.count).to eq 1
       expect(Attraction.count).to eq 1
     end
 
     it "returns true if city exists" do
-      HTTParty.should_receive(:get).and_return(@fake_response)
+      Foursquare.should_receive(:import_attractions).and_return(@fake_api_response)
       expect(Attraction.import_foursquare_attractions("San Francisco", 1)).to eq true
     end
 
     it "returns false if city does not exist" do
       expect(Attraction.count).to eq 0
+      Foursquare.should_receive(:import_attractions).and_return(@nonexistent_city)
       expect(Attraction.import_foursquare_attractions("city_that_does_not_exist")).to eq false
       expect(Attraction.count).to eq 0
     end
@@ -54,16 +45,16 @@ RSpec.describe Attraction, type: :model do
   end
 
   context "after importing attractions" do
-    after(:context) do
+    before do
       Attraction.delete_all
       City.delete_all
     end
-
-    before do
-      fake_api_call
+    after do
+      Attraction.delete_all
+      City.delete_all
     end
     it "an attraction and city contains all necessary relevant info" do
-      HTTParty.should_receive(:get).and_return(@fake_response)
+      Foursquare.should_receive(:import_attractions).and_return(@fake_api_response)
       Attraction.import_foursquare_attractions("San Francisco", 1)
       attraction = Attraction.first
       expect(attraction.city).to_not eq nil
@@ -121,6 +112,18 @@ RSpec.describe Attraction, type: :model do
       expect(open_attraction.is_open? 5, 0000, 2400).to eq true
       expect(open_attraction.is_open? 6, 0000, 2400).to eq true
       expect(open_attraction.is_open? 7, 0000, 2400).to eq true
+    end
+
+    it "returns the number of overlapping hours with a popular timeframe" do
+      #this attraction is popular from 800-1400 on tuesdays (11/24 is a tuesday)
+      popular_attraction = Attraction.new(:hours_json => @sample_hours_json)
+      time = DateTime.new(2015, 11, 24, 8)
+      expect(popular_attraction.num_hours_popular(time)).to eq 2
+      time = time.change({hour: 7})
+      expect(popular_attraction.num_hours_popular(time)).to eq 1
+      time = time.change({hour: 6})
+      expect(popular_attraction.num_hours_popular(time)).to eq 0
+
     end
 
   end
