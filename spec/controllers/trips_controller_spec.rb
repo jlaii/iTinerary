@@ -38,6 +38,7 @@ RSpec.describe TripsController, type: :controller do
       Trip.delete_all
     end
 
+    login_user
     it "generate trip and trip attractions" do
       city = City.new(:name => "San Francisco", :lat => 37.7833, :lng => 122.4167)
       city.save
@@ -56,13 +57,11 @@ RSpec.describe TripsController, type: :controller do
       "1"=>"0", "2"=>"0", "3"=>"0"
       expect(Trip.count).to eq 1
       expect(TripAttraction.count).to eq 3
+      # change vote counts for trip_attraction id:1
+      # post :new, :destination => "San Francisco", "1"=>"1", "2"=>"0", "3"=>"0"
+      # expect(TripAttraction.find(1).vote_count).to eq 1
     end
 
-    it "change vote counts for trip_attraction id:1" do
-      post :new, :destination => "San Francisco", "1"=>"1", "2"=>"0", "3"=>"0"
-      expect(TripAttraction.find(1).vote_count).to eq 1
-    end
-    
     it "should fail to create trip- end_date before start_date" do
       post :new, :destination => "San Francisco", :startdate => "11/18/2015", :enddate => "11/16/2015",
            "1"=>"0", "2"=>"0", "3"=>"0"
@@ -108,6 +107,7 @@ RSpec.describe TripsController, type: :controller do
       Attraction.import_foursquare_attractions("Taipei", 20)
     end
 
+    login_user
     it "test number of trip attractions in itinerary" do
       start_id = Attraction.first.id
       fake_hours_api_call
@@ -115,7 +115,6 @@ RSpec.describe TripsController, type: :controller do
       post :new, :destination => "Taipei", :startdate => "11/02/2015", :enddate => "11/03/2015",
            start_id.to_s =>"0", (start_id+1).to_s=>"0", (start_id+2).to_s=>"0", (start_id+3).to_s=>"0", (start_id+4).to_s=>"0", (start_id+5).to_s=>"0", (start_id+6).to_s=>"0", (start_id+7).to_s=>"0", (start_id+8).to_s=>"0"
       trip = Trip.find_by_city("Taipei")
-      post :generate_itinerary, :id => trip.id
       trip_attractions = TripAttraction.where.not(end_time: nil)
       expect(trip_attractions.length).to eq(8)
     end
