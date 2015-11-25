@@ -6,6 +6,7 @@ require 'Foursquare'
 RSpec.describe Attraction, type: :model do
   before(:all) do
     @fake_api_response = File.read('spec/data/fake_api.json')
+    @nonexistent_city = File.read('spec/data/fake_city.json')
   end
 
   context "importing attractions using FourSquare" do
@@ -36,6 +37,7 @@ RSpec.describe Attraction, type: :model do
 
     it "returns false if city does not exist" do
       expect(Attraction.count).to eq 0
+      Foursquare.should_receive(:import_attractions).and_return(@nonexistent_city)
       expect(Attraction.import_foursquare_attractions("city_that_does_not_exist")).to eq false
       expect(Attraction.count).to eq 0
     end
