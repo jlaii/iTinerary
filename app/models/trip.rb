@@ -1,6 +1,6 @@
 class Trip < ActiveRecord::Base
   has_many :trip_attractions
-  has_and_belongs_to_many :user
+  has_many :user
   validate :trip_date_validation
   RAD_PER_DEG = Math::PI/180
   EARTH_R_KM = 6371 # Radius of Earth in Km
