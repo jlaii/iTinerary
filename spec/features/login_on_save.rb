@@ -31,7 +31,7 @@ RSpec.feature "Login on Save", :type => :feature do
     visit user_show_path
     expect(page).to have_text("Hi there,")
 
-    visit show_attractions_path(:destination => "San Francisco")
+    click_link "Revote"
     expect(page).to have_text("Attractions around San Francisco")
 
   end

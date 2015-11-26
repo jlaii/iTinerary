@@ -8,7 +8,7 @@
       Your trip ends: <i><%= @trip.end_time %></i>
       <% has_votes = false %>
       <% @trip.trip_attractions.each do |attraction| %>
-        <% if attraction.vote_count > 0 %>
+        <% if attraction.vote_count != nil and attraction.vote_count > 0 %>
           <% has_votes = true %>
           <% break %>
         <% end %>
