@@ -54,7 +54,7 @@ class TripsController < ApplicationController
         if @invitation_code
           flash[:notice] = "Ooops! Your invitation code seems incorrect. Please double check the code with the owner."
         else
-          flash[:notice] = "Ooops! Your account does not have permission to vitrip or itinerary. Please contact the owner of the trip or itinerary to grant you permissionis page."
+          flash[:notice] = "Ooops! Your account does not have permission to view this trip or itinerary. Please contact the owner of the trip to get a valid link to this page."
         end
         session[:previous_url] = request.fullpath
         render "no_permission"
