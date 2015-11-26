@@ -27,7 +27,7 @@ class TripsController < ApplicationController
     #"please generate an itinerary for me according to this trip_id"
     @trip = Trip.find(trip_id)
     @itinerary = @trip.generate_itinerary(@trip.city)
-    render "show_itinerary"
+    redirect_to show_itinerary_path(:trip_id => trip_id)
   end
 
   def show_itinerary
@@ -45,11 +45,11 @@ class TripsController < ApplicationController
             break
           end
         end
-        if has_itinerary
-          @itinerary = TripAttraction.where(:trip_id => @trip.id).where.not(:start_time => nil).order(:start_time)
-          render "show_itinerary"
+        if !has_itinerary
+          generate_itinerary(params[:trip_id])
         end
-        generate_itinerary(params[:trip_id])
+        @itinerary = TripAttraction.where(:trip_id => @trip.id).where.not(:start_time => nil).order(:start_time)
+        render "show_itinerary"
       else
         if @invitation_code
           flash[:notice] = "Ooops! Your invitation code seems incorrect. Please double check the code with the owner."
