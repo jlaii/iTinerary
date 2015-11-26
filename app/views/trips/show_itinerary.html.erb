@@ -1,11 +1,11 @@
 <%= render 'layouts/navigation' %>
 <div class = "container-fluid">
+  <div>
+    <b>To invite your friends send them this link:</b><br>
+    <%= request.base_url + request.path %>/?invitation_code=<%= @trip.uuid%>
+  </div>
     <div class="row">
         <h1> Your Itinerary for <%= @trip.city %> </h1>
-    </div>
-    <div>
-        <b>To invite your friends send them this link:</b><br>
-        <%= request.base_url + request.path %>/?invitation_code=<%= @trip.uuid%>
     </div>
     <div class="row">
         <div class="col-md-2"></div>
