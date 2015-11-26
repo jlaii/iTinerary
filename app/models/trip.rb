@@ -41,7 +41,7 @@ class Trip < ActiveRecord::Base
       curr_attraction = Attraction.find(next_attraction.attraction_id)
       start_time += 2.hours + trip_attraction_hash[:travel_time].minutes
       if start_time.hour >= 12 and not had_lunch
-        lunch = TripAttraction.new(:trip_id => self.id, :lunch => true, :start_time => start_time, :end_time => start_time + 1.hour)
+        lunch = TripAttraction.new(:vote_count => 0, :trip_id => self.id, :lunch => true, :start_time => start_time, :end_time => start_time + 1.hour)
         lunch.save
         itinerary.append(lunch)
         start_time += 1.hour
