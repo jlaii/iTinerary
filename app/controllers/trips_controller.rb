@@ -81,7 +81,12 @@ class TripsController < ApplicationController
     city = params[:destination]
 
     has_trip = false
-    current_user.trips.each do |trip|
+    @trip_id_list = []
+    UserTrip.where(user_id: current_user.id).each do |user_trip|
+      @trip_id_list.append(user_trip.trip_id)
+    end
+    @trips = Trip.where(id: @trip_id_list)
+    @trips.each do |trip|
       if trip.city == city
         has_trip = true
         break

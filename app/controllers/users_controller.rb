@@ -6,7 +6,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(current_user.id)
     @trip_id_list = []
     UserTrip.where(user_id: current_user.id).each do |user_trip|
       @trip_id_list.append(user_trip.trip_id)
