@@ -555,26 +555,7 @@
         null,
         null
       ],
-      "/Users/JOSEPH/Dropbox/UCBerkeley/2015_fall/CS169/iTinerary/spec/factories.rb": [
-        null,
-        null,
-        1,
-        1,
-        1,
-        1,
-        null,
-        null
-      ],
-      "/Users/JOSEPH/Dropbox/UCBerkeley/2015_fall/CS169/iTinerary/spec/factories/cities.rb": [
-        1,
-        1,
-        1,
-        1,
-        null,
-        null,
-        null
-      ],
-      "/Users/JOSEPH/Dropbox/UCBerkeley/2015_fall/CS169/iTinerary/spec/factories/user_trips.rb": [
+      "/Users/JOSEPH/Dropbox/UCBerkeley/2015_fall/CS169/iTinerary/spec/factories/users.rb": [
         1,
         1,
         1,
@@ -1718,6 +1699,6 @@
         null
       ]
     },
-    "timestamp": 1448512238
+    "timestamp": 1448512915
   }
 }
