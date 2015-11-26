@@ -61,6 +61,7 @@ class Trip < ActiveRecord::Base
     best_attraction = nil
     best_travel_time = 0
     for trip_attraction in trip_attractions
+      next if trip_attraction.lunch
       attraction = Attraction.find(trip_attraction.attraction_id)
       attraction_hash = calculate_attraction_score(trip_attraction, attraction, prev_attraction, start_time)
       score = attraction_hash[:score]
