@@ -45,11 +45,12 @@ class TripsController < ApplicationController
             break
           end
         end
-        if !has_itinerary
+        if has_itinerary
+          @itinerary = TripAttraction.where(:trip_id => @trip.id).where.not(:start_time => nil).order(:start_time)
+          render "show_itinerary"
+        else
           generate_itinerary(params[:trip_id])
         end
-        @itinerary = TripAttraction.where(:trip_id => @trip.id).where.not(:start_time => nil).order(:start_time)
-        render "show_itinerary"
       else
         if @invitation_code
           flash[:notice] = "Ooops! Your invitation code seems incorrect. Please double check the code with the owner."
@@ -94,7 +95,7 @@ class TripsController < ApplicationController
       end_lst = params[:enddate].split("/")
       start_time = DateTime.new(start_lst[2].to_i, start_lst[0].to_i, start_lst[1].to_i, 0, 0, 0)
       end_time = DateTime.new(end_lst[2].to_i, end_lst[0].to_i, end_lst[1].to_i, 0, 0, 0)
-      trip = Trip.new(city: city, start_time: start_time, end_time: end_time, :user_id => current_user.id, :uuid => SecureRandom.uuid)
+      trip = Trip.new(city: city, start_time: start_time, end_time: end_time, user_id: current_user.id, uuid: SecureRandom.uuid)
       saved = trip.save
     end
     if saved
