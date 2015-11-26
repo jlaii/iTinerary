@@ -1,33 +1,34 @@
 <%= render 'layouts/navigation' %>
 <div class = "container-fluid">
+  <div>
+    <b>To invite your friends send them this link:</b><br>
+    <%= request.base_url + request.path %>/?invitation_code=<%= @trip.uuid%>
+  </div>
     <div class="row">
         <h1> Your Itinerary for <%= @trip.city %> </h1>
-    </div>
-    <div>
-        <b>To invite your friends send them this link:</b><br>
-        <label id="invitation_code" <%= request.base_url + request.path %>/?invitation_code=<%= @trip.uuid%></label>
     </div>
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8" id="itinerary">
             <% attraction_count = 0 %>
             <% for trip_attraction in @itinerary %>
+                <% start_time = trip_attraction.start_time %>
+                <% end_time = trip_attraction.end_time %>
                 <% if trip_attraction.lunch %>
-                    <h3> Enjoy Lunch in the Area :) </h3>
-                    <b>Start time: <%= trip_attraction.start_time %></b><br>
-                    <b>End time: <%= trip_attraction.end_time %></b><br>
+                    <h3><%= start_time.strftime('%H:%M') %> - <%= end_time.strftime('%H:%M') %> </h3>
+                    <h4> Enjoy Lunch in the Area :) </h4>
                     <img src="http://cdn.sheknows.com/articles/2012/05/grab_your_fork.jpg">
                 <% else %>
                     <% if attraction_count % Trip::NUM_ATTRACTIONS == 0%>
-                        <h2>DAY <%= attraction_count / Trip::NUM_ATTRACTIONS + 1%></h2>
+                        <h2>DAY <%= attraction_count / Trip::NUM_ATTRACTIONS + 1%>
+                        (<%= start_time.strftime('%a %m/%d/%Y')%>)</h2>
                     <% end %>
                     <% attraction = Attraction.find(trip_attraction.attraction_id) %>
-                    <h3><%= attraction.name %></h3><br>
-                    <b>Start time:</b> <%= trip_attraction.start_time %><br>
-                    <b>End time :</b> <%= trip_attraction.end_time %>
-                    <br>
+                    <h3><%= start_time.strftime('%H:%M') %> - <%= end_time.strftime('%H:%M') %> </h3>
+                    <h4><%= attraction.name %></h4>
                     <img src=<%= Picture.find(attraction.picture_id).path %>><br>
                     <b>City: </b> <%= attraction.city %><br>
+                    <b>Date: </b> <br>
                     <b>Category: </b> <%= attraction.category %><br>
                     <b>Tip from FourSquare: </b><%= attraction.description %><br>
                     <b>Address: </b><%= attraction.address%><br>

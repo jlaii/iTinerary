@@ -62,7 +62,7 @@ RSpec.describe TripsController, type: :controller do
       expect(TripAttraction.count).to eq 0
       post :new, :destination => "San Francisco", :startdate => "11/16/2015", :enddate => "11/18/2015", "1"=>"0", "2"=>"0", "3"=>"0"
       expect(Trip.count).to eq 1
-      expect(TripAttraction.count).to eq 3
+      expect(TripAttraction.count).to eq 4
     end
 
     it "should fail to create trip- end_date before start_date" do
@@ -86,7 +86,7 @@ RSpec.describe TripsController, type: :controller do
            start_id.to_s =>"0", (start_id+1).to_s=>"0", (start_id+2).to_s=>"0", (start_id+3).to_s=>"0", (start_id+4).to_s=>"0", (start_id+5).to_s=>"0", (start_id+6).to_s=>"0", (start_id+7).to_s=>"0", (start_id+8).to_s=>"0"
       trip = Trip.find_by_city("Taipei")
       trip_attractions = TripAttraction.where.not(end_time: nil)
-      expect(trip_attractions.length).to eq(8)
+      expect(trip_attractions.length).to eq(10)
     end
   end
 end

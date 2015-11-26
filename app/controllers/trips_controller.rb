@@ -27,7 +27,7 @@ class TripsController < ApplicationController
     #"please generate an itinerary for me according to this trip_id"
     @trip = Trip.find(trip_id)
     @itinerary = @trip.generate_itinerary(@trip.city)
-    redirect_to show_itinerary_path(:trip_id => trip_id)
+    render "show_itinerary"
   end
 
   def show_itinerary
@@ -45,16 +45,16 @@ class TripsController < ApplicationController
             break
           end
         end
-        if !has_itinerary
-          generate_itinerary(params[:trip_id])
+        if has_itinerary
+          @itinerary = TripAttraction.where(:trip_id => @trip.id).where.not(:start_time => nil).order(:start_time)
+          render "show_itinerary"
         end
-        @itinerary = TripAttraction.where(:trip_id => @trip.id).where.not(:start_time => nil).order(:start_time)
-        render "show_itinerary"
+        generate_itinerary(params[:trip_id])
       else
         if @invitation_code
           flash[:notice] = "Ooops! Your invitation code seems incorrect. Please double check the code with the owner."
         else
-          flash[:notice] = "Ooops! Your account does not have permission to vitrip or itinerary. Please contact the owner of the trip or itinerary to grant you permissionis page."
+          flash[:notice] = "Ooops! Your account does not have permission to view this trip or itinerary. Please contact the owner of the trip to get a valid link to this page."
         end
         session[:previous_url] = request.fullpath
         render "no_permission"

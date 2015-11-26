@@ -5,10 +5,12 @@ class ApplicationController < ActionController::Base
   skip_before_action :verify_authenticity_token
 
   def after_sign_in_path_for(resource)
-  	if $params
+		if session[:previous_url]
+			session[:previous_url]
+		elsif $params
   		trip_create_save_path($params) || root_path
-  	else
-			session[:previous_url] || root_path
+		else
+			root_path
   	end
 	end
 end
