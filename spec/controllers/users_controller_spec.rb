@@ -8,18 +8,16 @@ RSpec.describe UsersController, type: :controller do
     UserTrip.delete_all
   end
 
-  # user = User.create(id: 1, email: "test@gmail.com")
   login_user # suppose to create user with id=1
   context "Test show" do
-    # byebug
     it "checks if get the right amount of trips of a user" do
       Trip.create(id: 1)
       Trip.create(id: 2)
       Trip.create(id: 3)
-      UserTrip.create(user_id: subject.current_user.id, trip_id: 1)
-      UserTrip.create(user_id: subject.current_user.id, trip_id: 2)
-      UserTrip.create(user_id: subject.current_user.id, trip_id: 3)
-      # byebug
+      @curr_user_id = subject.current_user.id
+      UserTrip.create(user_id: @curr_user_id, trip_id: 1)
+      UserTrip.create(user_id: @curr_user_id, trip_id: 2)
+      UserTrip.create(user_id: @curr_user_id, trip_id: 3)
       post :show
       expect(assigns(:trips).length).to equal(3)
     end
