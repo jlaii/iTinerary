@@ -93,7 +93,7 @@ class TripsController < ApplicationController
       end
     end
     if has_trip
-      trip = current_user.trips.where(:city => city).first #making assumption this user only go to this city once
+      trip = @trips.where(:city => city).first #making assumption this user only go to this city once
       saved = true
     else
       start_lst = params[:startdate].split("/")

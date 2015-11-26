@@ -14,27 +14,27 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2015-11-26T00:44:43-06:00">2015-11-26T00:44:43-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2015-11-26T01:03:32-06:00">2015-11-26T01:03:32-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="green">94.74%</span></span>
+    (<span class="covered_percent"><span class="green">94.64%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         24.7
+         24.58
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>48</b> files in total.
-    <b>779</b> relevant lines. 
-    <span class="green"><b>738</b> lines covered</span> and
-    <span class="red"><b>41</b> lines missed </span>
+    <b>783</b> relevant lines. 
+    <span class="green"><b>741</b> lines covered</span> and
+    <span class="red"><b>42</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -102,12 +102,12 @@
       
       <tr>
         <td class="strong"><a href="#02bb012ec2b45e40ded0b8678d7b29d16cb83226" class="src_link" title="app/controllers/trips_controller.rb">app/controllers/trips_controller.rb</a></td>
-        <td class="red strong">79.49 %</td>
-        <td>132</td>
-        <td>78</td>
-        <td>62</td>
-        <td>16</td>
-        <td>5.2</td>
+        <td class="red strong">79.27 %</td>
+        <td>137</td>
+        <td>82</td>
+        <td>65</td>
+        <td>17</td>
+        <td>5.0</td>
       </tr>
       
       <tr>
@@ -957,11 +957,11 @@
         <div class="source_table" id="02bb012ec2b45e40ded0b8678d7b29d16cb83226">
   <div class="header">
     <h3>app/controllers/trips_controller.rb</h3>
-    <h4><span class="red">79.49 %</span> covered</h4>
+    <h4><span class="red">79.27 %</span> covered</h4>
     <div>
-      <b>78</b> relevant lines. 
-      <span class="green"><b>62</b> lines covered</span> and
-      <span class="red"><b>16</b> lines missed.</span>
+      <b>82</b> relevant lines. 
+      <span class="green"><b>65</b> lines covered</span> and
+      <span class="red"><b>17</b> lines missed.</span>
     </div>
   </div>
   
@@ -1469,283 +1469,283 @@
         <li class="covered" data-hits="4" data-linenumber="84">
           <span class="hits">4</span>
           
-          <code class="ruby">    current_user.trips.each do |trip|</code>
+          <code class="ruby">    @trip_id_list = []</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="85">
+        <li class="covered" data-hits="4" data-linenumber="85">
+          <span class="hits">4</span>
           
-          
-          <code class="ruby">      if trip.city == city</code>
+          <code class="ruby">    UserTrip.where(user_id: current_user.id).each do |user_trip|</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="86">
           
           
-          <code class="ruby">        has_trip = true</code>
+          <code class="ruby">      @trip_id_list.append(user_trip.trip_id)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="87">
-          
-          
-          <code class="ruby">        break</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="88">
-          
-          
-          <code class="ruby">      end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="89">
+        <li class="never" data-hits="" data-linenumber="87">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="90">
+        <li class="covered" data-hits="4" data-linenumber="88">
           <span class="hits">4</span>
           
-          <code class="ruby">    if has_trip</code>
+          <code class="ruby">    @trips = Trip.where(id: @trip_id_list)</code>
+        </li>
+      
+        <li class="covered" data-hits="4" data-linenumber="89">
+          <span class="hits">4</span>
+          
+          <code class="ruby">    @trips.each do |trip|</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="90">
+          
+          
+          <code class="ruby">      if trip.city == city</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="91">
           
           
-          <code class="ruby">      trip = current_user.trips.where(:city =&gt; city).first #making assumption this user only go to this city once</code>
+          <code class="ruby">        has_trip = true</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="92">
           
           
-          <code class="ruby">      saved = true</code>
+          <code class="ruby">        break</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="93">
           
           
-          <code class="ruby">    else</code>
+          <code class="ruby">      end</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="94">
-          <span class="hits">4</span>
+        <li class="never" data-hits="" data-linenumber="94">
           
-          <code class="ruby">      start_lst = params[:startdate].split(&quot;/&quot;)</code>
+          
+          <code class="ruby">    end</code>
         </li>
       
         <li class="covered" data-hits="4" data-linenumber="95">
           <span class="hits">4</span>
           
-          <code class="ruby">      end_lst = params[:enddate].split(&quot;/&quot;)</code>
+          <code class="ruby">    if has_trip</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="96">
-          <span class="hits">4</span>
+        <li class="missed" data-hits="0" data-linenumber="96">
           
-          <code class="ruby">      start_time = DateTime.new(start_lst[2].to_i, start_lst[0].to_i, start_lst[1].to_i, 0, 0, 0)</code>
+          
+          <code class="ruby">      trip = current_user.trips.where(:city =&gt; city).first #making assumption this user only go to this city once</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="97">
-          <span class="hits">4</span>
+        <li class="missed" data-hits="0" data-linenumber="97">
           
-          <code class="ruby">      end_time = DateTime.new(end_lst[2].to_i, end_lst[0].to_i, end_lst[1].to_i, 0, 0, 0)</code>
+          
+          <code class="ruby">      saved = true</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="98">
-          <span class="hits">4</span>
-          
-          <code class="ruby">      trip = Trip.new(city: city, start_time: start_time, end_time: end_time, user_id: current_user.id, uuid: SecureRandom.uuid)</code>
-        </li>
-      
-        <li class="covered" data-hits="4" data-linenumber="99">
-          <span class="hits">4</span>
-          
-          <code class="ruby">      saved = trip.save</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="100">
-          
-          
-          <code class="ruby">    end</code>
-        </li>
-      
-        <li class="covered" data-hits="4" data-linenumber="101">
-          <span class="hits">4</span>
-          
-          <code class="ruby">    if saved</code>
-        </li>
-      
-        <li class="covered" data-hits="3" data-linenumber="102">
-          <span class="hits">3</span>
-          
-          <code class="ruby">      UserTrip.create(user_id: current_user.id, trip_id: trip.id)</code>
-        </li>
-      
-        <li class="covered" data-hits="3" data-linenumber="103">
-          <span class="hits">3</span>
-          
-          <code class="ruby">      if has_trip</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="104">
-          
-          
-          <code class="ruby">        params.each do |key, value|</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="105">
-          
-          
-          <code class="ruby">          if key.to_i.to_s == key</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="106">
-          
-          
-          <code class="ruby">            trip.trip_attractions.where(:attraction_id =&gt; key).first.increment!(:vote_count, value.to_i)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="107">
-          
-          
-          <code class="ruby">          end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="108">
-          
-          
-          <code class="ruby">        end</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="109">
-          
-          
-          <code class="ruby">        generate_itinerary(trip.id)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="110">
-          
-          
-          <code class="ruby">      else</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="111">
-          
-          
-          <code class="ruby">        #add in all the trip_attractions to this trip</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="112">
-          
-          
-          <code class="ruby">        # byebug</code>
-        </li>
-      
-        <li class="covered" data-hits="3" data-linenumber="113">
-          <span class="hits">3</span>
-          
-          <code class="ruby">        params.each do |key, value|</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="114">
-          
-          
-          <code class="ruby">          # if (attraction_id != &quot;destination&quot; &amp;&amp; attraction_id != &quot;startdate&quot; &amp;&amp; attraction_id != &quot;enddate&quot;)</code>
-        </li>
-      
-        <li class="covered" data-hits="77" data-linenumber="115">
-          <span class="hits">77</span>
-          
-          <code class="ruby">          if key.to_i.to_s == key</code>
-        </li>
-      
-        <li class="covered" data-hits="62" data-linenumber="116">
-          <span class="hits">62</span>
-          
-          <code class="ruby">            newTripAttraction = TripAttraction.new(attraction_id: key, trip_id: trip.id, vote_count: value)</code>
-        </li>
-      
-        <li class="covered" data-hits="62" data-linenumber="117">
-          <span class="hits">62</span>
-          
-          <code class="ruby">            newTripAttraction.save</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="118">
-          
-          
-          <code class="ruby">          end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="119">
-          
-          
-          <code class="ruby">        end</code>
-        </li>
-      
-        <li class="covered" data-hits="3" data-linenumber="120">
-          <span class="hits">3</span>
-          
-          <code class="ruby">        generate_itinerary(trip.id)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="121">
-          
-          
-          <code class="ruby">      end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="122">
+        <li class="never" data-hits="" data-linenumber="98">
           
           
           <code class="ruby">    else</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="123">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="4" data-linenumber="99">
+          <span class="hits">4</span>
           
-          <code class="ruby">      flash[:error] = &quot;Start date cannot be later than end date.&quot;</code>
+          <code class="ruby">      start_lst = params[:startdate].split(&quot;/&quot;)</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="124">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="4" data-linenumber="100">
+          <span class="hits">4</span>
           
-          <code class="ruby">      redirect_to root_path</code>
+          <code class="ruby">      end_lst = params[:enddate].split(&quot;/&quot;)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="125">
+        <li class="covered" data-hits="4" data-linenumber="101">
+          <span class="hits">4</span>
+          
+          <code class="ruby">      start_time = DateTime.new(start_lst[2].to_i, start_lst[0].to_i, start_lst[1].to_i, 0, 0, 0)</code>
+        </li>
+      
+        <li class="covered" data-hits="4" data-linenumber="102">
+          <span class="hits">4</span>
+          
+          <code class="ruby">      end_time = DateTime.new(end_lst[2].to_i, end_lst[0].to_i, end_lst[1].to_i, 0, 0, 0)</code>
+        </li>
+      
+        <li class="covered" data-hits="4" data-linenumber="103">
+          <span class="hits">4</span>
+          
+          <code class="ruby">      trip = Trip.new(city: city, start_time: start_time, end_time: end_time, user_id: current_user.id, uuid: SecureRandom.uuid)</code>
+        </li>
+      
+        <li class="covered" data-hits="4" data-linenumber="104">
+          <span class="hits">4</span>
+          
+          <code class="ruby">      saved = trip.save</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="105">
           
           
           <code class="ruby">    end</code>
         </li>
       
+        <li class="covered" data-hits="4" data-linenumber="106">
+          <span class="hits">4</span>
+          
+          <code class="ruby">    if saved</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="107">
+          <span class="hits">3</span>
+          
+          <code class="ruby">      UserTrip.create(user_id: current_user.id, trip_id: trip.id)</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="108">
+          <span class="hits">3</span>
+          
+          <code class="ruby">      if has_trip</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="109">
+          
+          
+          <code class="ruby">        params.each do |key, value|</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="110">
+          
+          
+          <code class="ruby">          if key.to_i.to_s == key</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="111">
+          
+          
+          <code class="ruby">            trip.trip_attractions.where(:attraction_id =&gt; key).first.increment!(:vote_count, value.to_i)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="112">
+          
+          
+          <code class="ruby">          end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="113">
+          
+          
+          <code class="ruby">        end</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="114">
+          
+          
+          <code class="ruby">        generate_itinerary(trip.id)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="115">
+          
+          
+          <code class="ruby">      else</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="116">
+          
+          
+          <code class="ruby">        #add in all the trip_attractions to this trip</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="117">
+          
+          
+          <code class="ruby">        # byebug</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="118">
+          <span class="hits">3</span>
+          
+          <code class="ruby">        params.each do |key, value|</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="119">
+          
+          
+          <code class="ruby">          # if (attraction_id != &quot;destination&quot; &amp;&amp; attraction_id != &quot;startdate&quot; &amp;&amp; attraction_id != &quot;enddate&quot;)</code>
+        </li>
+      
+        <li class="covered" data-hits="77" data-linenumber="120">
+          <span class="hits">77</span>
+          
+          <code class="ruby">          if key.to_i.to_s == key</code>
+        </li>
+      
+        <li class="covered" data-hits="62" data-linenumber="121">
+          <span class="hits">62</span>
+          
+          <code class="ruby">            newTripAttraction = TripAttraction.new(attraction_id: key, trip_id: trip.id, vote_count: value)</code>
+        </li>
+      
+        <li class="covered" data-hits="62" data-linenumber="122">
+          <span class="hits">62</span>
+          
+          <code class="ruby">            newTripAttraction.save</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="123">
+          
+          
+          <code class="ruby">          end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="124">
+          
+          
+          <code class="ruby">        end</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="125">
+          <span class="hits">3</span>
+          
+          <code class="ruby">        generate_itinerary(trip.id)</code>
+        </li>
+      
         <li class="never" data-hits="" data-linenumber="126">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">      end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="127">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">    else</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="128">
           <span class="hits">1</span>
           
-          <code class="ruby">  def delete</code>
+          <code class="ruby">      flash[:error] = &quot;Start date cannot be later than end date.&quot;</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="129">
+        <li class="covered" data-hits="1" data-linenumber="129">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">    Trip.destroy(params[:id])</code>
+          <code class="ruby">      redirect_to root_path</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="130">
+        <li class="never" data-hits="" data-linenumber="130">
           
           
-          <code class="ruby">    redirect_to user_show_path</code>
+          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="131">
@@ -1755,6 +1755,36 @@
         </li>
       
         <li class="never" data-hits="" data-linenumber="132">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="133">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def delete</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="134">
+          
+          
+          <code class="ruby">    Trip.destroy(params[:id])</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="135">
+          
+          
+          <code class="ruby">    redirect_to user_show_path</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="136">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="137">
           
           
           <code class="ruby">end</code>
