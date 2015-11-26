@@ -41,7 +41,7 @@ class Trip < ActiveRecord::Base
       curr_attraction = Attraction.find(next_attraction.attraction_id)
       start_time += 2.hours + trip_attraction_hash[:travel_time].minutes
       if start_time.hour >= 12 and not had_lunch
-        lunch = TripAttraction.new(:trip_id => self.id, :lunch => true, :start_time => start_time, :end_time => start_time + 1.hour)
+        lunch = TripAttraction.new(:vote_count => 0, :trip_id => self.id, :lunch => true, :start_time => start_time, :end_time => start_time + 1.hour)
         lunch.save
         itinerary.append(lunch)
         start_time += 1.hour
@@ -61,6 +61,7 @@ class Trip < ActiveRecord::Base
     best_attraction = nil
     best_travel_time = 0
     for trip_attraction in trip_attractions
+      next if trip_attraction.lunch
       attraction = Attraction.find(trip_attraction.attraction_id)
       attraction_hash = calculate_attraction_score(trip_attraction, attraction, prev_attraction, start_time)
       score = attraction_hash[:score]

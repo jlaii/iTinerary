@@ -47,6 +47,7 @@ RSpec.feature "Add Trip to User", :type => :feature do
   end
 
   scenario "User upvotes attractions" do
+    # skipping this test because it passes only sometimes for some reason
     skip "logged in user generates voted itinerary redirects back to root" do
       visit "/users/sign_in"
       fill_in "Email", :with => "test@email.com"

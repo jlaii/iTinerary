@@ -24,7 +24,7 @@ RSpec.feature "Add Trip to User", :type => :feature do
     visit user_show_path
     expect(page).to have_text("Hi there,")
 
-    visit show_attractions_path(:destination => "San Francisco")
+    click_link "Revote"
     expect(page).to have_text("Attractions around San Francisco")
 
     choose "1 Louise M. Davies Symphony Hall"
@@ -33,7 +33,7 @@ RSpec.feature "Add Trip to User", :type => :feature do
     visit user_show_path
     expect(page).to have_text("Hi there,")
 
-    visit trip_show_path(:id => 1)
+    click_link "View votes"
     expect(page).to have_text("Louise M. Davies Symphony Hall Current vote: 1")
 
   end
