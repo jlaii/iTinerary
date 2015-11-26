@@ -20,11 +20,10 @@ class Trip < ActiveRecord::Base
   end
 
   def generate_itinerary(city_name)
-    trip = Trip.find(self.id)
-    trip.trip_attractions.each do |attraction|
-      if attraction.start_time != nil || attraction.end_time != nil
-        attraction.update_attributes(:start_time => nil)
-        attraction.update_attributes(:end_time => nil)
+    self.trip_attractions.each do |trip_attraction|
+      if trip_attraction.start_time != nil || trip_attraction.end_time != nil
+        trip_attraction.update_attributes(:start_time => nil)
+        trip_attraction.update_attributes(:end_time => nil)
       end
     end
     had_lunch = false
@@ -42,7 +41,8 @@ class Trip < ActiveRecord::Base
       curr_attraction = Attraction.find(next_attraction.attraction_id)
       start_time += 2.hours + trip_attraction_hash[:travel_time].minutes
       if start_time.hour >= 12 and not had_lunch
-        lunch = TripAttraction.new(:lunch => true, :start_time => start_time, :end_time => start_time + 1.hour)
+        lunch = TripAttraction.new(:trip_id => self.id, :lunch => true, :start_time => start_time, :end_time => start_time + 1.hour)
+        lunch.save
         itinerary.append(lunch)
         start_time += 1.hour
         had_lunch = true
