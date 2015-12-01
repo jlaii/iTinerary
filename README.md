@@ -1,4 +1,7 @@
 # iTinerary
+
+## Code will not work without API Keys setup as local environment variables. Please contact an owner of repository for access to API keys.
+
 ## To run code:
 `rake db:create`
 
