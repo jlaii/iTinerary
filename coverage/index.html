@@ -14,7 +14,7 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2015-11-26T01:03:32-06:00">2015-11-26T01:03:32-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2015-11-30T17:12:04-08:00">2015-11-30T17:12:04-08:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,7 +25,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         24.58
+         24.21
        </span>
     </span> hits/line)
   </h2>
@@ -147,7 +147,7 @@
         <td>56</td>
         <td>56</td>
         <td>0</td>
-        <td>178.7</td>
+        <td>173.8</td>
       </tr>
       
       <tr>
@@ -177,7 +177,7 @@
         <td>105</td>
         <td>103</td>
         <td>2</td>
-        <td>77.1</td>
+        <td>77.0</td>
       </tr>
       
       <tr>
@@ -1541,7 +1541,7 @@
         <li class="missed" data-hits="0" data-linenumber="96">
           
           
-          <code class="ruby">      trip = current_user.trips.where(:city =&gt; city).first #making assumption this user only go to this city once</code>
+          <code class="ruby">      trip = @trips.where(:city =&gt; city).first #making assumption this user only go to this city once</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="97">
@@ -2276,8 +2276,8 @@
           <code class="ruby">  def is_open?(day, start_time, end_time)</code>
         </li>
       
-        <li class="covered" data-hits="70" data-linenumber="47">
-          <span class="hits">70</span>
+        <li class="covered" data-hits="63" data-linenumber="47">
+          <span class="hits">63</span>
           
           <code class="ruby">    in_timeframe? day, start_time, end_time, &quot;hours&quot;</code>
         </li>
@@ -2318,8 +2318,8 @@
           <code class="ruby">    if in_timeframe? start_time.wday, hour_minutes, hour_minutes + 100, &quot;popular&quot;</code>
         </li>
       
-        <li class="covered" data-hits="27" data-linenumber="54">
-          <span class="hits">27</span>
+        <li class="covered" data-hits="46" data-linenumber="54">
+          <span class="hits">46</span>
           
           <code class="ruby">      count += 1</code>
         </li>
@@ -2336,8 +2336,8 @@
           <code class="ruby">    if in_timeframe? start_time.wday, hour_minutes + 100, hour_minutes + 200, &quot;popular&quot;</code>
         </li>
       
-        <li class="covered" data-hits="28" data-linenumber="57">
-          <span class="hits">28</span>
+        <li class="covered" data-hits="48" data-linenumber="57">
+          <span class="hits">48</span>
           
           <code class="ruby">      count += 1</code>
         </li>
@@ -2378,8 +2378,8 @@
           <code class="ruby">    #hours_json format: https://developer.foursquare.com/docs/explore#req=venues/40a55d80f964a52020f31ee3/hours</code>
         </li>
       
-        <li class="covered" data-hits="574" data-linenumber="64">
-          <span class="hits">574</span>
+        <li class="covered" data-hits="567" data-linenumber="64">
+          <span class="hits">567</span>
           
           <code class="ruby">    if self.hours_json.nil?</code>
         </li>
@@ -2396,20 +2396,20 @@
           <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="574" data-linenumber="67">
-          <span class="hits">574</span>
+        <li class="covered" data-hits="567" data-linenumber="67">
+          <span class="hits">567</span>
           
           <code class="ruby">    if self.hours_json[hours_type].nil?</code>
         </li>
       
-        <li class="covered" data-hits="90" data-linenumber="68">
-          <span class="hits">90</span>
+        <li class="covered" data-hits="86" data-linenumber="68">
+          <span class="hits">86</span>
           
           <code class="ruby">      if hours_type == &quot;hours&quot;</code>
         </li>
       
-        <li class="covered" data-hits="8" data-linenumber="69">
-          <span class="hits">8</span>
+        <li class="covered" data-hits="4" data-linenumber="69">
+          <span class="hits">4</span>
           
           <code class="ruby">        return true</code>
         </li>
@@ -2444,26 +2444,26 @@
           <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="484" data-linenumber="75">
-          <span class="hits">484</span>
+        <li class="covered" data-hits="481" data-linenumber="75">
+          <span class="hits">481</span>
           
           <code class="ruby">    timeframes = self.hours_json[hours_type][&quot;timeframes&quot;]</code>
         </li>
       
-        <li class="covered" data-hits="484" data-linenumber="76">
-          <span class="hits">484</span>
+        <li class="covered" data-hits="481" data-linenumber="76">
+          <span class="hits">481</span>
           
           <code class="ruby">    if timeframes.nil?</code>
         </li>
       
-        <li class="covered" data-hits="116" data-linenumber="77">
-          <span class="hits">116</span>
+        <li class="covered" data-hits="112" data-linenumber="77">
+          <span class="hits">112</span>
           
           <code class="ruby">      if hours_type == &quot;hours&quot;</code>
         </li>
       
-        <li class="covered" data-hits="10" data-linenumber="78">
-          <span class="hits">10</span>
+        <li class="covered" data-hits="6" data-linenumber="78">
+          <span class="hits">6</span>
           
           <code class="ruby">        return true</code>
         </li>
@@ -2498,20 +2498,20 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="368" data-linenumber="84">
-          <span class="hits">368</span>
+        <li class="covered" data-hits="369" data-linenumber="84">
+          <span class="hits">369</span>
           
           <code class="ruby">    for timeframe in timeframes</code>
         </li>
       
-        <li class="covered" data-hits="2022" data-linenumber="85">
-          <span class="hits">2022</span>
+        <li class="covered" data-hits="1977" data-linenumber="85">
+          <span class="hits">1977</span>
           
           <code class="ruby">      if timeframe[&quot;days&quot;].include? day</code>
         </li>
       
-        <li class="covered" data-hits="368" data-linenumber="86">
-          <span class="hits">368</span>
+        <li class="covered" data-hits="369" data-linenumber="86">
+          <span class="hits">369</span>
           
           <code class="ruby">        for open_time in timeframe[&quot;open&quot;]</code>
         </li>
@@ -2522,8 +2522,8 @@
           <code class="ruby">          # is open all day</code>
         </li>
       
-        <li class="covered" data-hits="449" data-linenumber="88">
-          <span class="hits">449</span>
+        <li class="covered" data-hits="391" data-linenumber="88">
+          <span class="hits">391</span>
           
           <code class="ruby">          if open_time[&quot;start&quot;] == &quot;0000&quot; and open_time[&quot;end&quot;] == &quot;+0000&quot;</code>
         </li>
@@ -2540,26 +2540,26 @@
           <code class="ruby">          end</code>
         </li>
       
-        <li class="covered" data-hits="430" data-linenumber="91">
-          <span class="hits">430</span>
+        <li class="covered" data-hits="372" data-linenumber="91">
+          <span class="hits">372</span>
           
           <code class="ruby">          frame_start = open_time[&quot;start&quot;].to_i</code>
         </li>
       
-        <li class="covered" data-hits="430" data-linenumber="92">
-          <span class="hits">430</span>
+        <li class="covered" data-hits="372" data-linenumber="92">
+          <span class="hits">372</span>
           
           <code class="ruby">          frame_end = open_time[&quot;end&quot;] == &quot;+0000&quot; ? 2400 : open_time[&quot;end&quot;].to_i</code>
         </li>
       
-        <li class="covered" data-hits="430" data-linenumber="93">
-          <span class="hits">430</span>
+        <li class="covered" data-hits="372" data-linenumber="93">
+          <span class="hits">372</span>
           
           <code class="ruby">          if frame_start &lt;= start_time and frame_end &gt;= end_time</code>
         </li>
       
-        <li class="covered" data-hits="68" data-linenumber="94">
-          <span class="hits">68</span>
+        <li class="covered" data-hits="112" data-linenumber="94">
+          <span class="hits">112</span>
           
           <code class="ruby">            return true</code>
         </li>
@@ -2588,8 +2588,8 @@
           <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="281" data-linenumber="99">
-          <span class="hits">281</span>
+        <li class="covered" data-hits="238" data-linenumber="99">
+          <span class="hits">238</span>
           
           <code class="ruby">    return false</code>
         </li>
@@ -3158,20 +3158,20 @@
           <code class="ruby">      if score &gt; best_score and attraction.is_open?(start_time.wday, hour_minutes, hour_minutes + 200)</code>
         </li>
       
-        <li class="covered" data-hits="36" data-linenumber="71">
-          <span class="hits">36</span>
+        <li class="covered" data-hits="33" data-linenumber="71">
+          <span class="hits">33</span>
           
           <code class="ruby">        best_score = score</code>
         </li>
       
-        <li class="covered" data-hits="36" data-linenumber="72">
-          <span class="hits">36</span>
+        <li class="covered" data-hits="33" data-linenumber="72">
+          <span class="hits">33</span>
           
           <code class="ruby">        best_attraction = trip_attraction</code>
         </li>
       
-        <li class="covered" data-hits="36" data-linenumber="73">
-          <span class="hits">36</span>
+        <li class="covered" data-hits="33" data-linenumber="73">
+          <span class="hits">33</span>
           
           <code class="ruby">        best_travel_time = travel_time</code>
         </li>
