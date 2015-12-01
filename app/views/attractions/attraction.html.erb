@@ -1,18 +1,23 @@
 <html>
 <body>
     <%= render 'layouts/navigation' %>
-    <div class="container">
-        <div class="row">
-        <h3><%= @attraction.name %></h3><br>
-        <img src=<%= Picture.find(@attraction.picture_id).path %>><br>
-        <b>City: </b> <%= @attraction.city %><br>
-        <b>Category: </b> <%= @attraction.category %><br>
-        <b>Tip from FourSquare: </b><%= @attraction.description %><br>
-        <b>Address: </b><%= @attraction.address%><br>
-        <b>FourSquare Rating: </b><%= @attraction.rating %>/10<br>
-        <%= link_to @attraction.url , @attraction.url %>
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h3><%= @attraction.name %></h3><br>
+            <img src=<%= Picture.find(@attraction.picture_id).path %>><br><br>
+            <b>City: </b> <%= @attraction.city %><br>
+            <b>Category: </b> <%= @attraction.category %><br>
+            <b>Tip from FourSquare: </b><%= @attraction.description %><br>
+            <b>Address: </b><%= @attraction.address%><br>
+            <b>FourSquare Rating: </b><%= @attraction.rating %>/10<br>
+            <%= link_to @attraction.url , @attraction.url %>
+        
         </div>
+        <div class="col-md-3"></div>
     </div>
+
     <%= render 'layouts/footer' %>
 </body>
 </html>
