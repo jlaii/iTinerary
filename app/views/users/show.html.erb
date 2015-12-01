@@ -29,7 +29,11 @@
                                 <% end %>
                             <% end %>
                             <h4><%= trip.city %></h4>
-                            <%= trip.start_time %></li> to <%= trip.end_time %><br><%= trip.note %>
+                            <% if trip.start_time != trip.end_time %>
+                              <%= trip.start_time.strftime('%a %m/%d/%Y')%> to <%= trip.end_time.strftime('%a %m/%d/%Y')%><br><%= trip.note %>
+                            <% else %>
+                              <%= trip.start_time.strftime('%a %m/%d/%Y')%><br><%= trip.note %>
+                            <% end %>
                             <%= link_to "Revote", show_attractions_path(destination: trip.city, startdate: trip.start_time, enddate: trip.end_time), :class => "btn btn-default" %>
                             <%= link_to "View Votes", trip_show_path(id: trip.id), :class => "btn btn-default"  %>
                             <% if has_itinerary %>
