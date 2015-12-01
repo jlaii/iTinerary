@@ -35,7 +35,7 @@
                             <% if has_itinerary %>
                                 <%= link_to "View Itinerary", show_itinerary_path(trip_id: trip.id), :class => "btn btn-default" %>
                             <% end %>
-                            <%= link_to "Delete", delete_trip_path(trip.id) , :class => "btn btn-default" %><br>
+                            <%= link_to "Delete", delete_trip_path(trip.id) , :class => "btn btn-default", :method => :post %><br>
                         <% end %>
                     </ul>
                     <% end %>
