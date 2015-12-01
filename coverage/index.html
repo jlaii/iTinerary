@@ -14,27 +14,27 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2015-11-30T17:12:04-08:00">2015-11-30T17:12:04-08:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2015-12-01T12:47:33-08:00">2015-12-01T12:47:33-08:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="green">94.64%</span></span>
+    (<span class="covered_percent"><span class="green">96.36%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         24.21
+         8.3
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>48</b> files in total.
-    <b>783</b> relevant lines. 
+    <b>769</b> relevant lines. 
     <span class="green"><b>741</b> lines covered</span> and
-    <span class="red"><b>42</b> lines missed </span>
+    <span class="red"><b>28</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -102,12 +102,12 @@
       
       <tr>
         <td class="strong"><a href="#02bb012ec2b45e40ded0b8678d7b29d16cb83226" class="src_link" title="app/controllers/trips_controller.rb">app/controllers/trips_controller.rb</a></td>
-        <td class="red strong">79.27 %</td>
-        <td>137</td>
-        <td>82</td>
+        <td class="red strong">78.31 %</td>
+        <td>138</td>
+        <td>83</td>
         <td>65</td>
-        <td>17</td>
-        <td>5.0</td>
+        <td>18</td>
+        <td>2.7</td>
       </tr>
       
       <tr>
@@ -142,12 +142,12 @@
       
       <tr>
         <td class="strong"><a href="#b2717363dbdd5f0b0c114542b5164820a918a327" class="src_link" title="app/models/attraction.rb">app/models/attraction.rb</a></td>
-        <td class="green strong">100.0 %</td>
+        <td class="green strong">98.21 %</td>
         <td>109</td>
         <td>56</td>
-        <td>56</td>
-        <td>0</td>
-        <td>173.8</td>
+        <td>55</td>
+        <td>1</td>
+        <td>60.4</td>
       </tr>
       
       <tr>
@@ -177,7 +177,7 @@
         <td>105</td>
         <td>103</td>
         <td>2</td>
-        <td>77.0</td>
+        <td>20.5</td>
       </tr>
       
       <tr>
@@ -367,7 +367,7 @@
         <td>10</td>
         <td>10</td>
         <td>0</td>
-        <td>13.2</td>
+        <td>2.8</td>
       </tr>
       
       <tr>
@@ -452,12 +452,12 @@
       
       <tr>
         <td class="strong"><a href="#fb4081487a0121d4edb27343644e22437dd53247" class="src_link" title="spec/features/add_trip_to_user_spec.rb">spec/features/add_trip_to_user_spec.rb</a></td>
-        <td class="red strong">69.23 %</td>
-        <td>70</td>
-        <td>52</td>
-        <td>36</td>
-        <td>16</td>
-        <td>0.7</td>
+        <td class="green strong">100.0 %</td>
+        <td>69</td>
+        <td>37</td>
+        <td>37</td>
+        <td>0</td>
+        <td>1.0</td>
       </tr>
       
       <tr>
@@ -957,11 +957,11 @@
         <div class="source_table" id="02bb012ec2b45e40ded0b8678d7b29d16cb83226">
   <div class="header">
     <h3>app/controllers/trips_controller.rb</h3>
-    <h4><span class="red">79.27 %</span> covered</h4>
+    <h4><span class="red">78.31 %</span> covered</h4>
     <div>
-      <b>82</b> relevant lines. 
+      <b>83</b> relevant lines. 
       <span class="green"><b>65</b> lines covered</span> and
-      <span class="red"><b>17</b> lines missed.</span>
+      <span class="red"><b>18</b> lines missed.</span>
     </div>
   </div>
   
@@ -1220,8 +1220,8 @@
           <code class="ruby">        @trip.trip_attractions.each do |attraction|</code>
         </li>
       
-        <li class="covered" data-hits="48" data-linenumber="43">
-          <span class="hits">48</span>
+        <li class="covered" data-hits="2" data-linenumber="43">
+          <span class="hits">2</span>
           
           <code class="ruby">          if attraction.start_time != nil</code>
         </li>
@@ -1535,256 +1535,262 @@
         <li class="covered" data-hits="4" data-linenumber="95">
           <span class="hits">4</span>
           
-          <code class="ruby">    if has_trip</code>
+          <code class="ruby">    start_lst = params[:startdate].split(&quot;/&quot;)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="96">
+        <li class="covered" data-hits="4" data-linenumber="96">
+          <span class="hits">4</span>
           
-          
-          <code class="ruby">      trip = @trips.where(:city =&gt; city).first #making assumption this user only go to this city once</code>
+          <code class="ruby">    end_lst = params[:enddate].split(&quot;/&quot;)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="97">
+        <li class="covered" data-hits="4" data-linenumber="97">
+          <span class="hits">4</span>
           
-          
-          <code class="ruby">      saved = true</code>
+          <code class="ruby">    start_time = DateTime.new(start_lst[2].to_i, start_lst[0].to_i, start_lst[1].to_i, 0, 0, 0)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="98">
+        <li class="covered" data-hits="4" data-linenumber="98">
+          <span class="hits">4</span>
           
-          
-          <code class="ruby">    else</code>
+          <code class="ruby">    end_time = DateTime.new(end_lst[2].to_i, end_lst[0].to_i, end_lst[1].to_i, 0, 0, 0)</code>
         </li>
       
         <li class="covered" data-hits="4" data-linenumber="99">
           <span class="hits">4</span>
           
-          <code class="ruby">      start_lst = params[:startdate].split(&quot;/&quot;)</code>
+          <code class="ruby">    if has_trip</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="100">
-          <span class="hits">4</span>
+        <li class="missed" data-hits="0" data-linenumber="100">
           
-          <code class="ruby">      end_lst = params[:enddate].split(&quot;/&quot;)</code>
-        </li>
-      
-        <li class="covered" data-hits="4" data-linenumber="101">
-          <span class="hits">4</span>
           
-          <code class="ruby">      start_time = DateTime.new(start_lst[2].to_i, start_lst[0].to_i, start_lst[1].to_i, 0, 0, 0)</code>
+          <code class="ruby">      trip = @trips.where(:city =&gt; city).first #making assumption this user only go to this city once</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="102">
-          <span class="hits">4</span>
+        <li class="missed" data-hits="0" data-linenumber="101">
           
-          <code class="ruby">      end_time = DateTime.new(end_lst[2].to_i, end_lst[0].to_i, end_lst[1].to_i, 0, 0, 0)</code>
-        </li>
-      
-        <li class="covered" data-hits="4" data-linenumber="103">
-          <span class="hits">4</span>
           
-          <code class="ruby">      trip = Trip.new(city: city, start_time: start_time, end_time: end_time, user_id: current_user.id, uuid: SecureRandom.uuid)</code>
+          <code class="ruby">      trip.update_attributes(:start_time =&gt; start_time, :end_time =&gt; end_time)</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="104">
-          <span class="hits">4</span>
+        <li class="missed" data-hits="0" data-linenumber="102">
+          
           
           <code class="ruby">      saved = trip.save</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="105">
-          
-          
-          <code class="ruby">    end</code>
-        </li>
-      
-        <li class="covered" data-hits="4" data-linenumber="106">
-          <span class="hits">4</span>
-          
-          <code class="ruby">    if saved</code>
-        </li>
-      
-        <li class="covered" data-hits="3" data-linenumber="107">
-          <span class="hits">3</span>
-          
-          <code class="ruby">      UserTrip.create(user_id: current_user.id, trip_id: trip.id)</code>
-        </li>
-      
-        <li class="covered" data-hits="3" data-linenumber="108">
-          <span class="hits">3</span>
-          
-          <code class="ruby">      if has_trip</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="109">
-          
-          
-          <code class="ruby">        params.each do |key, value|</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="110">
-          
-          
-          <code class="ruby">          if key.to_i.to_s == key</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="111">
-          
-          
-          <code class="ruby">            trip.trip_attractions.where(:attraction_id =&gt; key).first.increment!(:vote_count, value.to_i)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="112">
-          
-          
-          <code class="ruby">          end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="113">
-          
-          
-          <code class="ruby">        end</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="114">
-          
-          
-          <code class="ruby">        generate_itinerary(trip.id)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="115">
-          
-          
-          <code class="ruby">      else</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="116">
-          
-          
-          <code class="ruby">        #add in all the trip_attractions to this trip</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="117">
-          
-          
-          <code class="ruby">        # byebug</code>
-        </li>
-      
-        <li class="covered" data-hits="3" data-linenumber="118">
-          <span class="hits">3</span>
-          
-          <code class="ruby">        params.each do |key, value|</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="119">
-          
-          
-          <code class="ruby">          # if (attraction_id != &quot;destination&quot; &amp;&amp; attraction_id != &quot;startdate&quot; &amp;&amp; attraction_id != &quot;enddate&quot;)</code>
-        </li>
-      
-        <li class="covered" data-hits="77" data-linenumber="120">
-          <span class="hits">77</span>
-          
-          <code class="ruby">          if key.to_i.to_s == key</code>
-        </li>
-      
-        <li class="covered" data-hits="62" data-linenumber="121">
-          <span class="hits">62</span>
-          
-          <code class="ruby">            newTripAttraction = TripAttraction.new(attraction_id: key, trip_id: trip.id, vote_count: value)</code>
-        </li>
-      
-        <li class="covered" data-hits="62" data-linenumber="122">
-          <span class="hits">62</span>
-          
-          <code class="ruby">            newTripAttraction.save</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="123">
-          
-          
-          <code class="ruby">          end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="124">
-          
-          
-          <code class="ruby">        end</code>
-        </li>
-      
-        <li class="covered" data-hits="3" data-linenumber="125">
-          <span class="hits">3</span>
-          
-          <code class="ruby">        generate_itinerary(trip.id)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="126">
-          
-          
-          <code class="ruby">      end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="127">
+        <li class="never" data-hits="" data-linenumber="103">
           
           
           <code class="ruby">    else</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="128">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="4" data-linenumber="104">
+          <span class="hits">4</span>
           
-          <code class="ruby">      flash[:error] = &quot;Start date cannot be later than end date.&quot;</code>
+          <code class="ruby">      trip = Trip.new(city: city, start_time: start_time, end_time: end_time, user_id: current_user.id, uuid: SecureRandom.uuid)</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="129">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="4" data-linenumber="105">
+          <span class="hits">4</span>
           
-          <code class="ruby">      redirect_to root_path</code>
+          <code class="ruby">      saved = trip.save</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="130">
+        <li class="never" data-hits="" data-linenumber="106">
           
           
           <code class="ruby">    end</code>
         </li>
       
+        <li class="covered" data-hits="4" data-linenumber="107">
+          <span class="hits">4</span>
+          
+          <code class="ruby">    if saved</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="108">
+          <span class="hits">3</span>
+          
+          <code class="ruby">      UserTrip.create(user_id: current_user.id, trip_id: trip.id)</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="109">
+          <span class="hits">3</span>
+          
+          <code class="ruby">      if has_trip</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="110">
+          
+          
+          <code class="ruby">        params.each do |key, value|</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="111">
+          
+          
+          <code class="ruby">          if key.to_i.to_s == key</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="112">
+          
+          
+          <code class="ruby">            trip.trip_attractions.where(:attraction_id =&gt; key).first.increment!(:vote_count, value.to_i)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="113">
+          
+          
+          <code class="ruby">          end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="114">
+          
+          
+          <code class="ruby">        end</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="115">
+          
+          
+          <code class="ruby">        generate_itinerary(trip.id)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="116">
+          
+          
+          <code class="ruby">      else</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="117">
+          
+          
+          <code class="ruby">        #add in all the trip_attractions to this trip</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="118">
+          
+          
+          <code class="ruby">        # byebug</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="119">
+          <span class="hits">3</span>
+          
+          <code class="ruby">        params.each do |key, value|</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="120">
+          
+          
+          <code class="ruby">          # if (attraction_id != &quot;destination&quot; &amp;&amp; attraction_id != &quot;startdate&quot; &amp;&amp; attraction_id != &quot;enddate&quot;)</code>
+        </li>
+      
+        <li class="covered" data-hits="28" data-linenumber="121">
+          <span class="hits">28</span>
+          
+          <code class="ruby">          if key.to_i.to_s == key</code>
+        </li>
+      
+        <li class="covered" data-hits="13" data-linenumber="122">
+          <span class="hits">13</span>
+          
+          <code class="ruby">            newTripAttraction = TripAttraction.new(attraction_id: key, trip_id: trip.id, vote_count: value)</code>
+        </li>
+      
+        <li class="covered" data-hits="13" data-linenumber="123">
+          <span class="hits">13</span>
+          
+          <code class="ruby">            newTripAttraction.save</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="124">
+          
+          
+          <code class="ruby">          end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="125">
+          
+          
+          <code class="ruby">        end</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="126">
+          <span class="hits">3</span>
+          
+          <code class="ruby">        generate_itinerary(trip.id)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="127">
+          
+          
+          <code class="ruby">      end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="128">
+          
+          
+          <code class="ruby">    else</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="129">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      flash[:error] = &quot;Start date cannot be later than end date.&quot;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="130">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      redirect_to root_path</code>
+        </li>
+      
         <li class="never" data-hits="" data-linenumber="131">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="132">
           
           
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="133">
+          
+          
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="133">
+        <li class="covered" data-hits="1" data-linenumber="134">
           <span class="hits">1</span>
           
           <code class="ruby">  def delete</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="134">
+        <li class="missed" data-hits="0" data-linenumber="135">
           
           
           <code class="ruby">    Trip.destroy(params[:id])</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="135">
+        <li class="missed" data-hits="0" data-linenumber="136">
           
           
           <code class="ruby">    redirect_to user_show_path</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="136">
+        <li class="never" data-hits="" data-linenumber="137">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="137">
+        <li class="never" data-hits="" data-linenumber="138">
           
           
           <code class="ruby">end</code>
@@ -1989,11 +1995,11 @@
         <div class="source_table" id="b2717363dbdd5f0b0c114542b5164820a918a327">
   <div class="header">
     <h3>app/models/attraction.rb</h3>
-    <h4><span class="green">100.0 %</span> covered</h4>
+    <h4><span class="green">98.21 %</span> covered</h4>
     <div>
       <b>56</b> relevant lines. 
-      <span class="green"><b>56</b> lines covered</span> and
-      <span class="red"><b>0</b> lines missed.</span>
+      <span class="green"><b>55</b> lines covered</span> and
+      <span class="red"><b>1</b> lines missed.</span>
     </div>
   </div>
   
@@ -2096,8 +2102,8 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="126" data-linenumber="17">
-          <span class="hits">126</span>
+        <li class="covered" data-hits="77" data-linenumber="17">
+          <span class="hits">77</span>
           
           <code class="ruby">        picture_path = attraction[&quot;venue&quot;][&quot;featuredPhotos&quot;][&quot;items&quot;].first[&quot;prefix&quot;] + &quot;240x240&quot; +</code>
         </li>
@@ -2108,20 +2114,20 @@
           <code class="ruby">                       attraction[&quot;venue&quot;][&quot;featuredPhotos&quot;][&quot;items&quot;].first[&quot;suffix&quot;]</code>
         </li>
       
-        <li class="covered" data-hits="126" data-linenumber="19">
-          <span class="hits">126</span>
+        <li class="covered" data-hits="77" data-linenumber="19">
+          <span class="hits">77</span>
           
           <code class="ruby">        picture = Picture.new(:path =&gt; picture_path)</code>
         </li>
       
-        <li class="covered" data-hits="126" data-linenumber="20">
-          <span class="hits">126</span>
+        <li class="covered" data-hits="77" data-linenumber="20">
+          <span class="hits">77</span>
           
           <code class="ruby">        picture = picture.save ? picture : nil</code>
         </li>
       
-        <li class="covered" data-hits="126" data-linenumber="21">
-          <span class="hits">126</span>
+        <li class="covered" data-hits="77" data-linenumber="21">
+          <span class="hits">77</span>
           
           <code class="ruby">        new_attraction = self.new(:name =&gt; attraction[&quot;venue&quot;][&quot;name&quot;],</code>
         </li>
@@ -2180,20 +2186,20 @@
           <code class="ruby">                                  :picture_id =&gt; picture.present? ? picture.id : nil)</code>
         </li>
       
-        <li class="covered" data-hits="126" data-linenumber="31">
-          <span class="hits">126</span>
+        <li class="covered" data-hits="77" data-linenumber="31">
+          <span class="hits">77</span>
           
           <code class="ruby">        if new_attraction.save and picture</code>
         </li>
       
-        <li class="covered" data-hits="126" data-linenumber="32">
-          <span class="hits">126</span>
+        <li class="covered" data-hits="77" data-linenumber="32">
+          <span class="hits">77</span>
           
           <code class="ruby">          picture.update_attributes(:attraction_id =&gt; new_attraction)</code>
         </li>
       
-        <li class="covered" data-hits="126" data-linenumber="33">
-          <span class="hits">126</span>
+        <li class="covered" data-hits="77" data-linenumber="33">
+          <span class="hits">77</span>
           
           <code class="ruby">          picture.save</code>
         </li>
@@ -2276,8 +2282,8 @@
           <code class="ruby">  def is_open?(day, start_time, end_time)</code>
         </li>
       
-        <li class="covered" data-hits="63" data-linenumber="47">
-          <span class="hits">63</span>
+        <li class="covered" data-hits="42" data-linenumber="47">
+          <span class="hits">42</span>
           
           <code class="ruby">    in_timeframe? day, start_time, end_time, &quot;hours&quot;</code>
         </li>
@@ -2300,26 +2306,26 @@
           <code class="ruby">  def num_hours_popular(start_time)</code>
         </li>
       
-        <li class="covered" data-hits="252" data-linenumber="51">
-          <span class="hits">252</span>
+        <li class="covered" data-hits="59" data-linenumber="51">
+          <span class="hits">59</span>
           
           <code class="ruby">    count = 0</code>
         </li>
       
-        <li class="covered" data-hits="252" data-linenumber="52">
-          <span class="hits">252</span>
+        <li class="covered" data-hits="59" data-linenumber="52">
+          <span class="hits">59</span>
           
           <code class="ruby">    hour_minutes = start_time.hour * 100 + start_time.minute</code>
         </li>
       
-        <li class="covered" data-hits="252" data-linenumber="53">
-          <span class="hits">252</span>
+        <li class="covered" data-hits="59" data-linenumber="53">
+          <span class="hits">59</span>
           
           <code class="ruby">    if in_timeframe? start_time.wday, hour_minutes, hour_minutes + 100, &quot;popular&quot;</code>
         </li>
       
-        <li class="covered" data-hits="46" data-linenumber="54">
-          <span class="hits">46</span>
+        <li class="covered" data-hits="22" data-linenumber="54">
+          <span class="hits">22</span>
           
           <code class="ruby">      count += 1</code>
         </li>
@@ -2330,14 +2336,14 @@
           <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="252" data-linenumber="56">
-          <span class="hits">252</span>
+        <li class="covered" data-hits="59" data-linenumber="56">
+          <span class="hits">59</span>
           
           <code class="ruby">    if in_timeframe? start_time.wday, hour_minutes + 100, hour_minutes + 200, &quot;popular&quot;</code>
         </li>
       
-        <li class="covered" data-hits="48" data-linenumber="57">
-          <span class="hits">48</span>
+        <li class="covered" data-hits="23" data-linenumber="57">
+          <span class="hits">23</span>
           
           <code class="ruby">      count += 1</code>
         </li>
@@ -2348,8 +2354,8 @@
           <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="252" data-linenumber="59">
-          <span class="hits">252</span>
+        <li class="covered" data-hits="59" data-linenumber="59">
+          <span class="hits">59</span>
           
           <code class="ruby">    return count</code>
         </li>
@@ -2378,14 +2384,14 @@
           <code class="ruby">    #hours_json format: https://developer.foursquare.com/docs/explore#req=venues/40a55d80f964a52020f31ee3/hours</code>
         </li>
       
-        <li class="covered" data-hits="567" data-linenumber="64">
-          <span class="hits">567</span>
+        <li class="covered" data-hits="160" data-linenumber="64">
+          <span class="hits">160</span>
           
           <code class="ruby">    if self.hours_json.nil?</code>
         </li>
       
-        <li class="covered" data-hits="67" data-linenumber="65">
-          <span class="hits">67</span>
+        <li class="covered" data-hits="18" data-linenumber="65">
+          <span class="hits">18</span>
           
           <code class="ruby">      self.import_hours_json</code>
         </li>
@@ -2396,14 +2402,14 @@
           <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="567" data-linenumber="67">
-          <span class="hits">567</span>
+        <li class="covered" data-hits="160" data-linenumber="67">
+          <span class="hits">160</span>
           
           <code class="ruby">    if self.hours_json[hours_type].nil?</code>
         </li>
       
-        <li class="covered" data-hits="86" data-linenumber="68">
-          <span class="hits">86</span>
+        <li class="covered" data-hits="14" data-linenumber="68">
+          <span class="hits">14</span>
           
           <code class="ruby">      if hours_type == &quot;hours&quot;</code>
         </li>
@@ -2420,8 +2426,8 @@
           <code class="ruby">      else</code>
         </li>
       
-        <li class="covered" data-hits="82" data-linenumber="71">
-          <span class="hits">82</span>
+        <li class="covered" data-hits="10" data-linenumber="71">
+          <span class="hits">10</span>
           
           <code class="ruby">        return false</code>
         </li>
@@ -2444,26 +2450,26 @@
           <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="481" data-linenumber="75">
-          <span class="hits">481</span>
+        <li class="covered" data-hits="146" data-linenumber="75">
+          <span class="hits">146</span>
           
           <code class="ruby">    timeframes = self.hours_json[hours_type][&quot;timeframes&quot;]</code>
         </li>
       
-        <li class="covered" data-hits="481" data-linenumber="76">
-          <span class="hits">481</span>
+        <li class="covered" data-hits="146" data-linenumber="76">
+          <span class="hits">146</span>
           
           <code class="ruby">    if timeframes.nil?</code>
         </li>
       
-        <li class="covered" data-hits="112" data-linenumber="77">
-          <span class="hits">112</span>
+        <li class="covered" data-hits="2" data-linenumber="77">
+          <span class="hits">2</span>
           
           <code class="ruby">      if hours_type == &quot;hours&quot;</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="78">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="2" data-linenumber="78">
+          <span class="hits">2</span>
           
           <code class="ruby">        return true</code>
         </li>
@@ -2474,8 +2480,8 @@
           <code class="ruby">      else</code>
         </li>
       
-        <li class="covered" data-hits="106" data-linenumber="80">
-          <span class="hits">106</span>
+        <li class="missed" data-hits="0" data-linenumber="80">
+          
           
           <code class="ruby">        return false</code>
         </li>
@@ -2498,20 +2504,20 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="369" data-linenumber="84">
-          <span class="hits">369</span>
+        <li class="covered" data-hits="144" data-linenumber="84">
+          <span class="hits">144</span>
           
           <code class="ruby">    for timeframe in timeframes</code>
         </li>
       
-        <li class="covered" data-hits="1977" data-linenumber="85">
-          <span class="hits">1977</span>
+        <li class="covered" data-hits="677" data-linenumber="85">
+          <span class="hits">677</span>
           
           <code class="ruby">      if timeframe[&quot;days&quot;].include? day</code>
         </li>
       
-        <li class="covered" data-hits="369" data-linenumber="86">
-          <span class="hits">369</span>
+        <li class="covered" data-hits="144" data-linenumber="86">
+          <span class="hits">144</span>
           
           <code class="ruby">        for open_time in timeframe[&quot;open&quot;]</code>
         </li>
@@ -2522,8 +2528,8 @@
           <code class="ruby">          # is open all day</code>
         </li>
       
-        <li class="covered" data-hits="391" data-linenumber="88">
-          <span class="hits">391</span>
+        <li class="covered" data-hits="153" data-linenumber="88">
+          <span class="hits">153</span>
           
           <code class="ruby">          if open_time[&quot;start&quot;] == &quot;0000&quot; and open_time[&quot;end&quot;] == &quot;+0000&quot;</code>
         </li>
@@ -2540,26 +2546,26 @@
           <code class="ruby">          end</code>
         </li>
       
-        <li class="covered" data-hits="372" data-linenumber="91">
-          <span class="hits">372</span>
+        <li class="covered" data-hits="134" data-linenumber="91">
+          <span class="hits">134</span>
           
           <code class="ruby">          frame_start = open_time[&quot;start&quot;].to_i</code>
         </li>
       
-        <li class="covered" data-hits="372" data-linenumber="92">
-          <span class="hits">372</span>
+        <li class="covered" data-hits="134" data-linenumber="92">
+          <span class="hits">134</span>
           
           <code class="ruby">          frame_end = open_time[&quot;end&quot;] == &quot;+0000&quot; ? 2400 : open_time[&quot;end&quot;].to_i</code>
         </li>
       
-        <li class="covered" data-hits="372" data-linenumber="93">
-          <span class="hits">372</span>
+        <li class="covered" data-hits="134" data-linenumber="93">
+          <span class="hits">134</span>
           
           <code class="ruby">          if frame_start &lt;= start_time and frame_end &gt;= end_time</code>
         </li>
       
-        <li class="covered" data-hits="112" data-linenumber="94">
-          <span class="hits">112</span>
+        <li class="covered" data-hits="53" data-linenumber="94">
+          <span class="hits">53</span>
           
           <code class="ruby">            return true</code>
         </li>
@@ -2588,8 +2594,8 @@
           <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="238" data-linenumber="99">
-          <span class="hits">238</span>
+        <li class="covered" data-hits="72" data-linenumber="99">
+          <span class="hits">72</span>
           
           <code class="ruby">    return false</code>
         </li>
@@ -2618,20 +2624,20 @@
           <code class="ruby">  def import_hours_json</code>
         </li>
       
-        <li class="covered" data-hits="67" data-linenumber="104">
-          <span class="hits">67</span>
+        <li class="covered" data-hits="18" data-linenumber="104">
+          <span class="hits">18</span>
           
           <code class="ruby">    attraction_hours_response = JSON.parse(Foursquare.import_hours(self))[&quot;response&quot;]</code>
         </li>
       
-        <li class="covered" data-hits="67" data-linenumber="105">
-          <span class="hits">67</span>
+        <li class="covered" data-hits="18" data-linenumber="105">
+          <span class="hits">18</span>
           
           <code class="ruby">    self.update_attributes(:hours_json =&gt; attraction_hours_response)</code>
         </li>
       
-        <li class="covered" data-hits="67" data-linenumber="106">
-          <span class="hits">67</span>
+        <li class="covered" data-hits="18" data-linenumber="106">
+          <span class="hits">18</span>
           
           <code class="ruby">    self.save</code>
         </li>
@@ -2876,8 +2882,8 @@
           <code class="ruby">    self.trip_attractions.each do |trip_attraction|</code>
         </li>
       
-        <li class="covered" data-hits="62" data-linenumber="24">
-          <span class="hits">62</span>
+        <li class="covered" data-hits="13" data-linenumber="24">
+          <span class="hits">13</span>
           
           <code class="ruby">      if trip_attraction.start_time != nil || trip_attraction.end_time != nil</code>
         </li>
@@ -2948,80 +2954,80 @@
           <code class="ruby">    for i in 1..NUM_ATTRACTIONS * ((self.end_time - self.start_time).to_i/SEC_PER_DAY + 1)</code>
         </li>
       
-        <li class="covered" data-hits="16" data-linenumber="36">
-          <span class="hits">16</span>
+        <li class="covered" data-hits="14" data-linenumber="36">
+          <span class="hits">14</span>
           
           <code class="ruby">      trip_attraction_hash = self.get_next_trip_attraction(curr_attraction, trip_attractions, start_time)</code>
         </li>
       
-        <li class="covered" data-hits="16" data-linenumber="37">
-          <span class="hits">16</span>
+        <li class="covered" data-hits="14" data-linenumber="37">
+          <span class="hits">14</span>
           
           <code class="ruby">      break if trip_attraction_hash == false</code>
         </li>
       
-        <li class="covered" data-hits="14" data-linenumber="38">
-          <span class="hits">14</span>
+        <li class="covered" data-hits="11" data-linenumber="38">
+          <span class="hits">11</span>
           
           <code class="ruby">      next_attraction = trip_attraction_hash[:trip_attraction]</code>
         </li>
       
-        <li class="covered" data-hits="14" data-linenumber="39">
-          <span class="hits">14</span>
+        <li class="covered" data-hits="11" data-linenumber="39">
+          <span class="hits">11</span>
           
           <code class="ruby">      itinerary.append(next_attraction)</code>
         </li>
       
-        <li class="covered" data-hits="14" data-linenumber="40">
-          <span class="hits">14</span>
+        <li class="covered" data-hits="11" data-linenumber="40">
+          <span class="hits">11</span>
           
           <code class="ruby">      trip_attractions.delete(next_attraction)</code>
         </li>
       
-        <li class="covered" data-hits="14" data-linenumber="41">
-          <span class="hits">14</span>
+        <li class="covered" data-hits="11" data-linenumber="41">
+          <span class="hits">11</span>
           
           <code class="ruby">      curr_attraction = Attraction.find(next_attraction.attraction_id)</code>
         </li>
       
-        <li class="covered" data-hits="14" data-linenumber="42">
-          <span class="hits">14</span>
+        <li class="covered" data-hits="11" data-linenumber="42">
+          <span class="hits">11</span>
           
           <code class="ruby">      start_time += 2.hours + trip_attraction_hash[:travel_time].minutes</code>
         </li>
       
-        <li class="covered" data-hits="14" data-linenumber="43">
-          <span class="hits">14</span>
+        <li class="covered" data-hits="11" data-linenumber="43">
+          <span class="hits">11</span>
           
           <code class="ruby">      if start_time.hour &gt;= 12 and not had_lunch</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="44">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="3" data-linenumber="44">
+          <span class="hits">3</span>
           
           <code class="ruby">        lunch = TripAttraction.new(:vote_count =&gt; 0, :trip_id =&gt; self.id, :lunch =&gt; true, :start_time =&gt; start_time, :end_time =&gt; start_time + 1.hour)</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="45">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="3" data-linenumber="45">
+          <span class="hits">3</span>
           
           <code class="ruby">        lunch.save</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="46">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="3" data-linenumber="46">
+          <span class="hits">3</span>
           
           <code class="ruby">        itinerary.append(lunch)</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="47">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="3" data-linenumber="47">
+          <span class="hits">3</span>
           
           <code class="ruby">        start_time += 1.hour</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="48">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="3" data-linenumber="48">
+          <span class="hits">3</span>
           
           <code class="ruby">        had_lunch = true</code>
         </li>
@@ -3032,26 +3038,26 @@
           <code class="ruby">      end</code>
         </li>
       
-        <li class="covered" data-hits="14" data-linenumber="50">
-          <span class="hits">14</span>
+        <li class="covered" data-hits="11" data-linenumber="50">
+          <span class="hits">11</span>
           
           <code class="ruby">      if i % NUM_ATTRACTIONS == 0</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="51">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="2" data-linenumber="51">
+          <span class="hits">2</span>
           
           <code class="ruby">        start_time = start_time.change({hour: 8})</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="52">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="2" data-linenumber="52">
+          <span class="hits">2</span>
           
           <code class="ruby">        start_time += 1.days</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="53">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="2" data-linenumber="53">
+          <span class="hits">2</span>
           
           <code class="ruby">        had_lunch = false</code>
         </li>
@@ -3092,86 +3098,86 @@
           <code class="ruby">  def get_next_trip_attraction(prev_attraction, trip_attractions, start_time)</code>
         </li>
       
-        <li class="covered" data-hits="17" data-linenumber="60">
-          <span class="hits">17</span>
+        <li class="covered" data-hits="15" data-linenumber="60">
+          <span class="hits">15</span>
           
           <code class="ruby">    best_score = -100000000</code>
         </li>
       
-        <li class="covered" data-hits="17" data-linenumber="61">
-          <span class="hits">17</span>
+        <li class="covered" data-hits="15" data-linenumber="61">
+          <span class="hits">15</span>
           
           <code class="ruby">    best_attraction = nil</code>
         </li>
       
-        <li class="covered" data-hits="17" data-linenumber="62">
-          <span class="hits">17</span>
+        <li class="covered" data-hits="15" data-linenumber="62">
+          <span class="hits">15</span>
           
           <code class="ruby">    best_travel_time = 0</code>
         </li>
       
-        <li class="covered" data-hits="17" data-linenumber="63">
-          <span class="hits">17</span>
+        <li class="covered" data-hits="15" data-linenumber="63">
+          <span class="hits">15</span>
           
           <code class="ruby">    for trip_attraction in trip_attractions</code>
         </li>
       
-        <li class="covered" data-hits="249" data-linenumber="64">
-          <span class="hits">249</span>
+        <li class="covered" data-hits="56" data-linenumber="64">
+          <span class="hits">56</span>
           
           <code class="ruby">      next if trip_attraction.lunch</code>
         </li>
       
-        <li class="covered" data-hits="249" data-linenumber="65">
-          <span class="hits">249</span>
+        <li class="covered" data-hits="56" data-linenumber="65">
+          <span class="hits">56</span>
           
           <code class="ruby">      attraction = Attraction.find(trip_attraction.attraction_id)</code>
         </li>
       
-        <li class="covered" data-hits="249" data-linenumber="66">
-          <span class="hits">249</span>
+        <li class="covered" data-hits="56" data-linenumber="66">
+          <span class="hits">56</span>
           
           <code class="ruby">      attraction_hash = calculate_attraction_score(trip_attraction, attraction, prev_attraction, start_time)</code>
         </li>
       
-        <li class="covered" data-hits="249" data-linenumber="67">
-          <span class="hits">249</span>
+        <li class="covered" data-hits="56" data-linenumber="67">
+          <span class="hits">56</span>
           
           <code class="ruby">      score = attraction_hash[:score]</code>
         </li>
       
-        <li class="covered" data-hits="249" data-linenumber="68">
-          <span class="hits">249</span>
+        <li class="covered" data-hits="56" data-linenumber="68">
+          <span class="hits">56</span>
           
           <code class="ruby">      travel_time = attraction_hash[:travel_time]</code>
         </li>
       
-        <li class="covered" data-hits="249" data-linenumber="69">
-          <span class="hits">249</span>
+        <li class="covered" data-hits="56" data-linenumber="69">
+          <span class="hits">56</span>
           
           <code class="ruby">      hour_minutes = start_time.hour * 100 + start_time.minute</code>
         </li>
       
-        <li class="covered" data-hits="249" data-linenumber="70">
-          <span class="hits">249</span>
+        <li class="covered" data-hits="56" data-linenumber="70">
+          <span class="hits">56</span>
           
           <code class="ruby">      if score &gt; best_score and attraction.is_open?(start_time.wday, hour_minutes, hour_minutes + 200)</code>
         </li>
       
-        <li class="covered" data-hits="33" data-linenumber="71">
-          <span class="hits">33</span>
+        <li class="covered" data-hits="19" data-linenumber="71">
+          <span class="hits">19</span>
           
           <code class="ruby">        best_score = score</code>
         </li>
       
-        <li class="covered" data-hits="33" data-linenumber="72">
-          <span class="hits">33</span>
+        <li class="covered" data-hits="19" data-linenumber="72">
+          <span class="hits">19</span>
           
           <code class="ruby">        best_attraction = trip_attraction</code>
         </li>
       
-        <li class="covered" data-hits="33" data-linenumber="73">
-          <span class="hits">33</span>
+        <li class="covered" data-hits="19" data-linenumber="73">
+          <span class="hits">19</span>
           
           <code class="ruby">        best_travel_time = travel_time</code>
         </li>
@@ -3188,14 +3194,14 @@
           <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="17" data-linenumber="76">
-          <span class="hits">17</span>
+        <li class="covered" data-hits="15" data-linenumber="76">
+          <span class="hits">15</span>
           
           <code class="ruby">    return false if best_attraction.nil?</code>
         </li>
       
-        <li class="covered" data-hits="15" data-linenumber="77">
-          <span class="hits">15</span>
+        <li class="covered" data-hits="12" data-linenumber="77">
+          <span class="hits">12</span>
           
           <code class="ruby">    best_attraction.update_attributes(:start_time =&gt; DateTime.new(start_time.year, start_time.month,</code>
         </li>
@@ -3218,14 +3224,14 @@
           <code class="ruby">                                                                start_time.day, start_time.hour + 2, start_time.minute))</code>
         </li>
       
-        <li class="covered" data-hits="15" data-linenumber="81">
-          <span class="hits">15</span>
+        <li class="covered" data-hits="12" data-linenumber="81">
+          <span class="hits">12</span>
           
           <code class="ruby">    best_attraction.save</code>
         </li>
       
-        <li class="covered" data-hits="15" data-linenumber="82">
-          <span class="hits">15</span>
+        <li class="covered" data-hits="12" data-linenumber="82">
+          <span class="hits">12</span>
           
           <code class="ruby">    return {:trip_attraction =&gt; best_attraction, :travel_time =&gt; best_travel_time, :best_score =&gt; best_score}</code>
         </li>
@@ -3248,20 +3254,20 @@
           <code class="ruby">  def calculate_attraction_score(trip_attraction, attraction, prev_attraction, start_time)</code>
         </li>
       
-        <li class="covered" data-hits="249" data-linenumber="86">
-          <span class="hits">249</span>
+        <li class="covered" data-hits="56" data-linenumber="86">
+          <span class="hits">56</span>
           
           <code class="ruby">    travel_time = Trip.calculate_travel_time_manhattan(prev_attraction, attraction, DRIVING_SPEED)</code>
         </li>
       
-        <li class="covered" data-hits="249" data-linenumber="87">
-          <span class="hits">249</span>
+        <li class="covered" data-hits="56" data-linenumber="87">
+          <span class="hits">56</span>
           
           <code class="ruby">    vote_score = trip_attraction.vote_count * VOTE_WEIGHT</code>
         </li>
       
-        <li class="covered" data-hits="249" data-linenumber="88">
-          <span class="hits">249</span>
+        <li class="covered" data-hits="56" data-linenumber="88">
+          <span class="hits">56</span>
           
           <code class="ruby">    travel_weight = start_time.hour == FIRST_HOUR ? 0 : TRAVEL_WEIGHT</code>
         </li>
@@ -3272,32 +3278,32 @@
           <code class="ruby">    # if this is the first attraction of the day, travel_score will not be factored into overall score</code>
         </li>
       
-        <li class="covered" data-hits="249" data-linenumber="90">
-          <span class="hits">249</span>
+        <li class="covered" data-hits="56" data-linenumber="90">
+          <span class="hits">56</span>
           
           <code class="ruby">    travel_score = travel_time * travel_weight</code>
         </li>
       
-        <li class="covered" data-hits="249" data-linenumber="91">
-          <span class="hits">249</span>
+        <li class="covered" data-hits="56" data-linenumber="91">
+          <span class="hits">56</span>
           
           <code class="ruby">    popular_bonus = attraction.num_hours_popular(start_time) * POPULAR_HOUR_WEIGHT</code>
         </li>
       
-        <li class="covered" data-hits="249" data-linenumber="92">
-          <span class="hits">249</span>
+        <li class="covered" data-hits="56" data-linenumber="92">
+          <span class="hits">56</span>
           
           <code class="ruby">    foursquare_score = attraction.rating * FOURSQUARE_WEIGHT</code>
         </li>
       
-        <li class="covered" data-hits="249" data-linenumber="93">
-          <span class="hits">249</span>
+        <li class="covered" data-hits="56" data-linenumber="93">
+          <span class="hits">56</span>
           
           <code class="ruby">    total_score = vote_score + travel_score + foursquare_score + popular_bonus</code>
         </li>
       
-        <li class="covered" data-hits="249" data-linenumber="94">
-          <span class="hits">249</span>
+        <li class="covered" data-hits="56" data-linenumber="94">
+          <span class="hits">56</span>
           
           <code class="ruby">    return {:score =&gt; total_score, :travel_time =&gt; travel_time}</code>
         </li>
@@ -3410,86 +3416,86 @@
           <code class="ruby">  def self.calculate_distance_manhattan(attraction_start, attraction_end)</code>
         </li>
       
-        <li class="covered" data-hits="253" data-linenumber="113">
-          <span class="hits">253</span>
+        <li class="covered" data-hits="60" data-linenumber="113">
+          <span class="hits">60</span>
           
           <code class="ruby">    lat1 = attraction_start.latitude * RAD_PER_DEG</code>
         </li>
       
-        <li class="covered" data-hits="253" data-linenumber="114">
-          <span class="hits">253</span>
+        <li class="covered" data-hits="60" data-linenumber="114">
+          <span class="hits">60</span>
           
           <code class="ruby">    lon1 = attraction_start.longitude * RAD_PER_DEG</code>
         </li>
       
-        <li class="covered" data-hits="253" data-linenumber="115">
-          <span class="hits">253</span>
+        <li class="covered" data-hits="60" data-linenumber="115">
+          <span class="hits">60</span>
           
           <code class="ruby">    lat2 = attraction_end.latitude * RAD_PER_DEG</code>
         </li>
       
-        <li class="covered" data-hits="253" data-linenumber="116">
-          <span class="hits">253</span>
+        <li class="covered" data-hits="60" data-linenumber="116">
+          <span class="hits">60</span>
           
           <code class="ruby">    lon2 = attraction_end.longitude * RAD_PER_DEG</code>
         </li>
       
-        <li class="covered" data-hits="253" data-linenumber="117">
-          <span class="hits">253</span>
+        <li class="covered" data-hits="60" data-linenumber="117">
+          <span class="hits">60</span>
           
           <code class="ruby">    dlat = lat2 - lat1</code>
         </li>
       
-        <li class="covered" data-hits="253" data-linenumber="118">
-          <span class="hits">253</span>
+        <li class="covered" data-hits="60" data-linenumber="118">
+          <span class="hits">60</span>
           
           <code class="ruby">    dlon = lon2 - lon1</code>
         </li>
       
-        <li class="covered" data-hits="253" data-linenumber="119">
-          <span class="hits">253</span>
+        <li class="covered" data-hits="60" data-linenumber="119">
+          <span class="hits">60</span>
           
           <code class="ruby">    a_lat = (Math.sin(dlat/2))**2</code>
         </li>
       
-        <li class="covered" data-hits="253" data-linenumber="120">
-          <span class="hits">253</span>
+        <li class="covered" data-hits="60" data-linenumber="120">
+          <span class="hits">60</span>
           
           <code class="ruby">    c_lat = 2 * Math.atan2(Math.sqrt(a_lat), Math.sqrt(1-a_lat))</code>
         </li>
       
-        <li class="covered" data-hits="253" data-linenumber="121">
-          <span class="hits">253</span>
+        <li class="covered" data-hits="60" data-linenumber="121">
+          <span class="hits">60</span>
           
           <code class="ruby">    d_lat = EARTH_R_KM * c_lat</code>
         </li>
       
-        <li class="covered" data-hits="253" data-linenumber="122">
-          <span class="hits">253</span>
+        <li class="covered" data-hits="60" data-linenumber="122">
+          <span class="hits">60</span>
           
           <code class="ruby">    a_lon = Math.cos(lat1) * Math.cos(lat2) * (Math.sin(dlon/2))**2</code>
         </li>
       
-        <li class="covered" data-hits="253" data-linenumber="123">
-          <span class="hits">253</span>
+        <li class="covered" data-hits="60" data-linenumber="123">
+          <span class="hits">60</span>
           
           <code class="ruby">    c_lon = 2 * Math.atan2(Math.sqrt(a_lon), Math.sqrt(1-a_lon))</code>
         </li>
       
-        <li class="covered" data-hits="253" data-linenumber="124">
-          <span class="hits">253</span>
+        <li class="covered" data-hits="60" data-linenumber="124">
+          <span class="hits">60</span>
           
           <code class="ruby">    d_lon = EARTH_R_KM * c_lon</code>
         </li>
       
-        <li class="covered" data-hits="253" data-linenumber="125">
-          <span class="hits">253</span>
+        <li class="covered" data-hits="60" data-linenumber="125">
+          <span class="hits">60</span>
           
           <code class="ruby">    d_manhattan = d_lat + d_lon</code>
         </li>
       
-        <li class="covered" data-hits="253" data-linenumber="126">
-          <span class="hits">253</span>
+        <li class="covered" data-hits="60" data-linenumber="126">
+          <span class="hits">60</span>
           
           <code class="ruby">    return d_manhattan</code>
         </li>
@@ -3572,8 +3578,8 @@
           <code class="ruby">  def self.calculate_travel_time_manhattan(attraction_start, attraction_end, travel_speed)</code>
         </li>
       
-        <li class="covered" data-hits="252" data-linenumber="140">
-          <span class="hits">252</span>
+        <li class="covered" data-hits="59" data-linenumber="140">
+          <span class="hits">59</span>
           
           <code class="ruby">    return calculate_distance_manhattan(attraction_start, attraction_end) / travel_speed * 60</code>
         </li>
@@ -7040,26 +7046,26 @@
           <code class="ruby">  def self.import_attractions(city, num_attractions)</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="5">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="2" data-linenumber="5">
+          <span class="hits">2</span>
           
           <code class="ruby">    base_url = &quot;https://api.foursquare.com/v2/venues/explore?&quot;</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="6">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="2" data-linenumber="6">
+          <span class="hits">2</span>
           
           <code class="ruby">    query_string = &quot;&amp;section=sights&amp;limit=#{num_attractions}&amp;radius=50000&amp;venuePhotos=1&amp;near=#{city}&quot;</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="7">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="2" data-linenumber="7">
+          <span class="hits">2</span>
           
           <code class="ruby">    request_url = base_url + AUTH_STRING + query_string</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="8">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="2" data-linenumber="8">
+          <span class="hits">2</span>
           
           <code class="ruby">    HTTParty.get(request_url).body</code>
         </li>
@@ -7082,14 +7088,14 @@
           <code class="ruby">  def self.import_hours(city)</code>
         </li>
       
-        <li class="covered" data-hits="58" data-linenumber="12">
-          <span class="hits">58</span>
+        <li class="covered" data-hits="8" data-linenumber="12">
+          <span class="hits">8</span>
           
           <code class="ruby">    attraction_hours_url = &quot;https://api.foursquare.com/v2/venues/#{city.id}/hours?#{AUTH_STRING}&quot;</code>
         </li>
       
-        <li class="covered" data-hits="58" data-linenumber="13">
-          <span class="hits">58</span>
+        <li class="covered" data-hits="8" data-linenumber="13">
+          <span class="hits">8</span>
           
           <code class="ruby">    HTTParty.get(attraction_hours_url).body</code>
         </li>
@@ -9069,11 +9075,11 @@
         <div class="source_table" id="fb4081487a0121d4edb27343644e22437dd53247">
   <div class="header">
     <h3>spec/features/add_trip_to_user_spec.rb</h3>
-    <h4><span class="red">69.23 %</span> covered</h4>
+    <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>52</b> relevant lines. 
-      <span class="green"><b>36</b> lines covered</span> and
-      <span class="red"><b>16</b> lines missed.</span>
+      <b>37</b> relevant lines. 
+      <span class="green"><b>37</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
   
@@ -9110,14 +9116,14 @@
           <code class="ruby">  def stub_api_calls</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="6">
-          
+        <li class="covered" data-hits="1" data-linenumber="6">
+          <span class="hits">1</span>
           
           <code class="ruby">      Foursquare.should_receive(:import_attractions).and_return(@fake_api_response)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="7">
-          
+        <li class="covered" data-hits="1" data-linenumber="7">
+          <span class="hits">1</span>
           
           <code class="ruby">      Foursquare.should_receive(:import_hours).at_most(50).times.and_return(@fake_hours_response)</code>
         </li>
@@ -9269,232 +9275,226 @@
         <li class="covered" data-hits="1" data-linenumber="32">
           <span class="hits">1</span>
           
-          <code class="ruby">    visit &quot;/users/sign_in&quot;</code>
+          <code class="ruby">    stub_api_calls</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="33">
           <span class="hits">1</span>
           
-          <code class="ruby">    fill_in &quot;Email&quot;, :with =&gt; &quot;test@email.com&quot;</code>
+          <code class="ruby">    visit &quot;/users/sign_in&quot;</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="34">
           <span class="hits">1</span>
           
-          <code class="ruby">    fill_in &quot;Password&quot;, :with =&gt; &quot;12345678&quot;</code>
+          <code class="ruby">    fill_in &quot;Email&quot;, :with =&gt; &quot;test@email.com&quot;</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="35">
           <span class="hits">1</span>
           
-          <code class="ruby">    click_button &quot;Log in&quot;</code>
+          <code class="ruby">    fill_in &quot;Password&quot;, :with =&gt; &quot;12345678&quot;</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="36">
           <span class="hits">1</span>
           
+          <code class="ruby">    click_button &quot;Log in&quot;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="37">
+          <span class="hits">1</span>
+          
           <code class="ruby">    expect(page).to have_text(&quot;Signed in successfully.&quot;)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="37">
+        <li class="never" data-hits="" data-linenumber="38">
           
           
           <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="38">
-          <span class="hits">1</span>
-          
-          <code class="ruby">    visit &quot;/&quot;</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="39">
           <span class="hits">1</span>
           
-          <code class="ruby">    fill_in &quot;destination&quot;, :with =&gt; &quot;New York&quot;</code>
+          <code class="ruby">    visit &quot;/&quot;</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="40">
           <span class="hits">1</span>
           
-          <code class="ruby">    fill_in &quot;startdate&quot;, :with =&gt; &quot;10/23/2015&quot;</code>
+          <code class="ruby">    fill_in &quot;destination&quot;, :with =&gt; &quot;San Francisco&quot;</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="41">
           <span class="hits">1</span>
           
-          <code class="ruby">    fill_in &quot;enddate&quot;, :with =&gt; &quot;10/23/2015&quot;</code>
+          <code class="ruby">    fill_in &quot;startdate&quot;, :with =&gt; &quot;10/23/2015&quot;</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="42">
           <span class="hits">1</span>
           
-          <code class="ruby">    click_button &quot;Submit&quot;</code>
+          <code class="ruby">    fill_in &quot;enddate&quot;, :with =&gt; &quot;10/23/2015&quot;</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="43">
           <span class="hits">1</span>
           
-          <code class="ruby">    expect(page).to have_text(&quot;Attractions around New York&quot;)</code>
+          <code class="ruby">    click_button &quot;Submit&quot;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="44">
+        <li class="covered" data-hits="1" data-linenumber="44">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    expect(page).to have_text(&quot;Attractions around San Francisco&quot;)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="45">
           
           
           <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="45">
-          <span class="hits">1</span>
-          
-          <code class="ruby">    click_button &quot;Let&#39;s go!&quot;, :match =&gt; :first</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="46">
           <span class="hits">1</span>
           
-          <code class="ruby">    expect(page).to have_text(&quot;Your Itinerary for New York&quot;)</code>
+          <code class="ruby">    click_button &quot;Let&#39;s go!&quot;, :match =&gt; :first</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="47">
+        <li class="covered" data-hits="1" data-linenumber="47">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">  end</code>
+          <code class="ruby">    expect(page).to have_text(&quot;Your Itinerary for San Francisco&quot;)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="48">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">  end</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="49">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="49">
           
-          <code class="ruby">  scenario &quot;User upvotes attractions&quot; do</code>
+          
+          <code class="ruby"></code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="50">
           
           
-          <code class="ruby">    # skipping this test because it passes only sometimes for some reason</code>
+          <code class="ruby">  # scenario &quot;User upvotes attractions&quot; do</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="51">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="51">
           
-          <code class="ruby">    skip &quot;logged in user generates voted itinerary redirects back to root&quot; do</code>
+          
+          <code class="ruby">  #   Foursquare.should_receive(:import_attractions).and_return(@fake_api_response)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="52">
+        <li class="never" data-hits="" data-linenumber="52">
           
           
-          <code class="ruby">      visit &quot;/users/sign_in&quot;</code>
+          <code class="ruby">  #   Foursquare.should_receive(:import_hours).at_most(50).times.and_return(@fake_hours_response)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="53">
+        <li class="never" data-hits="" data-linenumber="53">
           
           
-          <code class="ruby">      fill_in &quot;Email&quot;, :with =&gt; &quot;test@email.com&quot;</code>
+          <code class="ruby">  #   visit &quot;/users/sign_in&quot;</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="54">
+        <li class="never" data-hits="" data-linenumber="54">
           
           
-          <code class="ruby">      fill_in &quot;Password&quot;, :with =&gt; &quot;12345678&quot;</code>
+          <code class="ruby">  #   fill_in &quot;Email&quot;, :with =&gt; &quot;test@email.com&quot;</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="55">
+        <li class="never" data-hits="" data-linenumber="55">
           
           
-          <code class="ruby">      click_button &quot;Log in&quot;</code>
+          <code class="ruby">  #   fill_in &quot;Password&quot;, :with =&gt; &quot;12345678&quot;</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="56">
+        <li class="never" data-hits="" data-linenumber="56">
           
           
-          <code class="ruby">      expect(page).to have_text(&quot;Signed in successfully.&quot;)</code>
+          <code class="ruby">  #   click_button &quot;Log in&quot;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="57">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">  #   expect(page).to have_text(&quot;Signed in successfully.&quot;)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="58">
+        <li class="never" data-hits="" data-linenumber="58">
           
           
-          <code class="ruby">      visit &quot;/&quot;</code>
+          <code class="ruby">  #</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="59">
+        <li class="never" data-hits="" data-linenumber="59">
           
           
-          <code class="ruby">      fill_in &quot;destination&quot;, :with =&gt; &quot;San Francisco&quot;</code>
+          <code class="ruby">  #   visit &quot;/&quot;</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="60">
+        <li class="never" data-hits="" data-linenumber="60">
           
           
-          <code class="ruby">      fill_in &quot;startdate&quot;, :with =&gt; &quot;10/23/2015&quot;</code>
+          <code class="ruby">  #   fill_in &quot;destination&quot;, :with =&gt; &quot;San Francisco&quot;</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="61">
+        <li class="never" data-hits="" data-linenumber="61">
           
           
-          <code class="ruby">      fill_in &quot;enddate&quot;, :with =&gt; &quot;10/23/2015&quot;</code>
+          <code class="ruby">  #   fill_in &quot;startdate&quot;, :with =&gt; &quot;10/23/2015&quot;</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="62">
+        <li class="never" data-hits="" data-linenumber="62">
           
           
-          <code class="ruby">      click_button &quot;Submit&quot;</code>
+          <code class="ruby">  #   fill_in &quot;enddate&quot;, :with =&gt; &quot;10/23/2015&quot;</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="63">
+        <li class="never" data-hits="" data-linenumber="63">
           
           
-          <code class="ruby">      expect(page).to have_text(&quot;Attractions around San Francisco&quot;)</code>
+          <code class="ruby">  #   click_button &quot;Submit&quot;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="64">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">  #   expect(page).to have_text(&quot;Attractions around San Francisco&quot;)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="65">
+        <li class="never" data-hits="" data-linenumber="65">
           
           
-          <code class="ruby">      choose &quot;1 Louise M. Davies Symphony Hall&quot;</code>
+          <code class="ruby">  #</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="66">
+        <li class="never" data-hits="" data-linenumber="66">
           
           
-          <code class="ruby">      click_button &quot;Let&#39;s go!&quot;, :match =&gt; :first</code>
+          <code class="ruby">  #   click_button &quot;Let&#39;s go!&quot;, :match =&gt; :first</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="67">
+        <li class="never" data-hits="" data-linenumber="67">
           
           
-          <code class="ruby">      expect(page).to have_text(&quot;Your Itinerary for San Francisco&quot;)</code>
+          <code class="ruby">  #   expect(page).to have_text(&quot;Your Itinerary for San Francisco&quot;)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="68">
           
           
-          <code class="ruby">    end</code>
+          <code class="ruby">  # end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="69">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="70">
           
           
           <code class="ruby">end</code>
