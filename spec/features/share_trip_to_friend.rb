@@ -40,8 +40,8 @@ RSpec.feature "Share Trip to Friend", :type => :feature do
     visit user_show_path
     expect(page).to have_text("Hi there")
 
-    # click_link "View Votes"
-    # expect(page).to have_text("Louise M. Davies Symphony Hall Current vote: 1")
+    click_link "View Votes"
+    expect(page).to have_text("You haven't upvoted any attractions for this trip.")
 
     click_link "Logout"
 
