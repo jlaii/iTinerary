@@ -6,7 +6,7 @@ class Trip < ActiveRecord::Base
   EARTH_R_KM = 6371 # Radius of Earth in Km
   DRIVING_SPEED = 20 # km/hr
   VOTE_WEIGHT = 10
-  TRAVEL_WEIGHT = -0.05
+  TRAVEL_WEIGHT = -0.3
   FOURSQUARE_WEIGHT = 0.5
   POPULAR_HOUR_WEIGHT = 1
   NUM_ATTRACTIONS = 4
