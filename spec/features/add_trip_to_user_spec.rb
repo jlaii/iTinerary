@@ -29,7 +29,6 @@ RSpec.feature "Add Trip to User", :type => :feature do
   end
 
   scenario "User upvotes no attractions" do
-    stub_api_calls
     visit "/users/sign_in"
     fill_in "Email", :with => "test@email.com"
     fill_in "Password", :with => "12345678"
