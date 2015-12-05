@@ -35,23 +35,29 @@ class TripsController < ApplicationController
     @invitation_code = params[:invitation_code]
     if current_user
       if current_user.id == @trip.user_id || !UserTrip.where(user_id: current_user.id, trip_id: @trip.id).blank? || @invitation_code == @trip.uuid
+        # Has permission
         if @invitation_code
           UserTrip.create(user_id: current_user.id, trip_id: @trip.id)
         end
         has_itinerary = false
-        @trip.trip_attractions.each do |attraction|
-          if attraction.start_time != nil
+        trip_attractions = @trip.trip_attractions
+        trip_attractions.each do |trip_attraction|
+          if trip_attraction.start_time != nil
             has_itinerary = true
             break
           end
         end
         if has_itinerary
+          trip_attractions.each do |trip_attraction|
+            current_user.votes.create(trip_attraction: trip_attraction, vote: 0)
+          end
           @itinerary = TripAttraction.where(:trip_id => @trip.id).where.not(:start_time => nil).order(:start_time)
           render "show_itinerary"
         else
           generate_itinerary(params[:trip_id])
         end
       else
+        # No permission
         if @invitation_code
           flash[:notice] = "Ooops! Your invitation code seems incorrect. Please double check the code with the owner."
         else
