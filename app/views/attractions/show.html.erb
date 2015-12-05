@@ -70,6 +70,7 @@
         <div class="notice"><b><%= flash[:error] %></b></div>
     <% end %>
     <%= render 'layouts/navigation' %>
+    <div class="container">
 
     <div id="date-form" class="row">
         <form class="form-inline" method='post' action='welcome/save'>
@@ -112,9 +113,9 @@
                                 <p><%= attraction.description %>
                                 <br>
                                 <b>Do you want to go here?</b><br></p>
-                                <input type="radio" id = "-1 <%= attraction.name %>" name=<%= attraction.id %> value="-1"> No&#x1F62D;
-                                <input type="radio" id = "0 <%= attraction.name %>" name=<%= attraction.id %> value="0" checked="checked"> Maybe &#x1F60F;
-                                <input type="radio" id = "1 <%= attraction.name %>" name=<%= attraction.id %> value="1"> Yes&#x1F603;
+                                <input type="radio" id = "-1 <%= attraction.name %>" name=<%= attraction.id %> value="-1"> No&#x1F62D; 
+                                <input type="radio" id = "0 <%= attraction.name %>" name=<%= attraction.id %> value="0" checked="checked"> Maybe &#x1F60F; 
+                                <input type="radio" id = "1 <%= attraction.name %>" name=<%= attraction.id %> value="1"> Yes&#x1F603; 
                             </div>
                         </div>
                     </div>
@@ -125,7 +126,7 @@
             </div>
         </form>
     </div>
-
+</div>
     <%= render 'layouts/footer' %>
 
 </body>

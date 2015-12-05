@@ -191,6 +191,9 @@ footer {
     background-color:rgba(0,0,0,0.7);
     border-radius: 10px;
   }
+  .btn-primary {
+    margin-left:10px;
+  }
   
 }
 
@@ -226,5 +229,10 @@ footer {
 
 /* trip - show itinerary */
 #itinerary {
-  border-left: solid $navbar-color 3px;
+  border-left: solid $navbar-color 4px;
+}
+
+/* dashboard */
+#dashboard {
+  
 }

@@ -1,49 +1,55 @@
 <html>
-<body>
+<body id="dashboard">
     <%= render 'layouts/navigation' %>
     <div class="container-fluid">
         <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-4">
-            <div id = "user_info">
+            <div class="container" id = "user_info">
                 <h3>Hi there!</h3></b>
                 <ul><p><b>YOUR EMAIL:</b> <%= @user.email if @user.email %></p></ul>
                 <br>
             </div>
         </div>
         <div class="col-md-4">
-            <div id="trips">
-                <h3>Your Trips:</h3>  <%= link_to "Create another trip", root_path, :class => "btn btn-default"  %>
 
-                <% if @trips.empty? %>
-                    <h4><%= link_to "You have no trips! Hurry go make some :D", root_path %></h4>
-                <% else %>
-                    
-                    <ul>
-                        <% @trips.each do |trip| %>
-                            <% has_itinerary = false %>
-                            <% trip.trip_attractions.each do |attraction| %>
-                                <% if attraction.start_time != nil %>
-                                    <% has_itinerary = true %>
-                                    <% break %>
+            <div id="trips">
+
+                <div class="row">
+                    <div class="container">
+                        <h3>Your Trips:</h3>  <%= link_to "Create another trip", root_path, :class => "btn btn-default"  %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="container">
+
+                    <% if @trips.empty? %>
+                        <h4><%= link_to "You have no trips! Hurry go make some :D", root_path %></h4>
+                    <% else %>
+                        
+                        <ul>
+                            <% @trips.each do |trip| %>
+                                <% has_itinerary = false %>
+                                <% trip.trip_attractions.each do |attraction| %>
+                                    <% if attraction.start_time != nil %>
+                                        <% has_itinerary = true %>
+                                        <% break %>
+                                    <% end %>
                                 <% end %>
+                                <h4><%= trip.city %></h4>
+                                <%= trip.start_time.strftime('%a %m/%d/%Y') %></li> to <%= trip.end_time.strftime('%a %m/%d/%Y') %><br><%= trip.note %>
+                                <%= link_to "Revote", show_attractions_path(destination: trip.city, startdate: trip.start_time, enddate: trip.end_time), :class => "btn btn-default" %>
+                                <%= link_to "View Votes", trip_show_path(id: trip.id), :class => "btn btn-default"  %>
+                                <% if has_itinerary %>
+                                    <%= link_to "View Itinerary", show_itinerary_path(trip_id: trip.id), :class => "btn btn-default" %>
+                                <% end %>
+                                <%= link_to "Delete", delete_trip_path(trip.id) , :class => "btn btn-default" %><br>
                             <% end %>
-                            <h4><%= trip.city %></h4>
-                            <% if trip.start_time != trip.end_time %>
-                              <%= trip.start_time.strftime('%a %m/%d/%Y')%> to <%= trip.end_time.strftime('%a %m/%d/%Y')%><br><%= trip.note %>
-                            <% else %>
-                              <%= trip.start_time.strftime('%a %m/%d/%Y')%><br><%= trip.note %>
-                            <% end %>
-                            <%= link_to "Revote", show_attractions_path(destination: trip.city, startdate: trip.start_time.strftime('%m/%d/%Y'), enddate: trip.end_time.strftime('%m/%d/%Y')), :class => "btn btn-default" %>
-                            <%= link_to "View Votes", trip_show_path(id: trip.id), :class => "btn btn-default"  %>
-                            <% if has_itinerary %>
-                                <%= link_to "View Itinerary", show_itinerary_path(trip_id: trip.id), :class => "btn btn-default" %>
-                            <% end %>
-                            <%= link_to "Delete", delete_trip_path(trip.id) , :class => "btn btn-default", :method => :post %><br>
+                        </ul>
                         <% end %>
-                    </ul>
-                    <% end %>
-                    <br><br><br>
+                        <br><br><br>
+                    </div>
+                    </div>
                 </div>
             </div>
         <div class="col-md-2"></div>
