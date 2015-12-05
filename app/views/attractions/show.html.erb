@@ -113,9 +113,35 @@
                                 <p><%= attraction.description %>
                                 <br>
                                 <b>Do you want to go here?</b><br></p>
-                                <input type="radio" id = "-1 <%= attraction.name %>" name=<%= attraction.id %> value="-1"> No&#x1F62D;
-                                <input type="radio" id = "0 <%= attraction.name %>" name=<%= attraction.id %> value="0" checked="checked"> Maybe &#x1F60F;
-                                <input type="radio" id = "1 <%= attraction.name %>" name=<%= attraction.id %> value="1"> Yes&#x1F603;
+                                <% if current_user %>
+                                    <% user_vote = current_user.votes.where(attraction_id: attraction.id).first %>
+                                    <% if user_vote %>
+                                        <% if user_vote.vote == -1 %>
+                                            <input type="radio" id = "-1 <%= attraction.name %>" name=<%= attraction.id %> value="-1" checked="checked"> No&#x1F62D;
+                                        <% else %>
+                                            <input type="radio" id = "-1 <%= attraction.name %>" name=<%= attraction.id %> value="-1"> No&#x1F62D;
+                                        <% end %>
+                                        <% if user_vote.vote == 0 %>
+                                            <input type="radio" id = "0 <%= attraction.name %>" name=<%= attraction.id %> value="0" checked="checked"> Maybe &#x1F60F;
+                                        <% else %>
+                                            <input type="radio" id = "0 <%= attraction.name %>" name=<%= attraction.id %> value="0"> Maybe &#x1F60F;
+                                        <% end %>
+                                        <% if user_vote.vote == 1 %>
+                                            <input type="radio" id = "1 <%= attraction.name %>" name=<%= attraction.id %> value="1" checked="checked"> Yes&#x1F603;
+                                        <% else %>
+                                            <input type="radio" id = "1 <%= attraction.name %>" name=<%= attraction.id %> value="1"> Yes&#x1F603;
+                                        <% end %>
+                                    <% else %>
+                                        <!-- SHOULD NEVER ENTER THIS CASE -->
+                                        <input type="radio" id = "-1 <%= attraction.name %>" name=<%= attraction.id %> value="-1"> No&#x1F62D;
+                                        <input type="radio" id = "0 <%= attraction.name %>" name=<%= attraction.id %> value="0" checked="checked"> Maybe &#x1F60F;
+                                        <input type="radio" id = "1 <%= attraction.name %>" name=<%= attraction.id %> value="1"> Yes&#x1F603;
+                                    <% end %>
+                                <% else %>
+                                    <input type="radio" id = "-1 <%= attraction.name %>" name=<%= attraction.id %> value="-1"> No&#x1F62D;
+                                    <input type="radio" id = "0 <%= attraction.name %>" name=<%= attraction.id %> value="0" checked="checked"> Maybe &#x1F60F;
+                                    <input type="radio" id = "1 <%= attraction.name %>" name=<%= attraction.id %> value="1"> Yes&#x1F603;
+                                <% end %>
                             </div>
                         </div>
                     </div>

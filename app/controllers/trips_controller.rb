@@ -34,9 +34,12 @@ class TripsController < ApplicationController
     @trip = Trip.find(params[:trip_id])
     @invitation_code = params[:invitation_code]
     if current_user
-      if current_user.id == @trip.user_id || !UserTrip.where(user_id: current_user.id, trip_id: @trip.id).blank? || @invitation_code == @trip.uuid
+      is_owner = current_user.id == @trip.user_id
+      is_contributor = !UserTrip.where(user_id: current_user.id, trip_id: @trip.id).blank?
+      has_correct_invitation = @invitation_code == @trip.uuid
+      if is_owner || is_contributor || has_correct_invitation
         # Has permission
-        if @invitation_code
+        if !is_owner && !is_contributor && has_correct_invitation
           UserTrip.create(user_id: current_user.id, trip_id: @trip.id)
         end
         has_itinerary = false
@@ -48,8 +51,12 @@ class TripsController < ApplicationController
           end
         end
         if has_itinerary
-          trip_attractions.each do |trip_attraction|
-            current_user.votes.create(trip_attraction: trip_attraction, attraction_id: trip_attraction.attraction_id, vote: 0)
+          if !is_owner && !is_contributor
+            trip_attractions.each do |trip_attraction|
+              if !trip_attraction.attraction_id.nil? || !trip_attraction.lunch
+                current_user.votes.create(trip_attraction: trip_attraction, attraction_id: trip_attraction.attraction_id, vote: 0)
+              end
+            end
           end
           @itinerary = TripAttraction.where(:trip_id => @trip.id).where.not(:start_time => nil).order(:start_time)
           render "show_itinerary"
