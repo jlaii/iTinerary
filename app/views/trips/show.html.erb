@@ -21,7 +21,7 @@
       <% if has_votes %>
         Attractions you've upvoted for this trip:
         <% @trip.trip_attractions.each do |trip_attraction| %>
-          <% if trip_attraction.vote_count > 0 %>
+          <% if trip_attraction.vote_count != 0 %>
             <% attraction = Attraction.find(trip_attraction.attraction_id) %>
             <li>
               <label for="destination"><h4 class="list-group-item-heading">
