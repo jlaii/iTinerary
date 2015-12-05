@@ -61,24 +61,28 @@ $(document).ready(function () {
 
 
     <div class ="row">
-      <div class="col-md-2"></div>
+      <div class="col-md-1 col-xl"></div>
 
-      <div id="form-span" class="col-md-8">
+      <div id="form-span" class="col-md-10">
       <form class="form-inline" method='post' action='welcome/save'>
+        <div class="form-group">
+          <label for="destination">Destination</label>
+          <input name="destination" class ="form-control" type="text"value="<%= params[:destination] %>" required>
+        </div>
 
-        <label for="destination">Destination</label>
-        <input name="destination" class ="form-control" type="text"value="<%= params[:destination] %>" required>
-
-
-        <label for="startdate">Arrival Date</label>
-        <input name="startdate" class ="form-control" type="text" id="startdate" />
-        <label for="enddate">Departure Date</label>
-        <input name="enddate" class ="form-control" type="text" id="enddate" />
+        <div class="form-group">
+          <label for="startdate">Arrival Date</label>
+          <input name="startdate" class ="form-control" type="text" id="startdate" />
+        </div>
+        <div class="form-group">
+          <label for="enddate">Departure Date</label>
+          <input name="enddate" class ="form-control" type="text" id="enddate" />
+        </div>
 
         <input class ="btn btn-primary" type="submit" value="Submit"/>
       </form>
     </div>
-    <div class="col-md-2"></div>
+    <div class="col-md-1"></div>
 
     </div>
   </div>
