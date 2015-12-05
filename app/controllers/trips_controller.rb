@@ -82,7 +82,7 @@ class TripsController < ApplicationController
 
   def new
     if !current_user # need to log in here
-      $params = params
+      session[:additional] = params
       redirect_to new_user_session_path
     else
       create_and_save_trip
@@ -149,9 +149,6 @@ class TripsController < ApplicationController
         end
         generate_itinerary(trip.id)
       end
-    else
-      flash[:error] = "Start date cannot be later than end date."
-      redirect_to root_path
     end
   end
 

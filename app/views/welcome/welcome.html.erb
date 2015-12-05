@@ -35,16 +35,9 @@ $(document).ready(function () {
 
 <body>
   <%= render 'layouts/navigation' %>
-
-	<% if flash[:error] %>
-	    <div class="notice"><b><%= flash[:error] %></b></div>
-	<% end %>
-
-    <div>
-      <% flash.each do |name, msg| %>
-          <%= content_tag :div, msg, id: "flash_#{name}" %>
-      <% end %>
-    </div>
+  <% if flash[:error] %>
+      <div class="notice"><b><%= flash[:error] %></b></div>
+  <% end %>
 
 <body id="welcome-front-body">
 
@@ -52,13 +45,9 @@ $(document).ready(function () {
     <div class ="row">
       <h1>iTinerary</h1>
       <h2>Where would you like to go?</h2>
-
     </div>
 
-
-
     <br><br>
-
 
     <div class ="row">
       <div id="form-span" class="col-md-10 col-md-offset-1">

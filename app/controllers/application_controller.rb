@@ -7,8 +7,9 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
 		if session[:previous_url]
 			session[:previous_url]
-		elsif $params
-  		trip_create_save_path($params) || root_path
+		elsif session[:additional]
+      data = session.delete(:additional)
+  		trip_create_save_path(data) || root_path
 		else
 			root_path
   	end
