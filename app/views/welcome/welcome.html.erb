@@ -35,14 +35,9 @@ $(document).ready(function () {
 
 <body>
   <%= render 'layouts/navigation' %>
-  <% if flash[:error] %>
-      <div class="notice"><b><%= flash[:error] %></b></div>
-  <% end %>
   <div>
     <% flash.each do |name, msg| %>
-        <% if name != 'error' %>
-            <%= content_tag :div, msg, id: "flash_#{name}" %>
-        <% end %>
+        <b><%= content_tag :div, msg, id: "flash_#{name}" %></b>
     <% end %>
   </div>
 
