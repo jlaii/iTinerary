@@ -5,6 +5,7 @@ class AttractionsController < ApplicationController
 
     if not @show_attractions
       flash[:error] = "Could not find attractions in '#{params[:destination].titleize}'"
+      redirect_to(root_url)
     end
 
   end
