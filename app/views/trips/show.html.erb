@@ -4,8 +4,8 @@
     <div class="col-md-2"></div>
     <div class ="col-md-4"><br>
       You are going to: <b><%= @trip.city %></b><br>
-      Your trip starts: <i> <%= @trip.start_time.strftime('%a %m/%d/%Y') %></i><br>
-      Your trip ends: <i><%= @trip.end_time.strftime('%a %m/%d/%Y') %></i>
+      Your trip starts: <i> <%= @trip.start_time %></i><br>
+      Your trip ends: <i><%= @trip.end_time %></i>
       <% has_votes = false %>
       <% @trip.trip_attractions.each do |attraction| %>
         <% if attraction.vote_count != nil and attraction.vote_count > 0 %>
@@ -14,7 +14,7 @@
         <% end %>
       <% end %>
       <br><br>
-      <button class="btn btn-default"><%= link_to "View Itinerary", show_itinerary_path(:trip_id => params[:id])%></button>
+      <button><%= link_to "View Itinerary", show_itinerary_path(:trip_id => params[:id])%></button>
     </div>
     <div class = "col-md-4">
       <br>
