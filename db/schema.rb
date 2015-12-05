@@ -73,11 +73,6 @@ ActiveRecord::Schema.define(version: 20151205150134) do
     t.string   "uuid"
   end
 
-  create_table "trips_users", id: false, force: :cascade do |t|
-    t.integer "trip_id"
-    t.integer "user_id"
-  end
-
   create_table "user_trips", force: :cascade do |t|
     t.integer  "user_id",    null: false
     t.integer  "trip_id",    null: false
