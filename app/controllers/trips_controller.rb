@@ -92,10 +92,17 @@ class TripsController < ApplicationController
         break
       end
     end
-    start_lst = params[:startdate].split("/")
-    end_lst = params[:enddate].split("/")
-    start_time = DateTime.new(start_lst[2].to_i, start_lst[0].to_i, start_lst[1].to_i, 0, 0, 0)
-    end_time = DateTime.new(end_lst[2].to_i, end_lst[0].to_i, end_lst[1].to_i, 0, 0, 0)
+    if params[:startdate].include? "/"
+      start_lst = params[:startdate].split("/")
+      end_lst = params[:enddate].split("/")
+      start_time = DateTime.new(start_lst[2].to_i, start_lst[0].to_i, start_lst[1].to_i, 0, 0, 0)
+      end_time = DateTime.new(end_lst[2].to_i, end_lst[0].to_i, end_lst[1].to_i, 0, 0, 0)
+    else
+      start_lst = params[:startdate].split("-")
+      end_lst = params[:enddate].split("-")
+      start_time = DateTime.new(start_lst[0].to_i, start_lst[1].to_i, start_lst[2].split(" ")[0].to_i, 0, 0, 0)
+      end_time = DateTime.new(end_lst[0].to_i, end_lst[1].to_i, end_lst[2].split(" ")[0].to_i, 0, 0, 0)
+    end
     if has_trip
       trip = @trips.where(:city => city).first #making assumption this user only go to this city once
       trip.update_attributes(:start_time => start_time, :end_time => end_time)
@@ -112,7 +119,7 @@ class TripsController < ApplicationController
             trip_attraction = trip.trip_attractions.where(:attraction_id => key).first
             user_vote = current_user.votes.where(trip_attraction_id: trip_attraction.id).first
             vote_diff = value.to_i - user_vote.vote
-            user_vote.increment!(:vote_count, by = vote_diff)
+            user_vote.increment!(:vote, by = vote_diff)
             trip_attraction.increment!(:vote_count, by = vote_diff)
           end
         end
