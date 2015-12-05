@@ -49,7 +49,7 @@ class TripsController < ApplicationController
         end
         if has_itinerary
           trip_attractions.each do |trip_attraction|
-            current_user.votes.create(trip_attraction: trip_attraction, vote: 0)
+            current_user.votes.create(trip_attraction: trip_attraction, attraction_id: trip_attraction.attraction_id, vote: 0)
           end
           @itinerary = TripAttraction.where(:trip_id => @trip.id).where.not(:start_time => nil).order(:start_time)
           render "show_itinerary"
@@ -137,7 +137,7 @@ class TripsController < ApplicationController
           # if (attraction_id != "destination" && attraction_id != "startdate" && attraction_id != "enddate")
           if key.to_i.to_s == key
             newTripAttraction = TripAttraction.create(attraction_id: key, trip_id: trip.id, vote_count: value)
-            current_user.votes.create(trip_attraction: newTripAttraction, vote: value)
+            current_user.votes.create(trip_attraction: newTripAttraction, attraction_id: key, vote: value)
           end
         end
         generate_itinerary(trip.id)
