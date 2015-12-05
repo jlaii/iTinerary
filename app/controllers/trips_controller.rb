@@ -53,7 +53,7 @@ class TripsController < ApplicationController
         if has_itinerary
           if !is_owner && !is_contributor
             trip_attractions.each do |trip_attraction|
-              if !trip_attraction.attraction_id.nil? || !trip_attraction.lunch
+              if !trip_attraction.attraction_id.nil? && !trip_attraction.lunch
                 current_user.votes.create(trip_attraction: trip_attraction, attraction_id: trip_attraction.attraction_id, vote: 0)
               end
             end
