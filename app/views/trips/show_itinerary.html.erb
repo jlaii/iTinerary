@@ -3,7 +3,12 @@
   <div class="row">
     <div class="container">
         <b>To invite your friends send them this link:</b><br>
-        <%= request.base_url + request.path %>/?invitation_code=<%= @trip.uuid%>
+        <%= request.base_url + request.path %>/?invitation_code=<%= @trip.uuid%><br>
+        <b>People in this trip</b><br>
+        <% user_trips = UserTrip.select("user_id").where(trip_id: @trip.id) %>
+        <% user_trips.each do |user_trip| %>
+          <%= User.find(user_trip.user_id).email %><br>
+        <% end %>
     </div>
   </div>
     <div class="row">

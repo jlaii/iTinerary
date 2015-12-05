@@ -21,12 +21,19 @@
       <% if has_votes %>
         Attractions you've upvoted for this trip:
         <% @trip.trip_attractions.each do |trip_attraction| %>
-          <% if trip_attraction.vote_count > 0 %>
+          <% if trip_attraction.vote_count != 0 %>
             <% attraction = Attraction.find(trip_attraction.attraction_id) %>
             <li>
               <label for="destination"><h4 class="list-group-item-heading">
                 <%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %> </h4></label>
-              Current vote: <%= trip_attraction.vote_count %>
+              Total vote: <%= trip_attraction.vote_count %>,
+              Your vote:
+              <% user_vote = current_user.votes.where(trip_attraction_id: trip_attraction.id).first %>
+              <% if user_vote && !user_vote.nil? %>
+                <%= user_vote.vote %>
+              <% else %>
+                Not available
+              <% end %>
             </li>
           <% end %>
         <% end %>

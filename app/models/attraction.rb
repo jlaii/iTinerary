@@ -1,6 +1,7 @@
 require 'Foursquare'
 class Attraction < ActiveRecord::Base
   has_many :pictures
+  has_many :votes
   validates :name, presence: true
 
 
