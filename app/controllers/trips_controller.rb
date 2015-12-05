@@ -109,7 +109,11 @@ class TripsController < ApplicationController
       if has_trip
         params.each do |key, value|
           if key.to_i.to_s == key
-            trip.trip_attractions.where(:attraction_id => key).first.increment!(:vote_count, value.to_i)
+            trip_attraction = trip.trip_attractions.where(:attraction_id => key).first
+            user_vote = current_user.votes.where(trip_attraction_id: trip_attraction.id).first
+            vote_diff = value.to_i - user_vote.vote
+            user_vote.increment!(:vote_count, by = vote_diff)
+            trip_attraction.increment!(:vote_count, by = vote_diff)
           end
         end
         generate_itinerary(trip.id)
@@ -119,8 +123,8 @@ class TripsController < ApplicationController
         params.each do |key, value|
           # if (attraction_id != "destination" && attraction_id != "startdate" && attraction_id != "enddate")
           if key.to_i.to_s == key
-            newTripAttraction = TripAttraction.new(attraction_id: key, trip_id: trip.id, vote_count: value)
-            newTripAttraction.save
+            newTripAttraction = TripAttraction.create(attraction_id: key, trip_id: trip.id, vote_count: value)
+            current_user.votes.create(trip_attraction: newTripAttraction, vote: value)
           end
         end
         generate_itinerary(trip.id)
