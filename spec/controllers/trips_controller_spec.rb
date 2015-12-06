@@ -23,16 +23,6 @@ RSpec.describe TripsController, type: :controller do
     expect(response.status).to eq 200
   end
 
-  context "GET #show" do
-    subject { get :show, :id => @trip.id}
-
-    it "renders the show template" do
-      expect(subject).to render_template(:show)
-      expect(subject).to render_template("show")
-      expect(subject).to render_template("trips/show")
-    end
-  end
-
   context "generating a trip" do
     before(:context) do
       TripAttraction.delete_all
