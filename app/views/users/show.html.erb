@@ -26,8 +26,8 @@
                     <% if @trips.empty? %>
                         <h4><%= link_to "You have no trips! Hurry go make some :D", root_path %></h4>
                     <% else %>
-                        
-                        <ul>
+
+                          <ul>
                             <% @trips.each do |trip| %>
                                 <% has_itinerary = false %>
                                 <% trip.trip_attractions.each do |attraction| %>
@@ -37,7 +37,11 @@
                                     <% end %>
                                 <% end %>
                                 <h4><%= trip.city %></h4>
-                                <%= trip.start_time.strftime('%a %m/%d/%Y') %></li> to <%= trip.end_time.strftime('%a %m/%d/%Y') %><br><%= trip.note %>
+                                <% if trip.end_time != trip.start_time %>
+                                    <%= trip.start_time.strftime('%a %m/%d/%Y') %></li> to <%= trip.end_time.strftime('%a %m/%d/%Y') %><br><%= trip.note %>
+                                <% else %>
+                                    <%= trip.start_time.strftime('%a %m/%d/%Y') %></li><br><%= trip.note %>
+                                <% end %>
                                 <%= link_to "Revote", show_attractions_path(destination: trip.city, startdate: trip.start_time.strftime('%m/%d/%Y'), enddate: trip.end_time.strftime('%m/%d/%Y')), :class => "btn btn-default" %>
                                 <%= link_to "View Votes", trip_show_path(id: trip.id), :class => "btn btn-default"  %>
                                 <% if has_itinerary %>
@@ -45,14 +49,14 @@
                                 <% end %>
                                 <%= link_to "Delete", delete_trip_path(trip.id) , :class => "btn btn-default", :method => :post %><br>
                             <% end %>
-                        </ul>
-                        <% end %>
-                        <br><br><br>
-                    </div>
+                          </ul>
+                      <% end %>
+                      <br><br><br>
                     </div>
                 </div>
             </div>
-        <div class="col-md-2"></div>
+        </div>
+          <div class="col-md-2"></div>
         </div>
     </div>
     <%= render 'layouts/footer' %>
