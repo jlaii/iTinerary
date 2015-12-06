@@ -25,6 +25,17 @@ class TripsController < ApplicationController
     rescue
       flash[:error] = "This trip does not exist."
       redirect_to(root_path)
+      return
+    end
+    if current_user
+      if UserTrip.where(user_id: current_user.id, trip_id: @trip.id).blank?
+        flash[:notice] = "Ooops! Your account does not have permission to view this trip or itinerary. Please contact the owner of the trip give you access."
+        render "no_permission"
+      end
+    else
+      session[:previous_url] = request.fullpath
+      flash[:notice] = "Ooops! You do not have permission to view this page. Please sign up or log in."
+      render "devise/registrations/new"
     end
   end
 
@@ -46,11 +57,11 @@ class TripsController < ApplicationController
       @invitation_code = params[:invitation_code]
       if current_user
         is_owner = current_user.id == @trip.user_id
-        is_contributor = !UserTrip.where(user_id: current_user.id, trip_id: @trip.id).blank?
+        is_participant = !UserTrip.where(user_id: current_user.id, trip_id: @trip.id).blank?
         has_correct_invitation = @invitation_code == @trip.uuid
-        if is_owner || is_contributor || has_correct_invitation
+        if is_owner || is_participant || has_correct_invitation
           # Has permission
-          if !is_owner && !is_contributor && has_correct_invitation
+          if !is_owner && !is_participant && has_correct_invitation
             UserTrip.create(user_id: current_user.id, trip_id: @trip.id)
           end
           has_itinerary = false
@@ -62,7 +73,7 @@ class TripsController < ApplicationController
             end
           end
           if has_itinerary
-            if !is_owner && !is_contributor
+            if !is_owner && !is_participant
               trip_attractions.each do |trip_attraction|
                 if !trip_attraction.attraction_id.nil? && !trip_attraction.lunch
                   current_user.votes.create(trip_attraction: trip_attraction, attraction_id: trip_attraction.attraction_id, vote: 0)
