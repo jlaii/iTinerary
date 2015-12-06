@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :user_trips
-  devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks"}
+  devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks", :passwords => "passwords"}
   get 'users/new'
 
 
