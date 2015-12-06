@@ -1,6 +1,6 @@
 <%= render 'layouts/navigation' %>
 <% flash.each do |name, msg| %>
-    <b><%= msg%></b>
+    <div class="flash <%= name %>"><b><%= msg %></b></div>
     <br>
 <% end %>
 <%= render 'layouts/footer' %>
