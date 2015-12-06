@@ -132,8 +132,10 @@ class TripsController < ApplicationController
             trip_attraction = trip.trip_attractions.where(:attraction_id => key).first
             user_vote = current_user.votes.where(trip_attraction_id: trip_attraction.id).first
             vote_diff = value.to_i - user_vote.vote
-            user_vote.increment!(:vote, by = vote_diff)
-            trip_attraction.increment!(:vote_count, by = vote_diff)
+            if vote_diff != 0
+              user_vote.increment!(:vote, by = vote_diff)
+              trip_attraction.increment!(:vote_count, by = vote_diff)
+            end
           end
         end
         generate_itinerary(trip.id)
