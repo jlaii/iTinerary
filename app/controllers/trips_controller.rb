@@ -20,63 +20,78 @@ class TripsController < ApplicationController
 
 
   def show
-    @trip = Trip.find(params[:id])
+    begin
+      @trip = Trip.find(params[:id])
+    rescue
+      flash[:error] = "This trip does not exist."
+      redirect_to(root_path)
+    end
   end
 
   def generate_itinerary(trip_id)
     #"please generate an itinerary for me according to this trip_id"
-    @trip = Trip.find(trip_id)
-    @itinerary = @trip.generate_itinerary(@trip.city)
-    redirect_to show_itinerary_path(:trip_id => trip_id)
+    begin
+      @trip = Trip.find(trip_id)
+      @itinerary = @trip.generate_itinerary(@trip.city)
+      redirect_to show_itinerary_path(:trip_id => trip_id)
+    rescue
+      flash[:error] = "This trip does not exist."
+      redirect_to(root_path)
+    end
   end
 
   def show_itinerary
-    @trip = Trip.find(params[:trip_id])
-    @invitation_code = params[:invitation_code]
-    if current_user
-      is_owner = current_user.id == @trip.user_id
-      is_contributor = !UserTrip.where(user_id: current_user.id, trip_id: @trip.id).blank?
-      has_correct_invitation = @invitation_code == @trip.uuid
-      if is_owner || is_contributor || has_correct_invitation
-        # Has permission
-        if !is_owner && !is_contributor && has_correct_invitation
-          UserTrip.create(user_id: current_user.id, trip_id: @trip.id)
-        end
-        has_itinerary = false
-        trip_attractions = @trip.trip_attractions
-        trip_attractions.each do |trip_attraction|
-          if trip_attraction.start_time != nil
-            has_itinerary = true
-            break
+    begin
+      @trip = Trip.find(params[:trip_id])
+      @invitation_code = params[:invitation_code]
+      if current_user
+        is_owner = current_user.id == @trip.user_id
+        is_contributor = !UserTrip.where(user_id: current_user.id, trip_id: @trip.id).blank?
+        has_correct_invitation = @invitation_code == @trip.uuid
+        if is_owner || is_contributor || has_correct_invitation
+          # Has permission
+          if !is_owner && !is_contributor && has_correct_invitation
+            UserTrip.create(user_id: current_user.id, trip_id: @trip.id)
           end
-        end
-        if has_itinerary
-          if !is_owner && !is_contributor
-            trip_attractions.each do |trip_attraction|
-              if !trip_attraction.attraction_id.nil? && !trip_attraction.lunch
-                current_user.votes.create(trip_attraction: trip_attraction, attraction_id: trip_attraction.attraction_id, vote: 0)
-              end
+          has_itinerary = false
+          trip_attractions = @trip.trip_attractions
+          trip_attractions.each do |trip_attraction|
+            if trip_attraction.start_time != nil
+              has_itinerary = true
+              break
             end
           end
-          @itinerary = TripAttraction.where(:trip_id => @trip.id).where.not(:start_time => nil).order(:start_time)
-          render "show_itinerary"
+          if has_itinerary
+            if !is_owner && !is_contributor
+              trip_attractions.each do |trip_attraction|
+                if !trip_attraction.attraction_id.nil? && !trip_attraction.lunch
+                  current_user.votes.create(trip_attraction: trip_attraction, attraction_id: trip_attraction.attraction_id, vote: 0)
+                end
+              end
+            end
+            @itinerary = TripAttraction.where(:trip_id => @trip.id).where.not(:start_time => nil).order(:start_time)
+            render "show_itinerary"
+          else
+            generate_itinerary(params[:trip_id])
+          end
         else
-          generate_itinerary(params[:trip_id])
+          # No permission
+          if @invitation_code
+            flash[:notice] = "Ooops! Your invitation code seems incorrect. Please double check the code with the owner."
+          else
+            flash[:notice] = "Ooops! Your account does not have permission to view this trip or itinerary. Please contact the owner of the trip to get a valid link to this page."
+          end
+          session[:previous_url] = request.fullpath
+          render "no_permission"
         end
       else
-        # No permission
-        if @invitation_code
-          flash[:notice] = "Ooops! Your invitation code seems incorrect. Please double check the code with the owner."
-        else
-          flash[:notice] = "Ooops! Your account does not have permission to view this trip or itinerary. Please contact the owner of the trip to get a valid link to this page."
-        end
         session[:previous_url] = request.fullpath
-        render "no_permission"
+        flash[:notice] = "Ooops! You do not have permission to view this page. Please sign up or log in."
+        render "devise/registrations/new"
       end
-    else
-      session[:previous_url] = request.fullpath
-      flash[:notice] = "Ooops! You do not have permission to view this page. Please sign up or log in."
-      render "devise/registrations/new"
+    rescue
+      flash[:error] = "This trip does not exist."
+      redirect_to(root_path)
     end
   end
 
@@ -139,7 +154,6 @@ class TripsController < ApplicationController
         generate_itinerary(trip.id)
       else
         #add in all the trip_attractions to this trip
-        # byebug
         params.each do |key, value|
           # if (attraction_id != "destination" && attraction_id != "startdate" && attraction_id != "enddate")
           if key.to_i.to_s == key
@@ -153,6 +167,7 @@ class TripsController < ApplicationController
   end
 
   def delete
+    TripAttraction.delete_all("trip_id = #{params[:id]}")
     Trip.destroy(params[:id])
     redirect_to user_show_path
   end

@@ -10,6 +10,9 @@ class Attraction < ActiveRecord::Base
       response = JSON.parse(Foursquare.import_attractions(city, num_attractions))
 
       attractions = response["response"]["groups"].first["items"]
+      if attractions.length == 0
+        return false
+      end
       new_city = City.new(:name => city.titleize, :lat => response["response"]["geocode"]["center"]["lat"],
                           :lng => response["response"]["geocode"]["center"]["lng"])
       new_city.save

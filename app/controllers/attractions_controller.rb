@@ -4,13 +4,19 @@ class AttractionsController < ApplicationController
         Attraction.import_foursquare_attractions(params[:destination], 50)
 
     if not @show_attractions
-      flash.now[:error] = "Could not find attractions in '#{params[:destination].titleize}'"
+      flash[:error] = "Could not find attractions in '#{params[:destination].titleize}'"
+      redirect_to(root_url)
     end
 
   end
 
   def show_by_id
-    @attraction = Attraction.find(params[:id])
-    render "/attractions/attraction"
+    begin
+      @attraction = Attraction.find(params[:id])
+      render "/attractions/attraction"
+    rescue
+      flash[:error] = "Attraction not found."
+      redirect_to(root_url)
+    end
   end
 end
