@@ -11,7 +11,12 @@ class AttractionsController < ApplicationController
   end
 
   def show_by_id
-    @attraction = Attraction.find(params[:id])
-    render "/attractions/attraction"
+    begin
+      @attraction = Attraction.find(params[:id])
+      render "/attractions/attraction"
+    rescue
+      flash[:error] = "Attraction not found."
+      redirect_to(root_url)
+    end
   end
 end

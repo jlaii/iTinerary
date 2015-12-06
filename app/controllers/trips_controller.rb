@@ -30,9 +30,14 @@ class TripsController < ApplicationController
 
   def generate_itinerary(trip_id)
     #"please generate an itinerary for me according to this trip_id"
-    @trip = Trip.find(trip_id)
-    @itinerary = @trip.generate_itinerary(@trip.city)
-    redirect_to show_itinerary_path(:trip_id => trip_id)
+    begin
+      @trip = Trip.find(trip_id)
+      @itinerary = @trip.generate_itinerary(@trip.city)
+      redirect_to show_itinerary_path(:trip_id => trip_id)
+    rescue
+      flash[:error] = "This trip does not exist."
+      redirect_to(root_path)
+    end
   end
 
   def show_itinerary
