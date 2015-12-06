@@ -4,7 +4,7 @@ class AttractionsController < ApplicationController
         Attraction.import_foursquare_attractions(params[:destination], 50)
 
     if not @show_attractions
-      flash[:error] = "Could not find attractions in '#{params[:destination].titleize}'"
+      flash.now[:error] = "Could not find attractions in '#{params[:destination].titleize}'"
     end
 
   end
