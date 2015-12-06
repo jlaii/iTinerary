@@ -42,7 +42,7 @@
                                 <% else %>
                                     <%= trip.start_time.strftime('%a %m/%d/%Y') %></li><br><%= trip.note %>
                                 <% end %>
-                                <%= link_to "Revote", show_attractions_path(destination: trip.city, startdate: trip.start_time.strftime('%m/%d/%Y'), enddate: trip.end_time.strftime('%m/%d/%Y')), :class => "btn btn-default" %>
+                                <%= link_to "Edit Votes", show_attractions_path(destination: trip.city, startdate: trip.start_time.strftime('%m/%d/%Y'), enddate: trip.end_time.strftime('%m/%d/%Y')), :class => "btn btn-default" %>
                                 <%= link_to "View Votes", trip_show_path(id: trip.id), :class => "btn btn-default"  %>
                                 <% if has_itinerary %>
                                     <%= link_to "View Itinerary", show_itinerary_path(trip_id: trip.id), :class => "btn btn-default" %>

@@ -2,17 +2,20 @@
 <div class = "container">
   <div class="row">
     <div class="container">
+      <p>
         <b>To invite your friends send them this link:</b><br>
-        <%= request.base_url + request.path %>/?invitation_code=<%= @trip.uuid%><br>
-        <b>People in this trip</b><br>
+        <%= request.base_url + request.path %>/?invitation_code=<%= @trip.uuid%><br><br>
+        <b>People in this trip:</b><br>
         <% user_trips = UserTrip.select("user_id").where(trip_id: @trip.id) %>
         <% user_trips.each do |user_trip| %>
           <%= User.find(user_trip.user_id).email %><br>
         <% end %>
+      </p>
     </div>
   </div>
-    <div class="row">
+    <div class="row center">
         <h1> Your Itinerary for <%= @trip.city %> </h1>
+         <%= link_to "Edit Votes", show_attractions_path(destination: @trip.city, startdate: @trip.start_time.strftime('%m/%d/%Y'), enddate: @trip.end_time.strftime('%m/%d/%Y')), :class => "btn btn-default" %>
     </div>
     <div class="row">
         <div class="col-md-8 col-md-offset-2" id="itinerary">

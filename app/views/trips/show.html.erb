@@ -3,43 +3,48 @@
   <div class = "row">
     <div class="col-md-2"></div>
     <div class ="col-md-4"><br>
-      You are going to: <b><%= @trip.city %></b><br>
-      Your trip starts: <i> <%= @trip.start_time.strftime('%a %m/%d/%Y') %></i><br>
-      Your trip ends: <i><%= @trip.end_time.strftime('%a %m/%d/%Y') %></i>
-      <% has_votes = false %>
-      <% @trip.trip_attractions.each do |attraction| %>
-        <% if attraction.vote_count != nil and attraction.vote_count > 0 %>
-          <% has_votes = true %>
-          <% break %>
-        <% end %>
-      <% end %>
-      <br><br>
-      <button class="btn btn-default"><%= link_to "View Itinerary", show_itinerary_path(:trip_id => params[:id])%></button>
-    </div>
-    <div class = "col-md-4">
-      <br>
-      <% if has_votes %>
-        Attractions you've upvoted for this trip:
-        <% @trip.trip_attractions.each do |trip_attraction| %>
-          <% if trip_attraction.vote_count != 0 %>
-            <% attraction = Attraction.find(trip_attraction.attraction_id) %>
-            <li>
-              <label for="destination"><h4 class="list-group-item-heading">
-                <%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %> </h4></label>
-              Total vote: <%= trip_attraction.vote_count %>,
-              Your vote:
-              <% user_vote = current_user.votes.where(trip_attraction_id: trip_attraction.id).first %>
-              <% if user_vote && !user_vote.nil? %>
-                <%= user_vote.vote %>
-              <% else %>
-                Not available
-              <% end %>
-            </li>
+      <div class="container">
+        You are going to: <b><%= @trip.city %></b><br>
+        Your trip starts: <i> <%= @trip.start_time.strftime('%a %m/%d/%Y') %></i><br>
+        Your trip ends: <i><%= @trip.end_time.strftime('%a %m/%d/%Y') %></i>
+        <% has_votes = false %>
+        <% @trip.trip_attractions.each do |attraction| %>
+          <% if attraction.vote_count != nil and attraction.vote_count > 0 %>
+            <% has_votes = true %>
+            <% break %>
           <% end %>
         <% end %>
-      <% else %>
-        You haven't upvoted any attractions for this trip. Hurry, go vote! :D
-      <% end %>
+        <br><br>
+        <%= link_to "View Itinerary", show_itinerary_path(:trip_id => params[:id]), :class=>"btn btn-default"%>
+        <%= link_to "Edit Votes", show_attractions_path(destination: @trip.city, startdate: @trip.start_time.strftime('%m/%d/%Y'), enddate: @trip.end_time.strftime('%m/%d/%Y')), :class => "btn btn-default" %>
+      </div>
+    </div>
+    <div class = "col-md-4">
+      <div class="container">
+        <br>
+        <% if has_votes %>
+          <h3>Attractions you've upvoted for this trip:</h3>
+          <% @trip.trip_attractions.each do |trip_attraction| %>
+            <% if trip_attraction.vote_count != 0 %>
+              <% attraction = Attraction.find(trip_attraction.attraction_id) %>
+              <li>
+                <label for="destination"><h4 class="list-group-item-heading">
+                  <%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %> </h4></label>
+                Total vote: <%= trip_attraction.vote_count %>,
+                Your vote:
+                <% user_vote = current_user.votes.where(trip_attraction_id: trip_attraction.id).first %>
+                <% if user_vote && !user_vote.nil? %>
+                  <%= user_vote.vote %>
+                <% else %>
+                  Not available
+                <% end %>
+              </li>
+            <% end %>
+          <% end %>
+        <% else %>
+          You haven't upvoted any attractions for this trip. Hurry, go vote! :D
+        <% end %>
+      </div>
     </div>
     <div class="col-md-2">
     </div>
