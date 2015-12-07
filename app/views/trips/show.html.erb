@@ -2,13 +2,13 @@
 <div class="container-fluid">
   <div class = "row">
     <div class="col-md-2"></div>
-    <div class ="col-md-4"><br>
+    <div class ="col-md-3"><br>
       You are going to: <b><%= @trip.city %></b><br>
       Your trip starts: <i> <%= @trip.start_time.strftime('%a %m/%d/%Y') %></i><br>
       Your trip ends: <i><%= @trip.end_time.strftime('%a %m/%d/%Y') %></i>
       <% has_votes = false %>
       <% @trip.trip_attractions.each do |attraction| %>
-        <% if attraction.vote_count != nil and attraction.vote_count > 0 %>
+        <% if attraction.vote_count != nil %>
           <% has_votes = true %>
           <% break %>
         <% end %>
@@ -16,17 +16,20 @@
       <br><br>
       <button class="btn btn-default"><%= link_to "View Itinerary", show_itinerary_path(:trip_id => params[:id])%></button>
     </div>
-    <div class = "col-md-4">
+    <div class = "col-md-6">
       <br>
       <% if has_votes %>
-        Attractions you've upvoted for this trip:
+        Attractions voted for this trip:
         <% @trip.trip_attractions.each do |trip_attraction| %>
-          <% if trip_attraction.vote_count != 0 %>
+              <% upvotes = Vote.where(trip_attraction_id:trip_attraction.id, vote:1).count %>
+              <% downvotes = Vote.where(trip_attraction_id:trip_attraction.id, vote:-1).count %>
+          <% if upvotes > 0 || downvotes > 0 %>
             <% attraction = Attraction.find(trip_attraction.attraction_id) %>
             <li>
               <label for="destination"><h4 class="list-group-item-heading">
                 <%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %> </h4></label>
-              Total vote: <%= trip_attraction.vote_count %>,
+              Upvotes: <%= upvotes %>,
+              Downvotes: <%= downvotes %>,
               Your vote:
               <% user_vote = current_user.votes.where(trip_attraction_id: trip_attraction.id).first %>
               <% if user_vote && !user_vote.nil? %>
