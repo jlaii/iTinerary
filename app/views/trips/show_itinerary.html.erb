@@ -15,6 +15,7 @@
   </div>
     <div class="row center">
         <h1> Your Itinerary for <%= @trip.city %> </h1>
+          <%= link_to "View Votes", trip_show_path(id: @trip.id), :class => "btn btn-default"  %>
          <%= link_to "Edit Votes", show_attractions_path(destination: @trip.city, startdate: @trip.start_time.strftime('%m/%d/%Y'), enddate: @trip.end_time.strftime('%m/%d/%Y')), :class => "btn btn-default" %>
     </div>
     <div class="row">
