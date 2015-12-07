@@ -52,8 +52,8 @@
                   </p>
               <% end %>
           <% end %>
-          <% if attraction_count < Trip::NUM_ATTRACTIONS * (@trip.end_time - @trip.start_time).to_i%>
-            <h2>Sorry, we've run out of attractions for <%= @trip.city %></h2>
+          <% if attraction_count < Trip::NUM_ATTRACTIONS * ((@trip.end_time - @trip.start_time).to_i/Trip::SEC_PER_DAY + 1)%>
+              <h2>Sorry, we've run out of attractions for <%= @trip.city %></h2>
           <% end %>
         </div>
     </div>
