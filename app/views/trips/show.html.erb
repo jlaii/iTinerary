@@ -23,26 +23,29 @@
       <div class="container">
         <br>
         <% if has_votes %>
-          <h3>Attractions you've upvoted for this trip:</h3>
-          <% @trip.trip_attractions.each do |trip_attraction| %>
-            <% if trip_attraction.vote_count != 0 %>
-              <% attraction = Attraction.find(trip_attraction.attraction_id) %>
-              <li>
-                <label for="destination"><h4 class="list-group-item-heading">
-                  <%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %> </h4></label>
-                Total vote: <%= trip_attraction.vote_count %>,
-                Your vote:
-                <% user_vote = current_user.votes.where(trip_attraction_id: trip_attraction.id).first %>
-                <% if user_vote && !user_vote.nil? %>
-                  <%= user_vote.vote %>
-                <% else %>
-                  Not available
+            <h3>Attractions voted on for this trip:</h3>
+            <% @trip.trip_attractions.each do |trip_attraction| %>
+                <% upvotes = Vote.where(trip_attraction_id:trip_attraction.id, vote:1).count %>
+                <% downvotes = Vote.where(trip_attraction_id:trip_attraction.id, vote:-1).count %>
+                <% if upvotes > 0 || downvotes > 0 %>
+                    <% attraction = Attraction.find(trip_attraction.attraction_id) %>
+                    <li>
+                      <label for="destination"><h4 class="list-group-item-heading">
+                        <%= link_to attraction.name, attraction_show_by_id_path(attraction.id) %> </h4></label>
+                      Upvotes: <%= upvotes %>,
+                      Downvotes: <%= downvotes %>,
+                      Your vote:
+                      <% user_vote = current_user.votes.where(trip_attraction_id: trip_attraction.id).first %>
+                      <% if user_vote && !user_vote.nil? %>
+                          <%= user_vote.vote %>
+                      <% else %>
+                          Not available
+                      <% end %>
+                    </li>
                 <% end %>
-              </li>
             <% end %>
-          <% end %>
         <% else %>
-          You haven't upvoted any attractions for this trip. Hurry, go vote! :D
+            You haven't upvoted any attractions for this trip. Hurry, go vote! :D
         <% end %>
       </div>
     </div>
